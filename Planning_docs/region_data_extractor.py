@@ -1,6 +1,6 @@
 """
-Pure Blind Data Acquisition - Enhanced Version
-===============================================
+Region Data Extractor
+=====================
 
 This script extracts ALL available data from Fuzzwork's SDE and creates
 a clean data architecture with separated concerns:
@@ -9,13 +9,13 @@ a clean data architecture with separated concerns:
 2. systems_capacity.csv - Power/workforce (user-maintained)
 3. systems_full.csv - Merged data (auto-generated)
 
-Run: python phase1_enhanced.py
+Run: python region_data_extractor.py
 
 Prerequisites:
-- sqlite-latest.sqlite (download from https://www.fuzzwork.co.uk/dump/)
+- sqlite-latest.sqlite in ../data/ (download from https://www.fuzzwork.co.uk/dump/)
 - pandas, networkx, openpyxl
 
-Output: pure_blind_data/ directory with CSVs and graph files
+Output: ../data/[region_name]_data/ directory with CSVs and graph files
 """
 
 import sqlite3
@@ -35,7 +35,7 @@ SPREADSHEET_PATH = "pure_blind_systems.xlsx"  # For extracting capacity data
 ICE_BELT_TYPE_IDS = [15, 16]  # Ice Belt and Ice Field
 
 print("="*70)
-print("Pure Blind Data Acquisition - Enhanced Version")
+print("Region Data Extractor - Pure Blind")
 print("="*70)
 
 # ============================================================================
@@ -465,9 +465,10 @@ readme_content = f"""# Pure Blind Data - {REGION_NAME}
 # Download latest SDE
 wget https://www.fuzzwork.co.uk/dump/sqlite-latest.sqlite.bz2
 bunzip2 sqlite-latest.sqlite.bz2
+mv sqlite-latest.sqlite ../data/
 
 # Regenerate
-python phase1_enhanced.py
+python region_data_extractor.py
 ```
 
 ### Update Capacity Data
@@ -476,7 +477,7 @@ python phase1_enhanced.py
 # Or import from your alliance's data
 
 # Regenerate full dataset
-python phase1_enhanced.py
+python region_data_extractor.py
 ```
 
 ## Statistics
