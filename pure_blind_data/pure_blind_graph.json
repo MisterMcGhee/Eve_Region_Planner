@@ -1,0 +1,1924 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "system_id": 30001975,
+      "constellation": "U8-CWA",
+      "constellation_id": 20000290,
+      "security": -0.1751025379410907,
+      "x": -2.378560840789043e+17,
+      "y": 1.09429056989046e+17,
+      "z": 2.328168477351669e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 48,
+      "planets": 10,
+      "belts": 13,
+      "id": "12YA-2"
+    },
+    {
+      "system_id": 30002007,
+      "constellation": "U-7RBK",
+      "constellation_id": 20000295,
+      "security": -0.2113453192370867,
+      "x": -2.2641180143988112e+17,
+      "y": 1.060928930418455e+17,
+      "z": 2.2913629993268278e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 70,
+      "planets": 11,
+      "belts": 22,
+      "id": "2-6TGQ"
+    },
+    {
+      "system_id": 30001965,
+      "constellation": "MDM8-J",
+      "constellation_id": 20000289,
+      "security": -0.1546284158169951,
+      "x": -2.0195509870898714e+17,
+      "y": 9.703007015014571e+16,
+      "z": 2.3995709134406832e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 61,
+      "planets": 12,
+      "belts": 20,
+      "id": "2D-0SO"
+    },
+    {
+      "system_id": 30002011,
+      "constellation": "G8-D09",
+      "constellation_id": 20000296,
+      "security": -0.1732643291343085,
+      "x": -2.360517482856231e+17,
+      "y": 9.127495794988608e+16,
+      "z": 2.254864301054955e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 5,
+      "planets": 6,
+      "belts": 3,
+      "id": "3V8-LJ"
+    },
+    {
+      "system_id": 30002015,
+      "constellation": "G8-D09",
+      "constellation_id": 20000296,
+      "security": -0.1943270844194346,
+      "x": -2.3061893632291306e+17,
+      "y": 9.814669712971525e+16,
+      "z": 2.3720631425918115e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 48,
+      "planets": 7,
+      "belts": 10,
+      "id": "4-ABS8"
+    },
+    {
+      "system_id": 30001972,
+      "constellation": "U8-CWA",
+      "constellation_id": 20000290,
+      "security": -0.1889000207477076,
+      "x": -2.2781421897046694e+17,
+      "y": 1.247890570952574e+17,
+      "z": 2.3097861167526147e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 33,
+      "planets": 11,
+      "belts": 16,
+      "id": "5-9WNU"
+    },
+    {
+      "system_id": 30002005,
+      "constellation": "U-7RBK",
+      "constellation_id": 20000295,
+      "security": -0.2294540369252063,
+      "x": -2.2012000616484746e+17,
+      "y": 1.0106143638186446e+17,
+      "z": 2.256264452683317e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 82,
+      "planets": 9,
+      "belts": 15,
+      "id": "5ZXX-K"
+    },
+    {
+      "system_id": 30002025,
+      "constellation": "K-QUVW",
+      "constellation_id": 20000298,
+      "security": -0.07740970596727026,
+      "x": -2.7466822739010662e+17,
+      "y": 8.704163485272216e+16,
+      "z": 2.108423095613965e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 63,
+      "planets": 12,
+      "belts": 16,
+      "id": "6GWE-A"
+    },
+    {
+      "system_id": 30002046,
+      "constellation": "0A-73B",
+      "constellation_id": 20000301,
+      "security": -0.1221818968968269,
+      "x": -3.227615230233008e+17,
+      "y": 3.853246614104495e+16,
+      "z": 2.1783724109105238e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 44,
+      "planets": 10,
+      "belts": 13,
+      "id": "7D-0SQ"
+    },
+    {
+      "system_id": 30002016,
+      "constellation": "304Z-R",
+      "constellation_id": 20000297,
+      "security": -0.0626399495582981,
+      "x": -2.7279138269357245e+17,
+      "y": 7.904097510328374e+16,
+      "z": 2.2543978781193718e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 53,
+      "planets": 10,
+      "belts": 11,
+      "id": "7RM-N0"
+    },
+    {
+      "system_id": 30002031,
+      "constellation": "LN-L8L",
+      "constellation_id": 20000299,
+      "security": -0.06520048392546829,
+      "x": -2.957790591671868e+17,
+      "y": 6.629730850866531e+16,
+      "z": 2.1996602774103258e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 46,
+      "planets": 10,
+      "belts": 25,
+      "id": "7X-VKB"
+    },
+    {
+      "system_id": 30002004,
+      "constellation": "U-7RBK",
+      "constellation_id": 20000295,
+      "security": -0.2268132493188775,
+      "x": -2.1188530187206426e+17,
+      "y": 1.022759790633712e+17,
+      "z": 2.264436270804977e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 28,
+      "planets": 8,
+      "belts": 8,
+      "id": "8S-0E1"
+    },
+    {
+      "system_id": 30001990,
+      "constellation": "YS-GOP",
+      "constellation_id": 20000292,
+      "security": -0.1746633354663784,
+      "x": -2.6343387921317648e+17,
+      "y": 8.782801487214987e+16,
+      "z": 1.9477827694792112e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 38,
+      "planets": 6,
+      "belts": 5,
+      "id": "93PI-4"
+    },
+    {
+      "system_id": 30001993,
+      "constellation": "WMP-OF",
+      "constellation_id": 20000293,
+      "security": -0.1154863396508181,
+      "x": -2.663390614173972e+17,
+      "y": 9.924313816197182e+16,
+      "z": 2.3975960463586125e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 44,
+      "planets": 8,
+      "belts": 21,
+      "id": "A8I-C5"
+    },
+    {
+      "system_id": 30002029,
+      "constellation": "LN-L8L",
+      "constellation_id": 20000299,
+      "security": -0.06723310445748798,
+      "x": -2.936917797443161e+17,
+      "y": 7.039002723378464e+16,
+      "z": 2.2287129822741456e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 65,
+      "planets": 9,
+      "belts": 25,
+      "id": "B-9C24"
+    },
+    {
+      "system_id": 30002012,
+      "constellation": "G8-D09",
+      "constellation_id": 20000296,
+      "security": -0.1614605734522562,
+      "x": -2.3260126322832797e+17,
+      "y": 8.768513056421982e+16,
+      "z": 2.2785681500853338e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 45,
+      "planets": 8,
+      "belts": 5,
+      "id": "B8EN-S"
+    },
+    {
+      "system_id": 30001976,
+      "constellation": "U8-CWA",
+      "constellation_id": 20000290,
+      "security": -0.1575818698474565,
+      "x": -2.476461249426212e+17,
+      "y": 1.1158687552444074e+17,
+      "z": 2.2806254136455686e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 32,
+      "planets": 9,
+      "belts": 8,
+      "id": "BDV3-T"
+    },
+    {
+      "system_id": 30001992,
+      "constellation": "WMP-OF",
+      "constellation_id": 20000293,
+      "security": -0.1108598334595846,
+      "x": -2.57988119232337e+17,
+      "y": 1.0905082481174306e+17,
+      "z": 2.329547294176327e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 48,
+      "planets": 14,
+      "belts": 11,
+      "id": "C-H9X7"
+    },
+    {
+      "system_id": 30001981,
+      "constellation": "38G6-L",
+      "constellation_id": 20000291,
+      "security": -0.1224005469553712,
+      "x": -2.5294474835063786e+17,
+      "y": 8.987783885910859e+16,
+      "z": 2.2489338143508653e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 48,
+      "planets": 9,
+      "belts": 8,
+      "id": "CL6-ZG"
+    },
+    {
+      "system_id": 30002003,
+      "constellation": "LY-FY6",
+      "constellation_id": 20000294,
+      "security": -0.2753584379148634,
+      "x": -2.5118473009309414e+17,
+      "y": 1.1265320602146208e+17,
+      "z": 2.0789082347759203e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 36,
+      "planets": 9,
+      "belts": 13,
+      "id": "CR-AQH"
+    },
+    {
+      "system_id": 30001979,
+      "constellation": "38G6-L",
+      "constellation_id": 20000291,
+      "security": -0.1240118152064696,
+      "x": -2.4704892702050544e+17,
+      "y": 8.468075348054656e+16,
+      "z": 2.289317506688518e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 61,
+      "planets": 8,
+      "belts": 12,
+      "id": "CXN1-Z"
+    },
+    {
+      "system_id": 30002036,
+      "constellation": "S4GH-I",
+      "constellation_id": 20000300,
+      "security": -0.02994891542605926,
+      "x": -2.8614099566969347e+17,
+      "y": 5.997056016529067e+16,
+      "z": 2.030192492587279e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 44,
+      "planets": 6,
+      "belts": 5,
+      "id": "D2-HOS"
+    },
+    {
+      "system_id": 30001968,
+      "constellation": "MDM8-J",
+      "constellation_id": 20000289,
+      "security": -0.198677185471857,
+      "x": -2.053888837650919e+17,
+      "y": 1.0615423867640194e+17,
+      "z": 2.3080865422005734e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 7,
+      "planets": 8,
+      "belts": 2,
+      "id": "D7T-C0"
+    },
+    {
+      "system_id": 30001994,
+      "constellation": "WMP-OF",
+      "constellation_id": 20000293,
+      "security": -0.07521648842207429,
+      "x": -2.7021446218347446e+17,
+      "y": 1.135525671436555e+17,
+      "z": 2.3714585584147683e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 32,
+      "planets": 7,
+      "belts": 6,
+      "id": "DK-FXK"
+    },
+    {
+      "system_id": 30002014,
+      "constellation": "G8-D09",
+      "constellation_id": 20000296,
+      "security": -0.1726162495338044,
+      "x": -2.3501870240731498e+17,
+      "y": 9.439597263803027e+16,
+      "z": 2.3034636582181894e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 10,
+      "planets": 8,
+      "belts": 6,
+      "id": "DP-1YE"
+    },
+    {
+      "system_id": 30002041,
+      "constellation": "S4GH-I",
+      "constellation_id": 20000300,
+      "security": -0.02152888326294167,
+      "x": -2.878492512806665e+17,
+      "y": 5.135428291972085e+16,
+      "z": 1.9916714021209414e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 40,
+      "planets": 9,
+      "belts": 12,
+      "id": "DT-TCD"
+    },
+    {
+      "system_id": 30002032,
+      "constellation": "LN-L8L",
+      "constellation_id": 20000299,
+      "security": -0.1163325021745033,
+      "x": -2.995426949923062e+17,
+      "y": 5.252656200912665e+16,
+      "z": 2.2754092750018886e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 29,
+      "planets": 9,
+      "belts": 5,
+      "id": "E-Z2ZX"
+    },
+    {
+      "system_id": 30001984,
+      "constellation": "YS-GOP",
+      "constellation_id": 20000292,
+      "security": -0.4465753930977101,
+      "x": -2.3398851097856118e+17,
+      "y": 9.71225013270938e+16,
+      "z": 1.9660235846939747e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 64,
+      "planets": 11,
+      "belts": 16,
+      "id": "EC-P8R"
+    },
+    {
+      "system_id": 30001970,
+      "constellation": "U8-CWA",
+      "constellation_id": 20000290,
+      "security": -0.1598268370930133,
+      "x": -2.217521480266478e+17,
+      "y": 1.2425426729504822e+17,
+      "z": 2.38530999538521e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 68,
+      "planets": 11,
+      "belts": 13,
+      "id": "EL8-4Q"
+    },
+    {
+      "system_id": 30001985,
+      "constellation": "YS-GOP",
+      "constellation_id": 20000292,
+      "security": -0.3135391020916142,
+      "x": -2.4205724521726934e+17,
+      "y": 9.002402559433851e+16,
+      "z": 1.995982503707921e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 60,
+      "planets": 9,
+      "belts": 8,
+      "id": "EWOK-K"
+    },
+    {
+      "system_id": 30002019,
+      "constellation": "304Z-R",
+      "constellation_id": 20000297,
+      "security": -0.05906204655927927,
+      "x": -2.8654423816110547e+17,
+      "y": 7.391377187920893e+16,
+      "z": 2.245772290808753e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 66,
+      "planets": 8,
+      "belts": 11,
+      "id": "F-NMX6"
+    },
+    {
+      "system_id": 30002021,
+      "constellation": "304Z-R",
+      "constellation_id": 20000297,
+      "security": -0.0225512570307238,
+      "x": -2.777314637008155e+17,
+      "y": 4.626599859931551e+16,
+      "z": 2.0876181313453795e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 31,
+      "planets": 6,
+      "belts": 7,
+      "id": "FWA-4V"
+    },
+    {
+      "system_id": 30001987,
+      "constellation": "YS-GOP",
+      "constellation_id": 20000292,
+      "security": -0.2983889225425641,
+      "x": -2.5132141996931382e+17,
+      "y": 9.643279721705941e+16,
+      "z": 1.9731961983465024e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 30,
+      "planets": 12,
+      "belts": 6,
+      "id": "G-M4I8"
+    },
+    {
+      "system_id": 30001982,
+      "constellation": "38G6-L",
+      "constellation_id": 20000291,
+      "security": -0.2415533261964219,
+      "x": -2.3984038261442058e+17,
+      "y": 1.015687331006176e+17,
+      "z": 2.4498273226860003e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 39,
+      "planets": 8,
+      "belts": 8,
+      "id": "G95-VZ"
+    },
+    {
+      "system_id": 30002020,
+      "constellation": "304Z-R",
+      "constellation_id": 20000297,
+      "security": -0.0816712050526559,
+      "x": -2.6870139794976048e+17,
+      "y": 8.520368378445526e+16,
+      "z": 2.3072415368623562e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 48,
+      "planets": 8,
+      "belts": 16,
+      "id": "GA-P6C"
+    },
+    {
+      "system_id": 30002043,
+      "constellation": "0A-73B",
+      "constellation_id": 20000301,
+      "security": -0.2015278565236546,
+      "x": -3.201743323787622e+17,
+      "y": 3.3745999394280044e+16,
+      "z": 2.296801755605172e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 97,
+      "planets": 8,
+      "belts": 14,
+      "id": "H1-J33"
+    },
+    {
+      "system_id": 30002040,
+      "constellation": "S4GH-I",
+      "constellation_id": 20000300,
+      "security": -0.03536699280440114,
+      "x": -2.853945424081295e+17,
+      "y": 6.636743854149541e+16,
+      "z": 1.9812361821000147e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 28,
+      "planets": 6,
+      "belts": 1,
+      "id": "HPS5-C"
+    },
+    {
+      "system_id": 30001991,
+      "constellation": "WMP-OF",
+      "constellation_id": 20000293,
+      "security": -0.1339970577525103,
+      "x": -2.51788696297477e+17,
+      "y": 1.1054792763020104e+17,
+      "z": 2.30715075359584e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 42,
+      "planets": 7,
+      "belts": 16,
+      "id": "ION-FG"
+    },
+    {
+      "system_id": 30001977,
+      "constellation": "38G6-L",
+      "constellation_id": 20000291,
+      "security": -0.2439420514458928,
+      "x": -2.319393105005857e+17,
+      "y": 9.372730271110462e+16,
+      "z": 2.4351960618757094e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 26,
+      "planets": 9,
+      "belts": 8,
+      "id": "J-CIJV"
+    },
+    {
+      "system_id": 30002026,
+      "constellation": "K-QUVW",
+      "constellation_id": 20000298,
+      "security": -0.05500958141481238,
+      "x": -2.7965895280578208e+17,
+      "y": 7.96002449945148e+16,
+      "z": 2.116935534901473e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 57,
+      "planets": 7,
+      "belts": 7,
+      "id": "J-OK0C"
+    },
+    {
+      "system_id": 30001971,
+      "constellation": "U8-CWA",
+      "constellation_id": 20000290,
+      "security": -0.1342250281088493,
+      "x": -2.2927409333298726e+17,
+      "y": 1.3343339696369138e+17,
+      "z": 2.3688842569355392e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 28,
+      "planets": 9,
+      "belts": 5,
+      "id": "JC-YX8"
+    },
+    {
+      "system_id": 30002006,
+      "constellation": "U-7RBK",
+      "constellation_id": 20000295,
+      "security": -0.2172073173323691,
+      "x": -2.2127767672008163e+17,
+      "y": 8.838640263789682e+16,
+      "z": 2.2007025928930445e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 50,
+      "planets": 7,
+      "belts": 4,
+      "id": "JE-D5U"
+    },
+    {
+      "system_id": 30002027,
+      "constellation": "K-QUVW",
+      "constellation_id": 20000298,
+      "security": -0.08729586520109489,
+      "x": -2.6947139306288973e+17,
+      "y": 8.211250885315584e+16,
+      "z": 2.0888325966168013e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 53,
+      "planets": 7,
+      "belts": 29,
+      "id": "KDV-DE"
+    },
+    {
+      "system_id": 30001969,
+      "constellation": "U8-CWA",
+      "constellation_id": 20000290,
+      "security": -0.1794516462528861,
+      "x": -2.1504014541314502e+17,
+      "y": 1.1545928179069813e+17,
+      "z": 2.3822685352893206e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 26,
+      "planets": 13,
+      "belts": 12,
+      "id": "KI-TL0"
+    },
+    {
+      "system_id": 30001980,
+      "constellation": "38G6-L",
+      "constellation_id": 20000291,
+      "security": -0.097906292126683,
+      "x": -2.5331623876984957e+17,
+      "y": 7.97710036138118e+16,
+      "z": 2.2672796850752877e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 65,
+      "planets": 8,
+      "belts": 10,
+      "id": "KLY-C0"
+    },
+    {
+      "system_id": 30001963,
+      "constellation": "MDM8-J",
+      "constellation_id": 20000289,
+      "security": -0.1606570035166273,
+      "x": -1.861880759813691e+17,
+      "y": 1.0487051647819856e+17,
+      "z": 2.3266080939939795e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 79,
+      "planets": 9,
+      "belts": 10,
+      "id": "KQK1-2"
+    },
+    {
+      "system_id": 30002042,
+      "constellation": "0A-73B",
+      "constellation_id": 20000301,
+      "security": -0.1716833125893704,
+      "x": -3.0861236991001984e+17,
+      "y": 4.725201501299082e+16,
+      "z": 2.290408524377058e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 52,
+      "planets": 6,
+      "belts": 18,
+      "id": "KU5R-W"
+    },
+    {
+      "system_id": 30001989,
+      "constellation": "YS-GOP",
+      "constellation_id": 20000292,
+      "security": -0.2073588946726199,
+      "x": -2.3809047263950547e+17,
+      "y": 8.767044435089224e+16,
+      "z": 2.1513700541899994e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 7,
+      "planets": 7,
+      "belts": 4,
+      "id": "L-TS8S"
+    },
+    {
+      "system_id": 30001995,
+      "constellation": "WMP-OF",
+      "constellation_id": 20000293,
+      "security": -0.0763311118760105,
+      "x": -2.7830370726017946e+17,
+      "y": 1.0530179319313246e+17,
+      "z": 2.3947986858354554e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 37,
+      "planets": 9,
+      "belts": 14,
+      "id": "M-76XI"
+    },
+    {
+      "system_id": 30002000,
+      "constellation": "LY-FY6",
+      "constellation_id": 20000294,
+      "security": -0.1816221389237193,
+      "x": -2.5628183525115677e+17,
+      "y": 1.0435705396158877e+17,
+      "z": 2.1439682017545955e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 42,
+      "planets": 7,
+      "belts": 11,
+      "id": "M-YCD4"
+    },
+    {
+      "system_id": 30001988,
+      "constellation": "YS-GOP",
+      "constellation_id": 20000292,
+      "security": -0.1323992481207228,
+      "x": -2.5777618371265267e+17,
+      "y": 7.544740488605918e+16,
+      "z": 2.0019076934977616e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 59,
+      "planets": 11,
+      "belts": 12,
+      "id": "MI6O-6"
+    },
+    {
+      "system_id": 30002035,
+      "constellation": "S4GH-I",
+      "constellation_id": 20000300,
+      "security": -0.02912771845146234,
+      "x": -2.8079887869041245e+17,
+      "y": 5.5343692459288056e+16,
+      "z": 2.0685882226900592e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 47,
+      "planets": 6,
+      "belts": 5,
+      "id": "MQ-NPY"
+    },
+    {
+      "system_id": 30002028,
+      "constellation": "K-QUVW",
+      "constellation_id": 20000298,
+      "security": -0.08612781280360915,
+      "x": -2.7378396601418464e+17,
+      "y": 8.65398156989038e+16,
+      "z": 2.0697722306914333e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 63,
+      "planets": 8,
+      "belts": 13,
+      "id": "MT9Q-S"
+    },
+    {
+      "system_id": 30001974,
+      "constellation": "U8-CWA",
+      "constellation_id": 20000290,
+      "security": -0.1474272578229871,
+      "x": -2.253159870994842e+17,
+      "y": 1.2529383684100184e+17,
+      "z": 2.4357278134501962e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 75,
+      "planets": 9,
+      "belts": 14,
+      "id": "N-H32Y"
+    },
+    {
+      "system_id": 30002034,
+      "constellation": "LN-L8L",
+      "constellation_id": 20000299,
+      "security": -0.1238919882134848,
+      "x": -3.085161131627719e+17,
+      "y": 6.1606377250219256e+16,
+      "z": 2.2346462645774384e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 14,
+      "planets": 6,
+      "belts": 1,
+      "id": "O-A6YN"
+    },
+    {
+      "system_id": 30001964,
+      "constellation": "MDM8-J",
+      "constellation_id": 20000289,
+      "security": -0.1395801117181584,
+      "x": -1.8789341828842496e+17,
+      "y": 1.0698548976293702e+17,
+      "z": 2.387765263377279e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 9,
+      "planets": 6,
+      "belts": 3,
+      "id": "O-BY0Y"
+    },
+    {
+      "system_id": 30001986,
+      "constellation": "YS-GOP",
+      "constellation_id": 20000292,
+      "security": -0.1864565162682014,
+      "x": -2.4821789766492298e+17,
+      "y": 7.813770077939861e+16,
+      "z": 2.0146713497850445e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 4,
+      "planets": 5,
+      "belts": 4,
+      "id": "O-N8XZ"
+    },
+    {
+      "system_id": 30002008,
+      "constellation": "U-7RBK",
+      "constellation_id": 20000295,
+      "security": -0.2094786287345463,
+      "x": -2.2322344018738554e+17,
+      "y": 8.032016696242779e+16,
+      "z": 2.1409555804260634e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 50,
+      "planets": 6,
+      "belts": 11,
+      "id": "OE-9UF"
+    },
+    {
+      "system_id": 30002045,
+      "constellation": "0A-73B",
+      "constellation_id": 20000301,
+      "security": -0.1421614082250987,
+      "x": -3.279653610483845e+17,
+      "y": 2.580259579998149e+16,
+      "z": 2.244035490701002e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 65,
+      "planets": 6,
+      "belts": 10,
+      "id": "OGV-AS"
+    },
+    {
+      "system_id": 30002030,
+      "constellation": "LN-L8L",
+      "constellation_id": 20000299,
+      "security": -0.09903070236213785,
+      "x": -2.9912147241160506e+17,
+      "y": 6.434568334412742e+16,
+      "z": 2.2590768211368662e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 5,
+      "planets": 5,
+      "belts": 4,
+      "id": "P-2TTL"
+    },
+    {
+      "system_id": 30002009,
+      "constellation": "U-7RBK",
+      "constellation_id": 20000295,
+      "security": -0.2574846659640413,
+      "x": -2.2254477274501648e+17,
+      "y": 8.36884302634233e+16,
+      "z": 2.1073676849753587e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 56,
+      "planets": 8,
+      "belts": 16,
+      "id": "PFU-LH"
+    },
+    {
+      "system_id": 30002001,
+      "constellation": "LY-FY6",
+      "constellation_id": 20000294,
+      "security": -0.1445582341398762,
+      "x": -2.6475693127669802e+17,
+      "y": 1.0934380852925243e+17,
+      "z": 2.1378655652587168e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 42,
+      "planets": 9,
+      "belts": 7,
+      "id": "Q-5211"
+    },
+    {
+      "system_id": 30002002,
+      "constellation": "LY-FY6",
+      "constellation_id": 20000294,
+      "security": -0.2125245373007608,
+      "x": -2.551141594085831e+17,
+      "y": 1.074041659434481e+17,
+      "z": 2.1147826325666502e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 38,
+      "planets": 9,
+      "belts": 2,
+      "id": "R-2R0G"
+    },
+    {
+      "system_id": 30002013,
+      "constellation": "G8-D09",
+      "constellation_id": 20000296,
+      "security": -0.1534265396475202,
+      "x": -2.423845505235227e+17,
+      "y": 9.298158094921645e+16,
+      "z": 2.2965232260728474e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 27,
+      "planets": 8,
+      "belts": 3,
+      "id": "R-LW2I"
+    },
+    {
+      "system_id": 30002010,
+      "constellation": "G8-D09",
+      "constellation_id": 20000296,
+      "security": -0.1813897324072106,
+      "x": -2.3548102023304333e+17,
+      "y": 8.940784036037758e+16,
+      "z": 2.2234615308523466e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 56,
+      "planets": 9,
+      "belts": 8,
+      "id": "R6XN-9"
+    },
+    {
+      "system_id": 30002023,
+      "constellation": "K-QUVW",
+      "constellation_id": 20000298,
+      "security": -0.1325309749920258,
+      "x": -2.598139075377394e+17,
+      "y": 9.351607032600493e+16,
+      "z": 2.1582301497660458e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 6,
+      "planets": 8,
+      "belts": 9,
+      "id": "RD-G2R"
+    },
+    {
+      "system_id": 30001983,
+      "constellation": "38G6-L",
+      "constellation_id": 20000291,
+      "security": -0.2396970557859594,
+      "x": -2.4596497188820672e+17,
+      "y": 1.0054443249357424e+17,
+      "z": 2.4591185558542944e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 29,
+      "planets": 3,
+      "belts": 3,
+      "id": "ROIR-Y"
+    },
+    {
+      "system_id": 30002033,
+      "constellation": "LN-L8L",
+      "constellation_id": 20000299,
+      "security": -0.127091387066797,
+      "x": -3.0397998090268845e+17,
+      "y": 5.82998772845487e+16,
+      "z": 2.2634094046619142e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 68,
+      "planets": 12,
+      "belts": 30,
+      "id": "RORZ-H"
+    },
+    {
+      "system_id": 30002039,
+      "constellation": "S4GH-I",
+      "constellation_id": 20000300,
+      "security": -0.0285058038305579,
+      "x": -2.8097564856911872e+17,
+      "y": 5.6373760660890504e+16,
+      "z": 1.969354462428673e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 45,
+      "planets": 5,
+      "belts": 4,
+      "id": "RQH-MY"
+    },
+    {
+      "system_id": 30002022,
+      "constellation": "304Z-R",
+      "constellation_id": 20000297,
+      "security": -0.03047138129100502,
+      "x": -2.745920400725177e+17,
+      "y": 5.448210313426059e+16,
+      "z": 2.0624589544731414e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 46,
+      "planets": 7,
+      "belts": 7,
+      "id": "RZC-16"
+    },
+    {
+      "system_id": 30002017,
+      "constellation": "304Z-R",
+      "constellation_id": 20000297,
+      "security": -0.05228844667889965,
+      "x": -2.7454898791144262e+17,
+      "y": 7.32982098342465e+16,
+      "z": 2.186740656355073e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 47,
+      "planets": 8,
+      "belts": 17,
+      "id": "S-MDYI"
+    },
+    {
+      "system_id": 30002038,
+      "constellation": "S4GH-I",
+      "constellation_id": 20000300,
+      "security": -0.02927526148986448,
+      "x": -2.9496330457995226e+17,
+      "y": 5.435914463466932e+16,
+      "z": 2.0427428008436912e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 65,
+      "planets": 10,
+      "belts": 5,
+      "id": "TFA0-U"
+    },
+    {
+      "system_id": 30001997,
+      "constellation": "WMP-OF",
+      "constellation_id": 20000293,
+      "security": -0.1041644937773346,
+      "x": -2.7098481042432317e+17,
+      "y": 9.804071785705573e+16,
+      "z": 2.3965145925487658e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 64,
+      "planets": 12,
+      "belts": 28,
+      "id": "U-INPD"
+    },
+    {
+      "system_id": 30002024,
+      "constellation": "K-QUVW",
+      "constellation_id": 20000298,
+      "security": -0.09787349363553544,
+      "x": -2.69364130501358e+17,
+      "y": 8.744231142055342e+16,
+      "z": 2.098014507310992e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 72,
+      "planets": 7,
+      "belts": 14,
+      "id": "UC3H-Y"
+    },
+    {
+      "system_id": 30002047,
+      "constellation": "0A-73B",
+      "constellation_id": 20000301,
+      "security": -0.2065980035003279,
+      "x": -3.301757643554507e+17,
+      "y": 2.789691938629485e+16,
+      "z": 2.304833352573418e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 54,
+      "planets": 10,
+      "belts": 8,
+      "id": "UI-8ZE"
+    },
+    {
+      "system_id": 30001966,
+      "constellation": "MDM8-J",
+      "constellation_id": 20000289,
+      "security": -0.1890465054173858,
+      "x": -2.116448071437085e+17,
+      "y": 9.758237946245986e+16,
+      "z": 2.417389446689427e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 19,
+      "planets": 7,
+      "belts": 5,
+      "id": "UR-E6D"
+    },
+    {
+      "system_id": 30001998,
+      "constellation": "LY-FY6",
+      "constellation_id": 20000294,
+      "security": -0.1791593530933725,
+      "x": -2.49287227422039e+17,
+      "y": 1.0779944941028846e+17,
+      "z": 2.2193378812593613e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 8,
+      "planets": 6,
+      "belts": 0,
+      "id": "WW-KGD"
+    },
+    {
+      "system_id": 30001978,
+      "constellation": "38G6-L",
+      "constellation_id": 20000291,
+      "security": -0.1414352360981505,
+      "x": -2.3944716012347597e+17,
+      "y": 8.457781305568226e+16,
+      "z": 2.3195478926803997e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 76,
+      "planets": 6,
+      "belts": 8,
+      "id": "X-7OMU"
+    },
+    {
+      "system_id": 30001967,
+      "constellation": "MDM8-J",
+      "constellation_id": 20000289,
+      "security": -0.2502559642814759,
+      "x": -2.1871132061592947e+17,
+      "y": 9.541425202694856e+16,
+      "z": 2.462992073269963e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 52,
+      "planets": 8,
+      "belts": 7,
+      "id": "X47L-Q"
+    },
+    {
+      "system_id": 30001973,
+      "constellation": "U8-CWA",
+      "constellation_id": 20000290,
+      "security": -0.1854479318235233,
+      "x": -2.1877439806481136e+17,
+      "y": 1.1414084231435472e+17,
+      "z": 2.37796655617177e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 48,
+      "planets": 11,
+      "belts": 4,
+      "id": "XI-VUF"
+    },
+    {
+      "system_id": 30001999,
+      "constellation": "LY-FY6",
+      "constellation_id": 20000294,
+      "security": -0.1498379756129369,
+      "x": -2.5764152432120566e+17,
+      "y": 1.0377003789051802e+17,
+      "z": 2.1895155049841846e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 8,
+      "planets": 6,
+      "belts": 2,
+      "id": "XQ-PXU"
+    },
+    {
+      "system_id": 30002044,
+      "constellation": "0A-73B",
+      "constellation_id": 20000301,
+      "security": -0.1417664684895896,
+      "x": -3.255044724421452e+17,
+      "y": 3.4977554579591264e+16,
+      "z": 2.2073812690735085e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 40,
+      "planets": 5,
+      "belts": 2,
+      "id": "Y-C3EQ"
+    },
+    {
+      "system_id": 30002037,
+      "constellation": "S4GH-I",
+      "constellation_id": 20000300,
+      "security": -0.02535703407033096,
+      "x": -2.8822059456335414e+17,
+      "y": 5.381323116488113e+16,
+      "z": 2.0276146598308554e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 44,
+      "planets": 6,
+      "belts": 5,
+      "id": "Y2-6EA"
+    },
+    {
+      "system_id": 30001996,
+      "constellation": "WMP-OF",
+      "constellation_id": 20000293,
+      "security": -0.0986371206583615,
+      "x": -2.6792769499480528e+17,
+      "y": 1.0696308111535494e+17,
+      "z": 2.4097714506301206e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 33,
+      "planets": 7,
+      "belts": 10,
+      "id": "ZJET-E"
+    },
+    {
+      "system_id": 30002018,
+      "constellation": "304Z-R",
+      "constellation_id": 20000297,
+      "security": -0.05562091921410772,
+      "x": -2.677094326027346e+17,
+      "y": 6.826075384316005e+16,
+      "z": 2.1308261102021283e+17,
+      "power_capacity": 2500,
+      "workforce_capacity": 18000,
+      "has_ice": true,
+      "moons": 46,
+      "planets": 8,
+      "belts": 6,
+      "id": "ZKYV-W"
+    }
+  ],
+  "edges": [
+    {
+      "type": "stargate",
+      "source": "12YA-2",
+      "target": "5-9WNU"
+    },
+    {
+      "type": "stargate",
+      "source": "12YA-2",
+      "target": "BDV3-T"
+    },
+    {
+      "type": "stargate",
+      "source": "2-6TGQ",
+      "target": "5ZXX-K"
+    },
+    {
+      "type": "stargate",
+      "source": "2-6TGQ",
+      "target": "DP-1YE"
+    },
+    {
+      "type": "stargate",
+      "source": "2D-0SO",
+      "target": "D7T-C0"
+    },
+    {
+      "type": "stargate",
+      "source": "2D-0SO",
+      "target": "O-BY0Y"
+    },
+    {
+      "type": "stargate",
+      "source": "2D-0SO",
+      "target": "UR-E6D"
+    },
+    {
+      "type": "stargate",
+      "source": "3V8-LJ",
+      "target": "B8EN-S"
+    },
+    {
+      "type": "stargate",
+      "source": "3V8-LJ",
+      "target": "DP-1YE"
+    },
+    {
+      "type": "stargate",
+      "source": "3V8-LJ",
+      "target": "R-LW2I"
+    },
+    {
+      "type": "stargate",
+      "source": "3V8-LJ",
+      "target": "R6XN-9"
+    },
+    {
+      "type": "stargate",
+      "source": "4-ABS8",
+      "target": "DP-1YE"
+    },
+    {
+      "type": "stargate",
+      "source": "4-ABS8",
+      "target": "J-CIJV"
+    },
+    {
+      "type": "stargate",
+      "source": "4-ABS8",
+      "target": "R-LW2I"
+    },
+    {
+      "type": "stargate",
+      "source": "5-9WNU",
+      "target": "EL8-4Q"
+    },
+    {
+      "type": "stargate",
+      "source": "5ZXX-K",
+      "target": "8S-0E1"
+    },
+    {
+      "type": "stargate",
+      "source": "5ZXX-K",
+      "target": "JE-D5U"
+    },
+    {
+      "type": "stargate",
+      "source": "6GWE-A",
+      "target": "J-OK0C"
+    },
+    {
+      "type": "stargate",
+      "source": "6GWE-A",
+      "target": "KDV-DE"
+    },
+    {
+      "type": "stargate",
+      "source": "6GWE-A",
+      "target": "MT9Q-S"
+    },
+    {
+      "type": "stargate",
+      "source": "6GWE-A",
+      "target": "UC3H-Y"
+    },
+    {
+      "type": "stargate",
+      "source": "7D-0SQ",
+      "target": "Y-C3EQ"
+    },
+    {
+      "type": "stargate",
+      "source": "7RM-N0",
+      "target": "F-NMX6"
+    },
+    {
+      "type": "stargate",
+      "source": "7RM-N0",
+      "target": "GA-P6C"
+    },
+    {
+      "type": "stargate",
+      "source": "7RM-N0",
+      "target": "KLY-C0"
+    },
+    {
+      "type": "stargate",
+      "source": "7RM-N0",
+      "target": "S-MDYI"
+    },
+    {
+      "type": "stargate",
+      "source": "7X-VKB",
+      "target": "B-9C24"
+    },
+    {
+      "type": "stargate",
+      "source": "7X-VKB",
+      "target": "P-2TTL"
+    },
+    {
+      "type": "stargate",
+      "source": "8S-0E1",
+      "target": "D7T-C0"
+    },
+    {
+      "type": "stargate",
+      "source": "93PI-4",
+      "target": "G-M4I8"
+    },
+    {
+      "type": "stargate",
+      "source": "A8I-C5",
+      "target": "C-H9X7"
+    },
+    {
+      "type": "stargate",
+      "source": "A8I-C5",
+      "target": "DK-FXK"
+    },
+    {
+      "type": "stargate",
+      "source": "A8I-C5",
+      "target": "U-INPD"
+    },
+    {
+      "type": "stargate",
+      "source": "B-9C24",
+      "target": "F-NMX6"
+    },
+    {
+      "type": "stargate",
+      "source": "B-9C24",
+      "target": "P-2TTL"
+    },
+    {
+      "type": "stargate",
+      "source": "B8EN-S",
+      "target": "X-7OMU"
+    },
+    {
+      "type": "stargate",
+      "source": "BDV3-T",
+      "target": "ION-FG"
+    },
+    {
+      "type": "stargate",
+      "source": "BDV3-T",
+      "target": "WW-KGD"
+    },
+    {
+      "type": "stargate",
+      "source": "C-H9X7",
+      "target": "ION-FG"
+    },
+    {
+      "type": "stargate",
+      "source": "CL6-ZG",
+      "target": "CXN1-Z"
+    },
+    {
+      "type": "stargate",
+      "source": "CL6-ZG",
+      "target": "KLY-C0"
+    },
+    {
+      "type": "stargate",
+      "source": "CL6-ZG",
+      "target": "RD-G2R"
+    },
+    {
+      "type": "stargate",
+      "source": "CR-AQH",
+      "target": "Q-5211"
+    },
+    {
+      "type": "stargate",
+      "source": "CR-AQH",
+      "target": "R-2R0G"
+    },
+    {
+      "type": "stargate",
+      "source": "CR-AQH",
+      "target": "XQ-PXU"
+    },
+    {
+      "type": "stargate",
+      "source": "CXN1-Z",
+      "target": "KLY-C0"
+    },
+    {
+      "type": "stargate",
+      "source": "CXN1-Z",
+      "target": "X-7OMU"
+    },
+    {
+      "type": "stargate",
+      "source": "D2-HOS",
+      "target": "HPS5-C"
+    },
+    {
+      "type": "stargate",
+      "source": "D2-HOS",
+      "target": "MQ-NPY"
+    },
+    {
+      "type": "stargate",
+      "source": "D2-HOS",
+      "target": "RQH-MY"
+    },
+    {
+      "type": "stargate",
+      "source": "D2-HOS",
+      "target": "Y2-6EA"
+    },
+    {
+      "type": "stargate",
+      "source": "D7T-C0",
+      "target": "KI-TL0"
+    },
+    {
+      "type": "stargate",
+      "source": "DK-FXK",
+      "target": "M-76XI"
+    },
+    {
+      "type": "stargate",
+      "source": "DK-FXK",
+      "target": "U-INPD"
+    },
+    {
+      "type": "stargate",
+      "source": "DK-FXK",
+      "target": "ZJET-E"
+    },
+    {
+      "type": "stargate",
+      "source": "DT-TCD",
+      "target": "Y2-6EA"
+    },
+    {
+      "type": "stargate",
+      "source": "E-Z2ZX",
+      "target": "P-2TTL"
+    },
+    {
+      "type": "stargate",
+      "source": "E-Z2ZX",
+      "target": "RORZ-H"
+    },
+    {
+      "type": "stargate",
+      "source": "EC-P8R",
+      "target": "EWOK-K"
+    },
+    {
+      "type": "stargate",
+      "source": "EC-P8R",
+      "target": "G-M4I8"
+    },
+    {
+      "type": "stargate",
+      "source": "EL8-4Q",
+      "target": "JC-YX8"
+    },
+    {
+      "type": "stargate",
+      "source": "EL8-4Q",
+      "target": "KI-TL0"
+    },
+    {
+      "type": "stargate",
+      "source": "EL8-4Q",
+      "target": "N-H32Y"
+    },
+    {
+      "type": "stargate",
+      "source": "EWOK-K",
+      "target": "G-M4I8"
+    },
+    {
+      "type": "stargate",
+      "source": "EWOK-K",
+      "target": "O-N8XZ"
+    },
+    {
+      "type": "stargate",
+      "source": "F-NMX6",
+      "target": "ZKYV-W"
+    },
+    {
+      "type": "stargate",
+      "source": "FWA-4V",
+      "target": "RZC-16"
+    },
+    {
+      "type": "stargate",
+      "source": "FWA-4V",
+      "target": "ZKYV-W"
+    },
+    {
+      "type": "stargate",
+      "source": "G-M4I8",
+      "target": "R-2R0G"
+    },
+    {
+      "type": "stargate",
+      "source": "G95-VZ",
+      "target": "J-CIJV"
+    },
+    {
+      "type": "stargate",
+      "source": "G95-VZ",
+      "target": "KLY-C0"
+    },
+    {
+      "type": "stargate",
+      "source": "G95-VZ",
+      "target": "ROIR-Y"
+    },
+    {
+      "type": "stargate",
+      "source": "H1-J33",
+      "target": "KU5R-W"
+    },
+    {
+      "type": "stargate",
+      "source": "H1-J33",
+      "target": "Y-C3EQ"
+    },
+    {
+      "type": "stargate",
+      "source": "J-CIJV",
+      "target": "X-7OMU"
+    },
+    {
+      "type": "stargate",
+      "source": "J-CIJV",
+      "target": "X47L-Q"
+    },
+    {
+      "type": "stargate",
+      "source": "JE-D5U",
+      "target": "OE-9UF"
+    },
+    {
+      "type": "stargate",
+      "source": "JE-D5U",
+      "target": "PFU-LH"
+    },
+    {
+      "type": "stargate",
+      "source": "JE-D5U",
+      "target": "R6XN-9"
+    },
+    {
+      "type": "stargate",
+      "source": "KDV-DE",
+      "target": "MT9Q-S"
+    },
+    {
+      "type": "stargate",
+      "source": "KDV-DE",
+      "target": "UC3H-Y"
+    },
+    {
+      "type": "stargate",
+      "source": "KI-TL0",
+      "target": "XI-VUF"
+    },
+    {
+      "type": "stargate",
+      "source": "KLY-C0",
+      "target": "X-7OMU"
+    },
+    {
+      "type": "stargate",
+      "source": "KQK1-2",
+      "target": "O-BY0Y"
+    },
+    {
+      "type": "stargate",
+      "source": "KQK1-2",
+      "target": "X47L-Q"
+    },
+    {
+      "type": "stargate",
+      "source": "KU5R-W",
+      "target": "RORZ-H"
+    },
+    {
+      "type": "stargate",
+      "source": "L-TS8S",
+      "target": "O-N8XZ"
+    },
+    {
+      "type": "stargate",
+      "source": "L-TS8S",
+      "target": "R6XN-9"
+    },
+    {
+      "type": "stargate",
+      "source": "L-TS8S",
+      "target": "X-7OMU"
+    },
+    {
+      "type": "stargate",
+      "source": "M-76XI",
+      "target": "ZJET-E"
+    },
+    {
+      "type": "stargate",
+      "source": "M-YCD4",
+      "target": "Q-5211"
+    },
+    {
+      "type": "stargate",
+      "source": "M-YCD4",
+      "target": "R-2R0G"
+    },
+    {
+      "type": "stargate",
+      "source": "M-YCD4",
+      "target": "XQ-PXU"
+    },
+    {
+      "type": "stargate",
+      "source": "MI6O-6",
+      "target": "O-N8XZ"
+    },
+    {
+      "type": "stargate",
+      "source": "MQ-NPY",
+      "target": "RQH-MY"
+    },
+    {
+      "type": "stargate",
+      "source": "MQ-NPY",
+      "target": "RZC-16"
+    },
+    {
+      "type": "stargate",
+      "source": "MQ-NPY",
+      "target": "TFA0-U"
+    },
+    {
+      "type": "stargate",
+      "source": "MT9Q-S",
+      "target": "UC3H-Y"
+    },
+    {
+      "type": "stargate",
+      "source": "O-A6YN",
+      "target": "P-2TTL"
+    },
+    {
+      "type": "stargate",
+      "source": "O-A6YN",
+      "target": "RORZ-H"
+    },
+    {
+      "type": "stargate",
+      "source": "OE-9UF",
+      "target": "PFU-LH"
+    },
+    {
+      "type": "stargate",
+      "source": "OGV-AS",
+      "target": "UI-8ZE"
+    },
+    {
+      "type": "stargate",
+      "source": "OGV-AS",
+      "target": "Y-C3EQ"
+    },
+    {
+      "type": "stargate",
+      "source": "P-2TTL",
+      "target": "RORZ-H"
+    },
+    {
+      "type": "stargate",
+      "source": "Q-5211",
+      "target": "R-2R0G"
+    },
+    {
+      "type": "stargate",
+      "source": "R6XN-9",
+      "target": "X-7OMU"
+    },
+    {
+      "type": "stargate",
+      "source": "RD-G2R",
+      "target": "UC3H-Y"
+    },
+    {
+      "type": "stargate",
+      "source": "S-MDYI",
+      "target": "ZKYV-W"
+    },
+    {
+      "type": "stargate",
+      "source": "TFA0-U",
+      "target": "Y2-6EA"
+    },
+    {
+      "type": "stargate",
+      "source": "UR-E6D",
+      "target": "X47L-Q"
+    },
+    {
+      "type": "stargate",
+      "source": "WW-KGD",
+      "target": "XQ-PXU"
+    }
+  ]
+}

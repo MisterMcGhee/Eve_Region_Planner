@@ -1,0 +1,1627 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d13" for="edge" attr.name="type" attr.type="string" />
+  <key id="d12" for="node" attr.name="belts" attr.type="long" />
+  <key id="d11" for="node" attr.name="planets" attr.type="long" />
+  <key id="d10" for="node" attr.name="moons" attr.type="long" />
+  <key id="d9" for="node" attr.name="has_ice" attr.type="boolean" />
+  <key id="d8" for="node" attr.name="workforce_capacity" attr.type="long" />
+  <key id="d7" for="node" attr.name="power_capacity" attr.type="long" />
+  <key id="d6" for="node" attr.name="z" attr.type="double" />
+  <key id="d5" for="node" attr.name="y" attr.type="double" />
+  <key id="d4" for="node" attr.name="x" attr.type="double" />
+  <key id="d3" for="node" attr.name="security" attr.type="double" />
+  <key id="d2" for="node" attr.name="constellation_id" attr.type="long" />
+  <key id="d1" for="node" attr.name="constellation" attr.type="string" />
+  <key id="d0" for="node" attr.name="system_id" attr.type="long" />
+  <graph edgedefault="undirected">
+    <node id="12YA-2">
+      <data key="d0">30001975</data>
+      <data key="d1">U8-CWA</data>
+      <data key="d2">20000290</data>
+      <data key="d3">-0.1751025379410907</data>
+      <data key="d4">-2.378560840789043e+17</data>
+      <data key="d5">1.09429056989046e+17</data>
+      <data key="d6">2.328168477351669e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">48</data>
+      <data key="d11">10</data>
+      <data key="d12">13</data>
+    </node>
+    <node id="2-6TGQ">
+      <data key="d0">30002007</data>
+      <data key="d1">U-7RBK</data>
+      <data key="d2">20000295</data>
+      <data key="d3">-0.2113453192370867</data>
+      <data key="d4">-2.2641180143988112e+17</data>
+      <data key="d5">1.060928930418455e+17</data>
+      <data key="d6">2.2913629993268278e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">70</data>
+      <data key="d11">11</data>
+      <data key="d12">22</data>
+    </node>
+    <node id="2D-0SO">
+      <data key="d0">30001965</data>
+      <data key="d1">MDM8-J</data>
+      <data key="d2">20000289</data>
+      <data key="d3">-0.1546284158169951</data>
+      <data key="d4">-2.0195509870898714e+17</data>
+      <data key="d5">9.703007015014571e+16</data>
+      <data key="d6">2.3995709134406832e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">61</data>
+      <data key="d11">12</data>
+      <data key="d12">20</data>
+    </node>
+    <node id="3V8-LJ">
+      <data key="d0">30002011</data>
+      <data key="d1">G8-D09</data>
+      <data key="d2">20000296</data>
+      <data key="d3">-0.1732643291343085</data>
+      <data key="d4">-2.360517482856231e+17</data>
+      <data key="d5">9.127495794988608e+16</data>
+      <data key="d6">2.254864301054955e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">5</data>
+      <data key="d11">6</data>
+      <data key="d12">3</data>
+    </node>
+    <node id="4-ABS8">
+      <data key="d0">30002015</data>
+      <data key="d1">G8-D09</data>
+      <data key="d2">20000296</data>
+      <data key="d3">-0.1943270844194346</data>
+      <data key="d4">-2.3061893632291306e+17</data>
+      <data key="d5">9.814669712971525e+16</data>
+      <data key="d6">2.3720631425918115e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">48</data>
+      <data key="d11">7</data>
+      <data key="d12">10</data>
+    </node>
+    <node id="5-9WNU">
+      <data key="d0">30001972</data>
+      <data key="d1">U8-CWA</data>
+      <data key="d2">20000290</data>
+      <data key="d3">-0.1889000207477076</data>
+      <data key="d4">-2.2781421897046694e+17</data>
+      <data key="d5">1.247890570952574e+17</data>
+      <data key="d6">2.3097861167526147e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">33</data>
+      <data key="d11">11</data>
+      <data key="d12">16</data>
+    </node>
+    <node id="5ZXX-K">
+      <data key="d0">30002005</data>
+      <data key="d1">U-7RBK</data>
+      <data key="d2">20000295</data>
+      <data key="d3">-0.2294540369252063</data>
+      <data key="d4">-2.2012000616484746e+17</data>
+      <data key="d5">1.0106143638186446e+17</data>
+      <data key="d6">2.256264452683317e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">82</data>
+      <data key="d11">9</data>
+      <data key="d12">15</data>
+    </node>
+    <node id="6GWE-A">
+      <data key="d0">30002025</data>
+      <data key="d1">K-QUVW</data>
+      <data key="d2">20000298</data>
+      <data key="d3">-0.07740970596727026</data>
+      <data key="d4">-2.7466822739010662e+17</data>
+      <data key="d5">8.704163485272216e+16</data>
+      <data key="d6">2.108423095613965e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">63</data>
+      <data key="d11">12</data>
+      <data key="d12">16</data>
+    </node>
+    <node id="7D-0SQ">
+      <data key="d0">30002046</data>
+      <data key="d1">0A-73B</data>
+      <data key="d2">20000301</data>
+      <data key="d3">-0.1221818968968269</data>
+      <data key="d4">-3.227615230233008e+17</data>
+      <data key="d5">3.853246614104495e+16</data>
+      <data key="d6">2.1783724109105238e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">44</data>
+      <data key="d11">10</data>
+      <data key="d12">13</data>
+    </node>
+    <node id="7RM-N0">
+      <data key="d0">30002016</data>
+      <data key="d1">304Z-R</data>
+      <data key="d2">20000297</data>
+      <data key="d3">-0.0626399495582981</data>
+      <data key="d4">-2.7279138269357245e+17</data>
+      <data key="d5">7.904097510328374e+16</data>
+      <data key="d6">2.2543978781193718e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">53</data>
+      <data key="d11">10</data>
+      <data key="d12">11</data>
+    </node>
+    <node id="7X-VKB">
+      <data key="d0">30002031</data>
+      <data key="d1">LN-L8L</data>
+      <data key="d2">20000299</data>
+      <data key="d3">-0.06520048392546829</data>
+      <data key="d4">-2.957790591671868e+17</data>
+      <data key="d5">6.629730850866531e+16</data>
+      <data key="d6">2.1996602774103258e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">46</data>
+      <data key="d11">10</data>
+      <data key="d12">25</data>
+    </node>
+    <node id="8S-0E1">
+      <data key="d0">30002004</data>
+      <data key="d1">U-7RBK</data>
+      <data key="d2">20000295</data>
+      <data key="d3">-0.2268132493188775</data>
+      <data key="d4">-2.1188530187206426e+17</data>
+      <data key="d5">1.022759790633712e+17</data>
+      <data key="d6">2.264436270804977e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">28</data>
+      <data key="d11">8</data>
+      <data key="d12">8</data>
+    </node>
+    <node id="93PI-4">
+      <data key="d0">30001990</data>
+      <data key="d1">YS-GOP</data>
+      <data key="d2">20000292</data>
+      <data key="d3">-0.1746633354663784</data>
+      <data key="d4">-2.6343387921317648e+17</data>
+      <data key="d5">8.782801487214987e+16</data>
+      <data key="d6">1.9477827694792112e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">38</data>
+      <data key="d11">6</data>
+      <data key="d12">5</data>
+    </node>
+    <node id="A8I-C5">
+      <data key="d0">30001993</data>
+      <data key="d1">WMP-OF</data>
+      <data key="d2">20000293</data>
+      <data key="d3">-0.1154863396508181</data>
+      <data key="d4">-2.663390614173972e+17</data>
+      <data key="d5">9.924313816197182e+16</data>
+      <data key="d6">2.3975960463586125e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">44</data>
+      <data key="d11">8</data>
+      <data key="d12">21</data>
+    </node>
+    <node id="B-9C24">
+      <data key="d0">30002029</data>
+      <data key="d1">LN-L8L</data>
+      <data key="d2">20000299</data>
+      <data key="d3">-0.06723310445748798</data>
+      <data key="d4">-2.936917797443161e+17</data>
+      <data key="d5">7.039002723378464e+16</data>
+      <data key="d6">2.2287129822741456e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">65</data>
+      <data key="d11">9</data>
+      <data key="d12">25</data>
+    </node>
+    <node id="B8EN-S">
+      <data key="d0">30002012</data>
+      <data key="d1">G8-D09</data>
+      <data key="d2">20000296</data>
+      <data key="d3">-0.1614605734522562</data>
+      <data key="d4">-2.3260126322832797e+17</data>
+      <data key="d5">8.768513056421982e+16</data>
+      <data key="d6">2.2785681500853338e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">45</data>
+      <data key="d11">8</data>
+      <data key="d12">5</data>
+    </node>
+    <node id="BDV3-T">
+      <data key="d0">30001976</data>
+      <data key="d1">U8-CWA</data>
+      <data key="d2">20000290</data>
+      <data key="d3">-0.1575818698474565</data>
+      <data key="d4">-2.476461249426212e+17</data>
+      <data key="d5">1.1158687552444074e+17</data>
+      <data key="d6">2.2806254136455686e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">32</data>
+      <data key="d11">9</data>
+      <data key="d12">8</data>
+    </node>
+    <node id="C-H9X7">
+      <data key="d0">30001992</data>
+      <data key="d1">WMP-OF</data>
+      <data key="d2">20000293</data>
+      <data key="d3">-0.1108598334595846</data>
+      <data key="d4">-2.57988119232337e+17</data>
+      <data key="d5">1.0905082481174306e+17</data>
+      <data key="d6">2.329547294176327e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">48</data>
+      <data key="d11">14</data>
+      <data key="d12">11</data>
+    </node>
+    <node id="CL6-ZG">
+      <data key="d0">30001981</data>
+      <data key="d1">38G6-L</data>
+      <data key="d2">20000291</data>
+      <data key="d3">-0.1224005469553712</data>
+      <data key="d4">-2.5294474835063786e+17</data>
+      <data key="d5">8.987783885910859e+16</data>
+      <data key="d6">2.2489338143508653e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">48</data>
+      <data key="d11">9</data>
+      <data key="d12">8</data>
+    </node>
+    <node id="CR-AQH">
+      <data key="d0">30002003</data>
+      <data key="d1">LY-FY6</data>
+      <data key="d2">20000294</data>
+      <data key="d3">-0.2753584379148634</data>
+      <data key="d4">-2.5118473009309414e+17</data>
+      <data key="d5">1.1265320602146208e+17</data>
+      <data key="d6">2.0789082347759203e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">36</data>
+      <data key="d11">9</data>
+      <data key="d12">13</data>
+    </node>
+    <node id="CXN1-Z">
+      <data key="d0">30001979</data>
+      <data key="d1">38G6-L</data>
+      <data key="d2">20000291</data>
+      <data key="d3">-0.1240118152064696</data>
+      <data key="d4">-2.4704892702050544e+17</data>
+      <data key="d5">8.468075348054656e+16</data>
+      <data key="d6">2.289317506688518e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">61</data>
+      <data key="d11">8</data>
+      <data key="d12">12</data>
+    </node>
+    <node id="D2-HOS">
+      <data key="d0">30002036</data>
+      <data key="d1">S4GH-I</data>
+      <data key="d2">20000300</data>
+      <data key="d3">-0.02994891542605926</data>
+      <data key="d4">-2.8614099566969347e+17</data>
+      <data key="d5">5.997056016529067e+16</data>
+      <data key="d6">2.030192492587279e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">44</data>
+      <data key="d11">6</data>
+      <data key="d12">5</data>
+    </node>
+    <node id="D7T-C0">
+      <data key="d0">30001968</data>
+      <data key="d1">MDM8-J</data>
+      <data key="d2">20000289</data>
+      <data key="d3">-0.198677185471857</data>
+      <data key="d4">-2.053888837650919e+17</data>
+      <data key="d5">1.0615423867640194e+17</data>
+      <data key="d6">2.3080865422005734e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">7</data>
+      <data key="d11">8</data>
+      <data key="d12">2</data>
+    </node>
+    <node id="DK-FXK">
+      <data key="d0">30001994</data>
+      <data key="d1">WMP-OF</data>
+      <data key="d2">20000293</data>
+      <data key="d3">-0.07521648842207429</data>
+      <data key="d4">-2.7021446218347446e+17</data>
+      <data key="d5">1.135525671436555e+17</data>
+      <data key="d6">2.3714585584147683e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">32</data>
+      <data key="d11">7</data>
+      <data key="d12">6</data>
+    </node>
+    <node id="DP-1YE">
+      <data key="d0">30002014</data>
+      <data key="d1">G8-D09</data>
+      <data key="d2">20000296</data>
+      <data key="d3">-0.1726162495338044</data>
+      <data key="d4">-2.3501870240731498e+17</data>
+      <data key="d5">9.439597263803027e+16</data>
+      <data key="d6">2.3034636582181894e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">10</data>
+      <data key="d11">8</data>
+      <data key="d12">6</data>
+    </node>
+    <node id="DT-TCD">
+      <data key="d0">30002041</data>
+      <data key="d1">S4GH-I</data>
+      <data key="d2">20000300</data>
+      <data key="d3">-0.02152888326294167</data>
+      <data key="d4">-2.878492512806665e+17</data>
+      <data key="d5">5.135428291972085e+16</data>
+      <data key="d6">1.9916714021209414e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">40</data>
+      <data key="d11">9</data>
+      <data key="d12">12</data>
+    </node>
+    <node id="E-Z2ZX">
+      <data key="d0">30002032</data>
+      <data key="d1">LN-L8L</data>
+      <data key="d2">20000299</data>
+      <data key="d3">-0.1163325021745033</data>
+      <data key="d4">-2.995426949923062e+17</data>
+      <data key="d5">5.252656200912665e+16</data>
+      <data key="d6">2.2754092750018886e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">29</data>
+      <data key="d11">9</data>
+      <data key="d12">5</data>
+    </node>
+    <node id="EC-P8R">
+      <data key="d0">30001984</data>
+      <data key="d1">YS-GOP</data>
+      <data key="d2">20000292</data>
+      <data key="d3">-0.4465753930977101</data>
+      <data key="d4">-2.3398851097856118e+17</data>
+      <data key="d5">9.71225013270938e+16</data>
+      <data key="d6">1.9660235846939747e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">64</data>
+      <data key="d11">11</data>
+      <data key="d12">16</data>
+    </node>
+    <node id="EL8-4Q">
+      <data key="d0">30001970</data>
+      <data key="d1">U8-CWA</data>
+      <data key="d2">20000290</data>
+      <data key="d3">-0.1598268370930133</data>
+      <data key="d4">-2.217521480266478e+17</data>
+      <data key="d5">1.2425426729504822e+17</data>
+      <data key="d6">2.38530999538521e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">68</data>
+      <data key="d11">11</data>
+      <data key="d12">13</data>
+    </node>
+    <node id="EWOK-K">
+      <data key="d0">30001985</data>
+      <data key="d1">YS-GOP</data>
+      <data key="d2">20000292</data>
+      <data key="d3">-0.3135391020916142</data>
+      <data key="d4">-2.4205724521726934e+17</data>
+      <data key="d5">9.002402559433851e+16</data>
+      <data key="d6">1.995982503707921e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">60</data>
+      <data key="d11">9</data>
+      <data key="d12">8</data>
+    </node>
+    <node id="F-NMX6">
+      <data key="d0">30002019</data>
+      <data key="d1">304Z-R</data>
+      <data key="d2">20000297</data>
+      <data key="d3">-0.05906204655927927</data>
+      <data key="d4">-2.8654423816110547e+17</data>
+      <data key="d5">7.391377187920893e+16</data>
+      <data key="d6">2.245772290808753e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">66</data>
+      <data key="d11">8</data>
+      <data key="d12">11</data>
+    </node>
+    <node id="FWA-4V">
+      <data key="d0">30002021</data>
+      <data key="d1">304Z-R</data>
+      <data key="d2">20000297</data>
+      <data key="d3">-0.0225512570307238</data>
+      <data key="d4">-2.777314637008155e+17</data>
+      <data key="d5">4.626599859931551e+16</data>
+      <data key="d6">2.0876181313453795e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">31</data>
+      <data key="d11">6</data>
+      <data key="d12">7</data>
+    </node>
+    <node id="G-M4I8">
+      <data key="d0">30001987</data>
+      <data key="d1">YS-GOP</data>
+      <data key="d2">20000292</data>
+      <data key="d3">-0.2983889225425641</data>
+      <data key="d4">-2.5132141996931382e+17</data>
+      <data key="d5">9.643279721705941e+16</data>
+      <data key="d6">1.9731961983465024e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">30</data>
+      <data key="d11">12</data>
+      <data key="d12">6</data>
+    </node>
+    <node id="G95-VZ">
+      <data key="d0">30001982</data>
+      <data key="d1">38G6-L</data>
+      <data key="d2">20000291</data>
+      <data key="d3">-0.2415533261964219</data>
+      <data key="d4">-2.3984038261442058e+17</data>
+      <data key="d5">1.015687331006176e+17</data>
+      <data key="d6">2.4498273226860003e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">39</data>
+      <data key="d11">8</data>
+      <data key="d12">8</data>
+    </node>
+    <node id="GA-P6C">
+      <data key="d0">30002020</data>
+      <data key="d1">304Z-R</data>
+      <data key="d2">20000297</data>
+      <data key="d3">-0.0816712050526559</data>
+      <data key="d4">-2.6870139794976048e+17</data>
+      <data key="d5">8.520368378445526e+16</data>
+      <data key="d6">2.3072415368623562e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">48</data>
+      <data key="d11">8</data>
+      <data key="d12">16</data>
+    </node>
+    <node id="H1-J33">
+      <data key="d0">30002043</data>
+      <data key="d1">0A-73B</data>
+      <data key="d2">20000301</data>
+      <data key="d3">-0.2015278565236546</data>
+      <data key="d4">-3.201743323787622e+17</data>
+      <data key="d5">3.3745999394280044e+16</data>
+      <data key="d6">2.296801755605172e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">97</data>
+      <data key="d11">8</data>
+      <data key="d12">14</data>
+    </node>
+    <node id="HPS5-C">
+      <data key="d0">30002040</data>
+      <data key="d1">S4GH-I</data>
+      <data key="d2">20000300</data>
+      <data key="d3">-0.03536699280440114</data>
+      <data key="d4">-2.853945424081295e+17</data>
+      <data key="d5">6.636743854149541e+16</data>
+      <data key="d6">1.9812361821000147e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">28</data>
+      <data key="d11">6</data>
+      <data key="d12">1</data>
+    </node>
+    <node id="ION-FG">
+      <data key="d0">30001991</data>
+      <data key="d1">WMP-OF</data>
+      <data key="d2">20000293</data>
+      <data key="d3">-0.1339970577525103</data>
+      <data key="d4">-2.51788696297477e+17</data>
+      <data key="d5">1.1054792763020104e+17</data>
+      <data key="d6">2.30715075359584e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">42</data>
+      <data key="d11">7</data>
+      <data key="d12">16</data>
+    </node>
+    <node id="J-CIJV">
+      <data key="d0">30001977</data>
+      <data key="d1">38G6-L</data>
+      <data key="d2">20000291</data>
+      <data key="d3">-0.2439420514458928</data>
+      <data key="d4">-2.319393105005857e+17</data>
+      <data key="d5">9.372730271110462e+16</data>
+      <data key="d6">2.4351960618757094e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">26</data>
+      <data key="d11">9</data>
+      <data key="d12">8</data>
+    </node>
+    <node id="J-OK0C">
+      <data key="d0">30002026</data>
+      <data key="d1">K-QUVW</data>
+      <data key="d2">20000298</data>
+      <data key="d3">-0.05500958141481238</data>
+      <data key="d4">-2.7965895280578208e+17</data>
+      <data key="d5">7.96002449945148e+16</data>
+      <data key="d6">2.116935534901473e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">57</data>
+      <data key="d11">7</data>
+      <data key="d12">7</data>
+    </node>
+    <node id="JC-YX8">
+      <data key="d0">30001971</data>
+      <data key="d1">U8-CWA</data>
+      <data key="d2">20000290</data>
+      <data key="d3">-0.1342250281088493</data>
+      <data key="d4">-2.2927409333298726e+17</data>
+      <data key="d5">1.3343339696369138e+17</data>
+      <data key="d6">2.3688842569355392e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">28</data>
+      <data key="d11">9</data>
+      <data key="d12">5</data>
+    </node>
+    <node id="JE-D5U">
+      <data key="d0">30002006</data>
+      <data key="d1">U-7RBK</data>
+      <data key="d2">20000295</data>
+      <data key="d3">-0.2172073173323691</data>
+      <data key="d4">-2.2127767672008163e+17</data>
+      <data key="d5">8.838640263789682e+16</data>
+      <data key="d6">2.2007025928930445e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">50</data>
+      <data key="d11">7</data>
+      <data key="d12">4</data>
+    </node>
+    <node id="KDV-DE">
+      <data key="d0">30002027</data>
+      <data key="d1">K-QUVW</data>
+      <data key="d2">20000298</data>
+      <data key="d3">-0.08729586520109489</data>
+      <data key="d4">-2.6947139306288973e+17</data>
+      <data key="d5">8.211250885315584e+16</data>
+      <data key="d6">2.0888325966168013e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">53</data>
+      <data key="d11">7</data>
+      <data key="d12">29</data>
+    </node>
+    <node id="KI-TL0">
+      <data key="d0">30001969</data>
+      <data key="d1">U8-CWA</data>
+      <data key="d2">20000290</data>
+      <data key="d3">-0.1794516462528861</data>
+      <data key="d4">-2.1504014541314502e+17</data>
+      <data key="d5">1.1545928179069813e+17</data>
+      <data key="d6">2.3822685352893206e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">26</data>
+      <data key="d11">13</data>
+      <data key="d12">12</data>
+    </node>
+    <node id="KLY-C0">
+      <data key="d0">30001980</data>
+      <data key="d1">38G6-L</data>
+      <data key="d2">20000291</data>
+      <data key="d3">-0.097906292126683</data>
+      <data key="d4">-2.5331623876984957e+17</data>
+      <data key="d5">7.97710036138118e+16</data>
+      <data key="d6">2.2672796850752877e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">65</data>
+      <data key="d11">8</data>
+      <data key="d12">10</data>
+    </node>
+    <node id="KQK1-2">
+      <data key="d0">30001963</data>
+      <data key="d1">MDM8-J</data>
+      <data key="d2">20000289</data>
+      <data key="d3">-0.1606570035166273</data>
+      <data key="d4">-1.861880759813691e+17</data>
+      <data key="d5">1.0487051647819856e+17</data>
+      <data key="d6">2.3266080939939795e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">79</data>
+      <data key="d11">9</data>
+      <data key="d12">10</data>
+    </node>
+    <node id="KU5R-W">
+      <data key="d0">30002042</data>
+      <data key="d1">0A-73B</data>
+      <data key="d2">20000301</data>
+      <data key="d3">-0.1716833125893704</data>
+      <data key="d4">-3.0861236991001984e+17</data>
+      <data key="d5">4.725201501299082e+16</data>
+      <data key="d6">2.290408524377058e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">52</data>
+      <data key="d11">6</data>
+      <data key="d12">18</data>
+    </node>
+    <node id="L-TS8S">
+      <data key="d0">30001989</data>
+      <data key="d1">YS-GOP</data>
+      <data key="d2">20000292</data>
+      <data key="d3">-0.2073588946726199</data>
+      <data key="d4">-2.3809047263950547e+17</data>
+      <data key="d5">8.767044435089224e+16</data>
+      <data key="d6">2.1513700541899994e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">7</data>
+      <data key="d11">7</data>
+      <data key="d12">4</data>
+    </node>
+    <node id="M-76XI">
+      <data key="d0">30001995</data>
+      <data key="d1">WMP-OF</data>
+      <data key="d2">20000293</data>
+      <data key="d3">-0.0763311118760105</data>
+      <data key="d4">-2.7830370726017946e+17</data>
+      <data key="d5">1.0530179319313246e+17</data>
+      <data key="d6">2.3947986858354554e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">37</data>
+      <data key="d11">9</data>
+      <data key="d12">14</data>
+    </node>
+    <node id="M-YCD4">
+      <data key="d0">30002000</data>
+      <data key="d1">LY-FY6</data>
+      <data key="d2">20000294</data>
+      <data key="d3">-0.1816221389237193</data>
+      <data key="d4">-2.5628183525115677e+17</data>
+      <data key="d5">1.0435705396158877e+17</data>
+      <data key="d6">2.1439682017545955e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">42</data>
+      <data key="d11">7</data>
+      <data key="d12">11</data>
+    </node>
+    <node id="MI6O-6">
+      <data key="d0">30001988</data>
+      <data key="d1">YS-GOP</data>
+      <data key="d2">20000292</data>
+      <data key="d3">-0.1323992481207228</data>
+      <data key="d4">-2.5777618371265267e+17</data>
+      <data key="d5">7.544740488605918e+16</data>
+      <data key="d6">2.0019076934977616e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">59</data>
+      <data key="d11">11</data>
+      <data key="d12">12</data>
+    </node>
+    <node id="MQ-NPY">
+      <data key="d0">30002035</data>
+      <data key="d1">S4GH-I</data>
+      <data key="d2">20000300</data>
+      <data key="d3">-0.02912771845146234</data>
+      <data key="d4">-2.8079887869041245e+17</data>
+      <data key="d5">5.5343692459288056e+16</data>
+      <data key="d6">2.0685882226900592e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">47</data>
+      <data key="d11">6</data>
+      <data key="d12">5</data>
+    </node>
+    <node id="MT9Q-S">
+      <data key="d0">30002028</data>
+      <data key="d1">K-QUVW</data>
+      <data key="d2">20000298</data>
+      <data key="d3">-0.08612781280360915</data>
+      <data key="d4">-2.7378396601418464e+17</data>
+      <data key="d5">8.65398156989038e+16</data>
+      <data key="d6">2.0697722306914333e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">63</data>
+      <data key="d11">8</data>
+      <data key="d12">13</data>
+    </node>
+    <node id="N-H32Y">
+      <data key="d0">30001974</data>
+      <data key="d1">U8-CWA</data>
+      <data key="d2">20000290</data>
+      <data key="d3">-0.1474272578229871</data>
+      <data key="d4">-2.253159870994842e+17</data>
+      <data key="d5">1.2529383684100184e+17</data>
+      <data key="d6">2.4357278134501962e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">75</data>
+      <data key="d11">9</data>
+      <data key="d12">14</data>
+    </node>
+    <node id="O-A6YN">
+      <data key="d0">30002034</data>
+      <data key="d1">LN-L8L</data>
+      <data key="d2">20000299</data>
+      <data key="d3">-0.1238919882134848</data>
+      <data key="d4">-3.085161131627719e+17</data>
+      <data key="d5">6.1606377250219256e+16</data>
+      <data key="d6">2.2346462645774384e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">14</data>
+      <data key="d11">6</data>
+      <data key="d12">1</data>
+    </node>
+    <node id="O-BY0Y">
+      <data key="d0">30001964</data>
+      <data key="d1">MDM8-J</data>
+      <data key="d2">20000289</data>
+      <data key="d3">-0.1395801117181584</data>
+      <data key="d4">-1.8789341828842496e+17</data>
+      <data key="d5">1.0698548976293702e+17</data>
+      <data key="d6">2.387765263377279e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">9</data>
+      <data key="d11">6</data>
+      <data key="d12">3</data>
+    </node>
+    <node id="O-N8XZ">
+      <data key="d0">30001986</data>
+      <data key="d1">YS-GOP</data>
+      <data key="d2">20000292</data>
+      <data key="d3">-0.1864565162682014</data>
+      <data key="d4">-2.4821789766492298e+17</data>
+      <data key="d5">7.813770077939861e+16</data>
+      <data key="d6">2.0146713497850445e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">4</data>
+      <data key="d11">5</data>
+      <data key="d12">4</data>
+    </node>
+    <node id="OE-9UF">
+      <data key="d0">30002008</data>
+      <data key="d1">U-7RBK</data>
+      <data key="d2">20000295</data>
+      <data key="d3">-0.2094786287345463</data>
+      <data key="d4">-2.2322344018738554e+17</data>
+      <data key="d5">8.032016696242779e+16</data>
+      <data key="d6">2.1409555804260634e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">50</data>
+      <data key="d11">6</data>
+      <data key="d12">11</data>
+    </node>
+    <node id="OGV-AS">
+      <data key="d0">30002045</data>
+      <data key="d1">0A-73B</data>
+      <data key="d2">20000301</data>
+      <data key="d3">-0.1421614082250987</data>
+      <data key="d4">-3.279653610483845e+17</data>
+      <data key="d5">2.580259579998149e+16</data>
+      <data key="d6">2.244035490701002e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">65</data>
+      <data key="d11">6</data>
+      <data key="d12">10</data>
+    </node>
+    <node id="P-2TTL">
+      <data key="d0">30002030</data>
+      <data key="d1">LN-L8L</data>
+      <data key="d2">20000299</data>
+      <data key="d3">-0.09903070236213785</data>
+      <data key="d4">-2.9912147241160506e+17</data>
+      <data key="d5">6.434568334412742e+16</data>
+      <data key="d6">2.2590768211368662e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">5</data>
+      <data key="d11">5</data>
+      <data key="d12">4</data>
+    </node>
+    <node id="PFU-LH">
+      <data key="d0">30002009</data>
+      <data key="d1">U-7RBK</data>
+      <data key="d2">20000295</data>
+      <data key="d3">-0.2574846659640413</data>
+      <data key="d4">-2.2254477274501648e+17</data>
+      <data key="d5">8.36884302634233e+16</data>
+      <data key="d6">2.1073676849753587e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">56</data>
+      <data key="d11">8</data>
+      <data key="d12">16</data>
+    </node>
+    <node id="Q-5211">
+      <data key="d0">30002001</data>
+      <data key="d1">LY-FY6</data>
+      <data key="d2">20000294</data>
+      <data key="d3">-0.1445582341398762</data>
+      <data key="d4">-2.6475693127669802e+17</data>
+      <data key="d5">1.0934380852925243e+17</data>
+      <data key="d6">2.1378655652587168e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">42</data>
+      <data key="d11">9</data>
+      <data key="d12">7</data>
+    </node>
+    <node id="R-2R0G">
+      <data key="d0">30002002</data>
+      <data key="d1">LY-FY6</data>
+      <data key="d2">20000294</data>
+      <data key="d3">-0.2125245373007608</data>
+      <data key="d4">-2.551141594085831e+17</data>
+      <data key="d5">1.074041659434481e+17</data>
+      <data key="d6">2.1147826325666502e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">38</data>
+      <data key="d11">9</data>
+      <data key="d12">2</data>
+    </node>
+    <node id="R-LW2I">
+      <data key="d0">30002013</data>
+      <data key="d1">G8-D09</data>
+      <data key="d2">20000296</data>
+      <data key="d3">-0.1534265396475202</data>
+      <data key="d4">-2.423845505235227e+17</data>
+      <data key="d5">9.298158094921645e+16</data>
+      <data key="d6">2.2965232260728474e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">27</data>
+      <data key="d11">8</data>
+      <data key="d12">3</data>
+    </node>
+    <node id="R6XN-9">
+      <data key="d0">30002010</data>
+      <data key="d1">G8-D09</data>
+      <data key="d2">20000296</data>
+      <data key="d3">-0.1813897324072106</data>
+      <data key="d4">-2.3548102023304333e+17</data>
+      <data key="d5">8.940784036037758e+16</data>
+      <data key="d6">2.2234615308523466e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">56</data>
+      <data key="d11">9</data>
+      <data key="d12">8</data>
+    </node>
+    <node id="RD-G2R">
+      <data key="d0">30002023</data>
+      <data key="d1">K-QUVW</data>
+      <data key="d2">20000298</data>
+      <data key="d3">-0.1325309749920258</data>
+      <data key="d4">-2.598139075377394e+17</data>
+      <data key="d5">9.351607032600493e+16</data>
+      <data key="d6">2.1582301497660458e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">6</data>
+      <data key="d11">8</data>
+      <data key="d12">9</data>
+    </node>
+    <node id="ROIR-Y">
+      <data key="d0">30001983</data>
+      <data key="d1">38G6-L</data>
+      <data key="d2">20000291</data>
+      <data key="d3">-0.2396970557859594</data>
+      <data key="d4">-2.4596497188820672e+17</data>
+      <data key="d5">1.0054443249357424e+17</data>
+      <data key="d6">2.4591185558542944e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">29</data>
+      <data key="d11">3</data>
+      <data key="d12">3</data>
+    </node>
+    <node id="RORZ-H">
+      <data key="d0">30002033</data>
+      <data key="d1">LN-L8L</data>
+      <data key="d2">20000299</data>
+      <data key="d3">-0.127091387066797</data>
+      <data key="d4">-3.0397998090268845e+17</data>
+      <data key="d5">5.82998772845487e+16</data>
+      <data key="d6">2.2634094046619142e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">68</data>
+      <data key="d11">12</data>
+      <data key="d12">30</data>
+    </node>
+    <node id="RQH-MY">
+      <data key="d0">30002039</data>
+      <data key="d1">S4GH-I</data>
+      <data key="d2">20000300</data>
+      <data key="d3">-0.0285058038305579</data>
+      <data key="d4">-2.8097564856911872e+17</data>
+      <data key="d5">5.6373760660890504e+16</data>
+      <data key="d6">1.969354462428673e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">45</data>
+      <data key="d11">5</data>
+      <data key="d12">4</data>
+    </node>
+    <node id="RZC-16">
+      <data key="d0">30002022</data>
+      <data key="d1">304Z-R</data>
+      <data key="d2">20000297</data>
+      <data key="d3">-0.03047138129100502</data>
+      <data key="d4">-2.745920400725177e+17</data>
+      <data key="d5">5.448210313426059e+16</data>
+      <data key="d6">2.0624589544731414e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">46</data>
+      <data key="d11">7</data>
+      <data key="d12">7</data>
+    </node>
+    <node id="S-MDYI">
+      <data key="d0">30002017</data>
+      <data key="d1">304Z-R</data>
+      <data key="d2">20000297</data>
+      <data key="d3">-0.05228844667889965</data>
+      <data key="d4">-2.7454898791144262e+17</data>
+      <data key="d5">7.32982098342465e+16</data>
+      <data key="d6">2.186740656355073e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">47</data>
+      <data key="d11">8</data>
+      <data key="d12">17</data>
+    </node>
+    <node id="TFA0-U">
+      <data key="d0">30002038</data>
+      <data key="d1">S4GH-I</data>
+      <data key="d2">20000300</data>
+      <data key="d3">-0.02927526148986448</data>
+      <data key="d4">-2.9496330457995226e+17</data>
+      <data key="d5">5.435914463466932e+16</data>
+      <data key="d6">2.0427428008436912e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">65</data>
+      <data key="d11">10</data>
+      <data key="d12">5</data>
+    </node>
+    <node id="U-INPD">
+      <data key="d0">30001997</data>
+      <data key="d1">WMP-OF</data>
+      <data key="d2">20000293</data>
+      <data key="d3">-0.1041644937773346</data>
+      <data key="d4">-2.7098481042432317e+17</data>
+      <data key="d5">9.804071785705573e+16</data>
+      <data key="d6">2.3965145925487658e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">64</data>
+      <data key="d11">12</data>
+      <data key="d12">28</data>
+    </node>
+    <node id="UC3H-Y">
+      <data key="d0">30002024</data>
+      <data key="d1">K-QUVW</data>
+      <data key="d2">20000298</data>
+      <data key="d3">-0.09787349363553544</data>
+      <data key="d4">-2.69364130501358e+17</data>
+      <data key="d5">8.744231142055342e+16</data>
+      <data key="d6">2.098014507310992e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">72</data>
+      <data key="d11">7</data>
+      <data key="d12">14</data>
+    </node>
+    <node id="UI-8ZE">
+      <data key="d0">30002047</data>
+      <data key="d1">0A-73B</data>
+      <data key="d2">20000301</data>
+      <data key="d3">-0.2065980035003279</data>
+      <data key="d4">-3.301757643554507e+17</data>
+      <data key="d5">2.789691938629485e+16</data>
+      <data key="d6">2.304833352573418e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">54</data>
+      <data key="d11">10</data>
+      <data key="d12">8</data>
+    </node>
+    <node id="UR-E6D">
+      <data key="d0">30001966</data>
+      <data key="d1">MDM8-J</data>
+      <data key="d2">20000289</data>
+      <data key="d3">-0.1890465054173858</data>
+      <data key="d4">-2.116448071437085e+17</data>
+      <data key="d5">9.758237946245986e+16</data>
+      <data key="d6">2.417389446689427e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">19</data>
+      <data key="d11">7</data>
+      <data key="d12">5</data>
+    </node>
+    <node id="WW-KGD">
+      <data key="d0">30001998</data>
+      <data key="d1">LY-FY6</data>
+      <data key="d2">20000294</data>
+      <data key="d3">-0.1791593530933725</data>
+      <data key="d4">-2.49287227422039e+17</data>
+      <data key="d5">1.0779944941028846e+17</data>
+      <data key="d6">2.2193378812593613e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">8</data>
+      <data key="d11">6</data>
+      <data key="d12">0</data>
+    </node>
+    <node id="X-7OMU">
+      <data key="d0">30001978</data>
+      <data key="d1">38G6-L</data>
+      <data key="d2">20000291</data>
+      <data key="d3">-0.1414352360981505</data>
+      <data key="d4">-2.3944716012347597e+17</data>
+      <data key="d5">8.457781305568226e+16</data>
+      <data key="d6">2.3195478926803997e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">76</data>
+      <data key="d11">6</data>
+      <data key="d12">8</data>
+    </node>
+    <node id="X47L-Q">
+      <data key="d0">30001967</data>
+      <data key="d1">MDM8-J</data>
+      <data key="d2">20000289</data>
+      <data key="d3">-0.2502559642814759</data>
+      <data key="d4">-2.1871132061592947e+17</data>
+      <data key="d5">9.541425202694856e+16</data>
+      <data key="d6">2.462992073269963e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">52</data>
+      <data key="d11">8</data>
+      <data key="d12">7</data>
+    </node>
+    <node id="XI-VUF">
+      <data key="d0">30001973</data>
+      <data key="d1">U8-CWA</data>
+      <data key="d2">20000290</data>
+      <data key="d3">-0.1854479318235233</data>
+      <data key="d4">-2.1877439806481136e+17</data>
+      <data key="d5">1.1414084231435472e+17</data>
+      <data key="d6">2.37796655617177e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">48</data>
+      <data key="d11">11</data>
+      <data key="d12">4</data>
+    </node>
+    <node id="XQ-PXU">
+      <data key="d0">30001999</data>
+      <data key="d1">LY-FY6</data>
+      <data key="d2">20000294</data>
+      <data key="d3">-0.1498379756129369</data>
+      <data key="d4">-2.5764152432120566e+17</data>
+      <data key="d5">1.0377003789051802e+17</data>
+      <data key="d6">2.1895155049841846e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">8</data>
+      <data key="d11">6</data>
+      <data key="d12">2</data>
+    </node>
+    <node id="Y-C3EQ">
+      <data key="d0">30002044</data>
+      <data key="d1">0A-73B</data>
+      <data key="d2">20000301</data>
+      <data key="d3">-0.1417664684895896</data>
+      <data key="d4">-3.255044724421452e+17</data>
+      <data key="d5">3.4977554579591264e+16</data>
+      <data key="d6">2.2073812690735085e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">40</data>
+      <data key="d11">5</data>
+      <data key="d12">2</data>
+    </node>
+    <node id="Y2-6EA">
+      <data key="d0">30002037</data>
+      <data key="d1">S4GH-I</data>
+      <data key="d2">20000300</data>
+      <data key="d3">-0.02535703407033096</data>
+      <data key="d4">-2.8822059456335414e+17</data>
+      <data key="d5">5.381323116488113e+16</data>
+      <data key="d6">2.0276146598308554e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">44</data>
+      <data key="d11">6</data>
+      <data key="d12">5</data>
+    </node>
+    <node id="ZJET-E">
+      <data key="d0">30001996</data>
+      <data key="d1">WMP-OF</data>
+      <data key="d2">20000293</data>
+      <data key="d3">-0.0986371206583615</data>
+      <data key="d4">-2.6792769499480528e+17</data>
+      <data key="d5">1.0696308111535494e+17</data>
+      <data key="d6">2.4097714506301206e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">33</data>
+      <data key="d11">7</data>
+      <data key="d12">10</data>
+    </node>
+    <node id="ZKYV-W">
+      <data key="d0">30002018</data>
+      <data key="d1">304Z-R</data>
+      <data key="d2">20000297</data>
+      <data key="d3">-0.05562091921410772</data>
+      <data key="d4">-2.677094326027346e+17</data>
+      <data key="d5">6.826075384316005e+16</data>
+      <data key="d6">2.1308261102021283e+17</data>
+      <data key="d7">2500</data>
+      <data key="d8">18000</data>
+      <data key="d9">True</data>
+      <data key="d10">46</data>
+      <data key="d11">8</data>
+      <data key="d12">6</data>
+    </node>
+    <edge source="12YA-2" target="5-9WNU">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="12YA-2" target="BDV3-T">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="2-6TGQ" target="5ZXX-K">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="2-6TGQ" target="DP-1YE">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="2D-0SO" target="D7T-C0">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="2D-0SO" target="O-BY0Y">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="2D-0SO" target="UR-E6D">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="3V8-LJ" target="B8EN-S">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="3V8-LJ" target="DP-1YE">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="3V8-LJ" target="R-LW2I">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="3V8-LJ" target="R6XN-9">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="4-ABS8" target="DP-1YE">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="4-ABS8" target="J-CIJV">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="4-ABS8" target="R-LW2I">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="5-9WNU" target="EL8-4Q">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="5ZXX-K" target="8S-0E1">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="5ZXX-K" target="JE-D5U">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="6GWE-A" target="J-OK0C">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="6GWE-A" target="KDV-DE">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="6GWE-A" target="MT9Q-S">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="6GWE-A" target="UC3H-Y">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="7D-0SQ" target="Y-C3EQ">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="7RM-N0" target="F-NMX6">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="7RM-N0" target="GA-P6C">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="7RM-N0" target="KLY-C0">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="7RM-N0" target="S-MDYI">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="7X-VKB" target="B-9C24">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="7X-VKB" target="P-2TTL">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="8S-0E1" target="D7T-C0">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="93PI-4" target="G-M4I8">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="A8I-C5" target="C-H9X7">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="A8I-C5" target="DK-FXK">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="A8I-C5" target="U-INPD">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="B-9C24" target="F-NMX6">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="B-9C24" target="P-2TTL">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="B8EN-S" target="X-7OMU">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="BDV3-T" target="ION-FG">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="BDV3-T" target="WW-KGD">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="C-H9X7" target="ION-FG">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="CL6-ZG" target="CXN1-Z">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="CL6-ZG" target="KLY-C0">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="CL6-ZG" target="RD-G2R">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="CR-AQH" target="Q-5211">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="CR-AQH" target="R-2R0G">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="CR-AQH" target="XQ-PXU">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="CXN1-Z" target="KLY-C0">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="CXN1-Z" target="X-7OMU">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="D2-HOS" target="HPS5-C">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="D2-HOS" target="MQ-NPY">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="D2-HOS" target="RQH-MY">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="D2-HOS" target="Y2-6EA">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="D7T-C0" target="KI-TL0">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="DK-FXK" target="M-76XI">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="DK-FXK" target="U-INPD">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="DK-FXK" target="ZJET-E">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="DT-TCD" target="Y2-6EA">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="E-Z2ZX" target="P-2TTL">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="E-Z2ZX" target="RORZ-H">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="EC-P8R" target="EWOK-K">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="EC-P8R" target="G-M4I8">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="EL8-4Q" target="JC-YX8">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="EL8-4Q" target="KI-TL0">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="EL8-4Q" target="N-H32Y">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="EWOK-K" target="G-M4I8">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="EWOK-K" target="O-N8XZ">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="F-NMX6" target="ZKYV-W">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="FWA-4V" target="RZC-16">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="FWA-4V" target="ZKYV-W">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="G-M4I8" target="R-2R0G">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="G95-VZ" target="J-CIJV">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="G95-VZ" target="KLY-C0">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="G95-VZ" target="ROIR-Y">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="H1-J33" target="KU5R-W">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="H1-J33" target="Y-C3EQ">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="J-CIJV" target="X-7OMU">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="J-CIJV" target="X47L-Q">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="JE-D5U" target="OE-9UF">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="JE-D5U" target="PFU-LH">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="JE-D5U" target="R6XN-9">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="KDV-DE" target="MT9Q-S">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="KDV-DE" target="UC3H-Y">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="KI-TL0" target="XI-VUF">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="KLY-C0" target="X-7OMU">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="KQK1-2" target="O-BY0Y">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="KQK1-2" target="X47L-Q">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="KU5R-W" target="RORZ-H">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="L-TS8S" target="O-N8XZ">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="L-TS8S" target="R6XN-9">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="L-TS8S" target="X-7OMU">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="M-76XI" target="ZJET-E">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="M-YCD4" target="Q-5211">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="M-YCD4" target="R-2R0G">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="M-YCD4" target="XQ-PXU">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="MI6O-6" target="O-N8XZ">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="MQ-NPY" target="RQH-MY">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="MQ-NPY" target="RZC-16">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="MQ-NPY" target="TFA0-U">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="MT9Q-S" target="UC3H-Y">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="O-A6YN" target="P-2TTL">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="O-A6YN" target="RORZ-H">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="OE-9UF" target="PFU-LH">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="OGV-AS" target="UI-8ZE">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="OGV-AS" target="Y-C3EQ">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="P-2TTL" target="RORZ-H">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="Q-5211" target="R-2R0G">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="R6XN-9" target="X-7OMU">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="RD-G2R" target="UC3H-Y">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="S-MDYI" target="ZKYV-W">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="TFA0-U" target="Y2-6EA">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="UR-E6D" target="X47L-Q">
+      <data key="d13">stargate</data>
+    </edge>
+    <edge source="WW-KGD" target="XQ-PXU">
+      <data key="d13">stargate</data>
+    </edge>
+  </graph>
+</graphml>
