@@ -28,9 +28,6 @@ from pathlib import Path
 # Configuration
 SDE_PATH = "../data/sqlite-latest.sqlite"
 
-# Ice Belt type IDs in Eve Online
-ICE_BELT_TYPE_IDS = [15, 16]  # Ice Belt and Ice Field
-
 
 def get_available_regions(conn):
     """Query all available regions from the SDE database."""
@@ -146,26 +143,10 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
     systems_df['belts'] = systems_df['belts'].fillna(0).astype(int)
     print(f"✓ Counted asteroid belts for all systems")
 
-    # Query 5: Detect ice belts
-    query_ice = """
-    SELECT DISTINCT
-        solarSystemID as system_id
-    FROM mapDenormalize
-    WHERE regionID = ?
-      AND typeID IN (?, ?)
-    """
+    # NOTE: Ice belt detection removed - now user-maintained in systems_capacity.csv
+    # Ice belts are dynamic Cosmic Anomalies and cannot be reliably detected from SDE
 
-    ice_df = pd.read_sql_query(query_ice, conn, params=(region_id, *ICE_BELT_TYPE_IDS))
-    ice_systems = set(ice_df['system_id'].tolist())
-    systems_df['has_ice'] = systems_df['system_id'].isin(ice_systems)
-
-    ice_system_names = systems_df[systems_df['has_ice']]['system_name'].tolist()
-    print(f"✓ Detected {len(ice_systems)} systems with ice belts")
-    if ice_system_names:
-        print(f"  Ice systems: {', '.join(sorted(ice_system_names)[:5])}" +
-              (f" ... and {len(ice_system_names) - 5} more" if len(ice_system_names) > 5 else ""))
-
-    # Query 6: Get internal gates (within region)
+    # Query 5: Get internal gates (within region)
     query_gates_internal = """
     SELECT DISTINCT
         msj.fromSolarSystemID as from_system_id,
@@ -222,8 +203,9 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
     capacity_df = systems_df[['system_name']].copy()
     capacity_df['power_capacity'] = 0  # User needs to fill this
     capacity_df['workforce_capacity'] = 0  # User needs to fill this
+    capacity_df['has_ice'] = False  # User needs to fill this (ice belts are dynamic)
     print(f"✓ Created capacity template with {len(capacity_df)} systems")
-    print("  ⚠ Power and workforce set to 0 - edit systems_capacity.csv to add values")
+    print("  ⚠ Power, workforce, and ice status set to default - edit systems_capacity.csv")
 
     # ========================================================================
     # STEP 3: Merge and Create Full Dataset
@@ -239,9 +221,10 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
         how='left'
     )
 
-    # Fill any missing capacity with 0
+    # Fill any missing capacity with 0, has_ice with False
     systems_full['power_capacity'] = systems_full['power_capacity'].fillna(0).astype(int)
     systems_full['workforce_capacity'] = systems_full['workforce_capacity'].fillna(0).astype(int)
+    systems_full['has_ice'] = systems_full['has_ice'].fillna(False).astype(bool)
 
     print(f"✓ Created full dataset with {len(systems_full)} systems")
 
@@ -380,6 +363,10 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
 
     # Save analysis summary
     summary_path = OUTPUT_DIR / "summary.json"
+
+    # Get ice systems from user-maintained data
+    ice_system_names = systems_full[systems_full['has_ice']]['system_name'].tolist()
+
     summary = {
         'region': region_name,
         'region_id': region_id,
@@ -415,7 +402,7 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
 ## Data Files
 
 ### Auto-Generated (from Fuzzwork SDE)
-- **systems_static.csv** - System data from SDE (name, coords, ice, moons, etc.)
+- **systems_static.csv** - System data from SDE (name, coords, moons, planets, belts, etc.)
 - **gates_internal.csv** - Internal stargate connections
 - **gates_border.csv** - Border connections to adjacent regions
 - **{graph_name}.graphml** - NetworkX graph (XML format)
@@ -423,10 +410,11 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
 - **summary.json** - Network analysis and statistics
 
 ### User-Maintained
-- **systems_capacity.csv** - Power and workforce capacity per system
-  - This file can be edited to update capacity values
-  - These values are based on Activity Defense Multiplier (ADM)
+- **systems_capacity.csv** - Power, workforce, and ice status per system
+  - Power/workforce capacity based on Activity Defense Multiplier (ADM)
   - ADM changes based on in-system activity (mining, ratting)
+  - Ice status (has_ice) - mark True for systems with ice belts
+  - Ice belts are dynamic Cosmic Anomalies and cannot be auto-detected
 
 ### Merged Data
 - **systems_full.csv** - Complete dataset (static + capacity)
@@ -443,9 +431,9 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
   - Constellation/region membership
   - Stargate connections
   - Moon/planet/belt counts
-  - Ice belt detection
 - **What it DOESN'T provide:**
   - Power/workforce capacity (activity-dependent)
+  - Ice belt locations (now dynamic Cosmic Anomalies)
   - Current sovereignty holders
   - Existing upgrades
 
@@ -471,9 +459,10 @@ cd ../../Planning_docs
 python region_data_extractor.py
 ```
 
-### Update Capacity Data
+### Update Capacity and Ice Data
 ```bash
 # Edit systems_capacity.csv manually
+# Update power_capacity, workforce_capacity, and has_ice columns
 # Or import from your alliance's data
 
 # Regenerate full dataset (from Planning_docs directory)
