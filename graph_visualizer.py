@@ -119,7 +119,7 @@ class GraphVisualizer:
 
         return self.graph
 
-    def calculate_layout(self, method: str = "planar") -> Dict[str, Tuple[float, float]]:
+    def calculate_layout(self, method: str = "kamada_kawai") -> Dict[str, Tuple[float, float]]:
         """
         Calculate 2D layout from 3D coordinates
 
@@ -130,10 +130,12 @@ class GraphVisualizer:
                 - "hybrid": Start with 3D projection, refine with force-directed
 
                 Topological (ignore coordinates, focus on connections):
-                - "planar": Pure planar layout if graph is planar (default)
-                - "kamada_kawai": Spring-based layout optimized for path length
+                - "kamada_kawai": Spring-based layout optimized for path length (default)
+                - "planar": Pure planar layout if graph is planar
                 - "spectral": Fast layout using graph eigenvalues
                 - "spring": Standard Fruchterman-Reingold force-directed
+                - "constellation_clustered": Kamada-Kawai with constellation clustering
+                - "grid": Kamada-Kawai snapped to grid
 
         Returns:
             Dictionary mapping system names to (x, y) positions
@@ -152,6 +154,10 @@ class GraphVisualizer:
             self.pos = self._layout_spectral()
         elif method == "spring":
             self.pos = self._layout_force_directed()
+        elif method == "constellation_clustered":
+            self.pos = self._layout_constellation_clustered()
+        elif method == "grid":
+            self.pos = self._layout_grid()
         else:
             raise ValueError(f"Unknown layout method: {method}")
 
@@ -251,6 +257,149 @@ class GraphVisualizer:
         """
         pos = nx.spectral_layout(self.graph, scale=100)
         return {node: (x, y) for node, (x, y) in pos.items()}
+
+    def _layout_constellation_clustered(self) -> Dict[str, Tuple[float, float]]:
+        """
+        Constellation-clustered layout using Kamada-Kawai
+
+        Strategy:
+        1. Layout each constellation separately using Kamada-Kawai
+        2. Create meta-graph of constellations (edges between constellations)
+        3. Layout the meta-graph using Kamada-Kawai
+        4. Position constellation sub-layouts within their meta-positions
+
+        This should reduce crossings within constellations while maintaining
+        overall graph structure.
+        """
+        print("  Clustering by constellation...")
+
+        # Get all constellations
+        constellations = {}
+        for node in self.graph.nodes():
+            const = self.graph.nodes[node]['constellation']
+            if const not in constellations:
+                constellations[const] = []
+            constellations[const].append(node)
+
+        # Layout each constellation separately
+        constellation_layouts = {}
+        for const, systems in constellations.items():
+            # Create subgraph for this constellation
+            subgraph = self.graph.subgraph(systems)
+
+            # Layout the subgraph (scale smaller for individual constellations)
+            if len(systems) > 1:
+                sub_pos = nx.kamada_kawai_layout(subgraph, scale=15)
+            else:
+                # Single node - place at origin
+                sub_pos = {systems[0]: (0, 0)}
+
+            constellation_layouts[const] = sub_pos
+
+        # Create meta-graph of constellations
+        # Edge exists if any system in const_a connects to any system in const_b
+        meta_graph = nx.Graph()
+        meta_graph.add_nodes_from(constellations.keys())
+
+        for const_a in constellations:
+            for const_b in constellations:
+                if const_a >= const_b:  # Avoid duplicates and self-loops
+                    continue
+
+                # Check if there's an edge between these constellations
+                for sys_a in constellations[const_a]:
+                    for sys_b in constellations[const_b]:
+                        if self.graph.has_edge(sys_a, sys_b):
+                            meta_graph.add_edge(const_a, const_b)
+                            break
+                    if meta_graph.has_edge(const_a, const_b):
+                        break
+
+        # Layout the meta-graph
+        if len(meta_graph.nodes()) > 1:
+            meta_pos = nx.kamada_kawai_layout(meta_graph, scale=100)
+        else:
+            meta_pos = {list(meta_graph.nodes())[0]: (50, 50)}
+
+        # Combine: place each constellation's layout at its meta-position
+        final_pos = {}
+        for const, systems in constellations.items():
+            meta_x, meta_y = meta_pos[const]
+
+            for system in systems:
+                sub_x, sub_y = constellation_layouts[const][system]
+                # Offset by meta position
+                final_pos[system] = (meta_x + sub_x, meta_y + sub_y)
+
+        return final_pos
+
+    def _layout_grid(self) -> Dict[str, Tuple[float, float]]:
+        """
+        Grid-snapped layout
+
+        Strategy:
+        1. Use Kamada-Kawai to get initial positions
+        2. Snap positions to a grid (reduces visual clutter)
+        3. Use grid cells that are large enough to avoid overlaps
+
+        This creates a more "organized" looking graph while maintaining
+        topological relationships.
+        """
+        print("  Snapping to grid...")
+
+        # Start with Kamada-Kawai layout
+        initial_pos = self._layout_kamada_kawai()
+
+        # Determine grid size based on number of nodes
+        # We want enough grid cells to avoid too many collisions
+        num_nodes = len(initial_pos)
+        grid_size = int(np.ceil(np.sqrt(num_nodes * 2)))  # 2x oversampling
+        cell_size = 100.0 / grid_size
+
+        print(f"  Using {grid_size}x{grid_size} grid (cell size: {cell_size:.1f})")
+
+        # Snap each position to nearest grid point
+        grid_pos = {}
+        occupied = set()
+
+        # Sort nodes by their initial position to process consistently
+        sorted_nodes = sorted(initial_pos.keys(),
+                            key=lambda n: (initial_pos[n][0], initial_pos[n][1]))
+
+        for node in sorted_nodes:
+            x, y = initial_pos[node]
+
+            # Find nearest grid point
+            grid_x = round(x / cell_size) * cell_size
+            grid_y = round(y / cell_size) * cell_size
+
+            # If occupied, find nearest unoccupied grid point
+            if (grid_x, grid_y) in occupied:
+                # Search in expanding square around the desired position
+                for radius in range(1, grid_size):
+                    found = False
+                    for dx in range(-radius, radius + 1):
+                        for dy in range(-radius, radius + 1):
+                            if abs(dx) != radius and abs(dy) != radius:
+                                continue  # Only check perimeter
+
+                            test_x = grid_x + dx * cell_size
+                            test_y = grid_y + dy * cell_size
+
+                            if (test_x, test_y) not in occupied:
+                                grid_x, grid_y = test_x, test_y
+                                found = True
+                                break
+                        if found:
+                            break
+                    if found:
+                        break
+
+            grid_pos[node] = (grid_x, grid_y)
+            occupied.add((grid_x, grid_y))
+
+        # Normalize to 0-100 range
+        return self._normalize_positions(grid_pos)
 
     def _normalize_positions(self, pos: Dict[str, Tuple[float, float]]) -> Dict[str, Tuple[float, float]]:
         """Normalize positions to 0-100 range"""
@@ -617,6 +766,75 @@ class GraphVisualizer:
         except nx.NetworkXNoPath:
             return []
 
+    def analyze_layout_preservation(self) -> Dict:
+        """
+        Analyze what information is preserved in the current layout
+
+        Returns:
+            Dictionary with analysis metrics
+        """
+        if not self.pos:
+            raise ValueError("No layout calculated. Call calculate_layout() first.")
+
+        analysis = {
+            'graph_distance_correlation': 0.0,
+            'euclidean_distance_correlation': 0.0,
+            'constellation_cohesion': 0.0,
+        }
+
+        # 1. Graph-theoretic distance vs Euclidean distance correlation
+        # This tells us how well the layout preserves hop distances
+        graph_distances = []
+        euclidean_distances = []
+
+        nodes = list(self.graph.nodes())
+        for i, node_a in enumerate(nodes):
+            for node_b in nodes[i+1:]:
+                # Graph distance (hop count)
+                graph_dist = nx.shortest_path_length(self.graph, node_a, node_b)
+                graph_distances.append(graph_dist)
+
+                # Euclidean distance in layout
+                x1, y1 = self.pos[node_a]
+                x2, y2 = self.pos[node_b]
+                euclidean_dist = np.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+                euclidean_distances.append(euclidean_dist)
+
+        # Calculate Pearson correlation
+        if len(graph_distances) > 1:
+            correlation = np.corrcoef(graph_distances, euclidean_distances)[0, 1]
+            analysis['graph_distance_correlation'] = correlation
+
+        # 2. Constellation cohesion - how well are constellations clustered?
+        # Measure average distance within constellation vs between constellations
+        within_const_distances = []
+        between_const_distances = []
+
+        for node_a in nodes:
+            for node_b in nodes:
+                if node_a >= node_b:
+                    continue
+
+                const_a = self.graph.nodes[node_a]['constellation']
+                const_b = self.graph.nodes[node_b]['constellation']
+
+                x1, y1 = self.pos[node_a]
+                x2, y2 = self.pos[node_b]
+                euclidean_dist = np.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+
+                if const_a == const_b:
+                    within_const_distances.append(euclidean_dist)
+                else:
+                    between_const_distances.append(euclidean_dist)
+
+        if within_const_distances and between_const_distances:
+            avg_within = np.mean(within_const_distances)
+            avg_between = np.mean(between_const_distances)
+            # Cohesion score: ratio of between/within (higher = better clustering)
+            analysis['constellation_cohesion'] = avg_between / avg_within if avg_within > 0 else 0
+
+        return analysis
+
 
 def main():
     """
@@ -646,20 +864,22 @@ def main():
     print("="*70)
     print()
 
-    # Test both coordinate-based and topological layout methods
+    # Test layout methods
     layouts = {
+        # Topological (ignore coordinates, optimize for path clarity)
+        "kamada_kawai": "Pure Blind - Kamada-Kawai (Default)",
+        "constellation_clustered": "Pure Blind - Constellation Clustered",
+        "grid": "Pure Blind - Grid Layout",
+        "planar": "Pure Blind - Planar (0 crossings if planar)",
+        "spectral": "Pure Blind - Spectral",
+
         # Coordinate-based (use Eve Online positions)
         "3d_projection": "Pure Blind - 3D Projection (Coordinate-based)",
         "hybrid": "Pure Blind - Hybrid (Coord + Force-directed)",
-
-        # Topological (ignore coordinates, optimize for path clarity)
-        "planar": "Pure Blind - Planar/Kamada-Kawai (Topological)",
-        "kamada_kawai": "Pure Blind - Kamada-Kawai (Topological)",
-        "spectral": "Pure Blind - Spectral (Topological)",
-        "spring": "Pure Blind - Spring/Fruchterman-Reingold (Topological)",
     }
 
     crossing_results = {}
+    analysis_results = {}
 
     for method, title in layouts.items():
         print(f"Generating {method} layout...")
@@ -667,6 +887,12 @@ def main():
 
         # Store crossing count
         crossing_results[method] = viz._count_edge_crossings()
+
+        # Analyze what's preserved
+        analysis = viz.analyze_layout_preservation()
+        analysis_results[method] = analysis
+        print(f"  Distance correlation: {analysis['graph_distance_correlation']:.3f}")
+        print(f"  Constellation cohesion: {analysis['constellation_cohesion']:.2f}")
 
         # Export visualization
         filename = f"pure_blind_map_{method}.html"
@@ -704,38 +930,71 @@ def main():
 
     print()
     print("="*70)
-    print("Layout Comparison:")
+    print("Layout Comparison Summary:")
     print("="*70)
 
     # Separate coordinate-based and topological
     coord_based = ["3d_projection", "hybrid"]
-    topological = ["planar", "kamada_kawai", "spectral", "spring"]
+    topological = ["kamada_kawai", "constellation_clustered", "grid", "planar", "spectral"]
 
-    print("\nCoordinate-based layouts (use Eve spatial data):")
-    for method in coord_based:
-        if method in crossing_results:
-            print(f"  {method:20s}: {crossing_results[method]:4d} edge crossings")
-
-    print("\nTopological layouts (ignore coordinates, optimize for clarity):")
+    print("\nTOPOLOGICAL LAYOUTS (ignore coordinates, optimize for clarity):")
+    print("-" * 70)
+    print(f"{'Method':<25} {'Crossings':>10} {'Dist.Corr':>12} {'Const.Cohesion':>15}")
+    print("-" * 70)
     for method in topological:
         if method in crossing_results:
-            print(f"  {method:20s}: {crossing_results[method]:4d} edge crossings")
+            analysis = analysis_results[method]
+            print(f"{method:<25} {crossing_results[method]:>10} "
+                  f"{analysis['graph_distance_correlation']:>12.3f} "
+                  f"{analysis['constellation_cohesion']:>15.2f}")
 
-    print(f"\nBest overall: {best_method} ({crossing_results[best_method]} crossings)")
+    print("\nCOORDINATE-BASED LAYOUTS (use Eve spatial data):")
+    print("-" * 70)
+    print(f"{'Method':<25} {'Crossings':>10} {'Dist.Corr':>12} {'Const.Cohesion':>15}")
+    print("-" * 70)
+    for method in coord_based:
+        if method in crossing_results:
+            analysis = analysis_results[method]
+            print(f"{method:<25} {crossing_results[method]:>10} "
+                  f"{analysis['graph_distance_correlation']:>12.3f} "
+                  f"{analysis['constellation_cohesion']:>15.2f}")
+
+    print()
+    print("="*70)
+    print("WHAT INFORMATION IS PRESERVED?")
+    print("="*70)
+    print()
+    print("Distance Correlation:")
+    print("  Measures how well graph distances (hop count) correlate with")
+    print("  visual distances on screen. Higher = better distance preservation.")
+    print("  Kamada-Kawai optimizes for this metric!")
+    print()
+    print("Constellation Cohesion:")
+    print("  Ratio of between-constellation to within-constellation distances.")
+    print("  Higher = constellations are more visually clustered.")
+    print("  Constellation-clustered layout optimizes for this!")
+    print()
+    print(f"Best for minimal crossings: {min(crossing_results, key=crossing_results.get)} "
+          f"({crossing_results[min(crossing_results, key=crossing_results.get)]} crossings)")
+
+    # Find best for distance correlation
+    best_corr = max(analysis_results, key=lambda m: analysis_results[m]['graph_distance_correlation'])
+    print(f"Best for distance preservation: {best_corr} "
+          f"(correlation: {analysis_results[best_corr]['graph_distance_correlation']:.3f})")
+
+    # Find best for constellation cohesion
+    best_cohesion = max(analysis_results, key=lambda m: analysis_results[m]['constellation_cohesion'])
+    print(f"Best for constellation clustering: {best_cohesion} "
+          f"(cohesion: {analysis_results[best_cohesion]['constellation_cohesion']:.2f})")
 
     print()
     print("="*70)
     print("✓ Phase 2 Complete!")
     print(f"Main map: pure_blind_map.html (using {best_method} layout)")
-    print("\nComparison maps:")
-    print("  Coordinate-based:")
-    for method in coord_based:
-        if method in layouts:
-            print(f"    - pure_blind_map_{method}.html")
-    print("  Topological:")
-    for method in topological:
-        if method in layouts:
-            print(f"    - pure_blind_map_{method}.html")
+    print()
+    print("All comparison maps generated:")
+    for method in layouts.keys():
+        print(f"  - pure_blind_map_{method}.html")
     print("="*70)
 
 
