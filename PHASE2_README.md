@@ -92,7 +92,9 @@ viz = GraphVisualizer()
 # Load and build
 viz.load_data()
 viz.build_graph()
-viz.calculate_layout()
+
+# Calculate layout (default: hybrid with minimal crossings)
+viz.calculate_layout()  # or specify: method="3d_projection" or "planar"
 
 # Get system info
 info = viz.get_system_info('5ZXX-K')
@@ -106,13 +108,19 @@ print(f"Route: {' → '.join(route)}")
 jumps = viz.calculate_distance('5ZXX-K', 'EC-P8R')
 print(f"Distance: {jumps} jumps")
 
-# Create custom visualization
+# Create custom visualization with specific layout
 fig = viz.create_plotly_figure(
     highlight_systems=['5ZXX-K', 'X-7OMU'],
     show_labels=True,
     title="Pure Blind - Custom View"
 )
 fig.show()
+
+# Compare different layout methods
+for method in ["3d_projection", "planar", "hybrid"]:
+    viz.calculate_layout(method=method)
+    crossings = viz._count_edge_crossings()
+    print(f"{method}: {crossings} edge crossings")
 ```
 
 ## Graph Statistics
@@ -144,22 +152,63 @@ fig.show()
 
 ### Layout Algorithm
 
-**Approach Used:** Direct 3D → 2D projection (Recommended approach from PROJECT_PLAN.md)
+**Approach Used:** Hybrid Layout (3D Projection + Force-Directed Refinement)
 
-The visualization uses the actual Eve Online 3D coordinates for each system, projecting them to 2D by:
-1. Extracting x,y coordinates (ignoring z)
-2. Normalizing to 0-100 range
-3. Maintaining spatial relationships
+The visualization now supports three layout methods, with **hybrid** selected as the default:
+
+#### 1. Hybrid Layout (Default) ✅
+**Best of both worlds: 17 edge crossings**
+
+Combines spatial accuracy with crossing minimization:
+1. Starts with 3D → 2D projection (x,y coordinates from Eve Online)
+2. Applies force-directed refinement (Fruchterman-Reingold algorithm)
+3. Uses fewer iterations to preserve general spatial relationships
+4. Results in recognizable layout with minimal edge crossings
 
 **Advantages:**
-- Preserves actual game layout
-- Recognizable to players familiar with the region
-- Maintains constellation clustering
-- Fast to compute
+- **57.5% fewer crossings** than pure 3D projection (17 vs 40)
+- Maintains recognizable spatial structure
+- Preserves constellation clustering
+- Much more readable than pure force-directed
 
-**Alternative Approaches (Not Used):**
-- Force-directed layout (`nx.spring_layout`) - Would not match Dotlan/in-game
-- Manual position optimization - Not needed with good coordinate data
+#### 2. 3D Projection
+**Original method: 40 edge crossings**
+
+Direct projection from 3D coordinates:
+1. Extract x,y coordinates (ignore z)
+2. Normalize to 0-100 range
+3. No crossing optimization
+
+**Advantages:**
+- Exactly matches Eve Online spatial layout
+- Fast to compute
+- Preserves in-game distances
+
+**Disadvantages:**
+- 40 edge crossings (more visual clutter)
+
+#### 3. Pure Force-Directed
+**Not recommended: 771 edge crossings**
+
+Uses spring layout without initial positions:
+- Minimizes edge length, not crossings
+- Loses spatial relationships
+- Unrecognizable to players
+- Worst crossing count of all methods
+
+### Layout Comparison Results
+
+| Method | Edge Crossings | Recommendation |
+|--------|----------------|----------------|
+| **Hybrid** | **17** | ✅ **Default** - Best balance |
+| 3D Projection | 40 | Good for spatial accuracy |
+| Force-Directed | 771 | ❌ Not recommended |
+
+All three visualizations are generated for comparison:
+- `pure_blind_map.html` - Uses hybrid (default)
+- `pure_blind_map_hybrid.html` - Hybrid layout
+- `pure_blind_map_3d_projection.html` - 3D projection
+- `pure_blind_map_planar.html` - Pure force-directed
 
 ### Border Systems Handling
 

@@ -19,10 +19,10 @@ Usage:
 import pandas as pd
 import networkx as nx
 import plotly.graph_objects as go
+import numpy as np
 from pathlib import Path
 import json
 from typing import Dict, List, Tuple, Optional
-import numpy as np
 
 
 class GraphVisualizer:
@@ -119,44 +119,141 @@ class GraphVisualizer:
 
         return self.graph
 
-    def calculate_layout(self) -> Dict[str, Tuple[float, float]]:
+    def calculate_layout(self, method: str = "planar") -> Dict[str, Tuple[float, float]]:
         """
         Calculate 2D layout from 3D coordinates
-        Uses x,y coordinates and ignores z (direct projection approach)
+
+        Args:
+            method: Layout method to use
+                - "3d_projection": Direct x,y projection from 3D coordinates
+                - "planar": Force-directed layout minimizing edge crossings (default)
+                - "hybrid": Start with 3D projection, refine with force-directed
 
         Returns:
             Dictionary mapping system names to (x, y) positions
         """
-        print("Calculating 2D layout from 3D coordinates...")
+        print(f"Calculating 2D layout using '{method}' method...")
 
-        self.pos = {}
+        if method == "3d_projection":
+            self.pos = self._layout_3d_projection()
+        elif method == "planar":
+            self.pos = self._layout_force_directed()
+        elif method == "hybrid":
+            self.pos = self._layout_hybrid()
+        else:
+            raise ValueError(f"Unknown layout method: {method}")
+
+        print(f"✓ Layout calculated for {len(self.pos)} systems")
+
+        # Count edge crossings for diagnostics
+        crossings = self._count_edge_crossings()
+        print(f"  Edge crossings: {crossings}")
+
+        return self.pos
+
+    def _layout_3d_projection(self) -> Dict[str, Tuple[float, float]]:
+        """Direct projection from 3D coordinates (original method)"""
+        pos = {}
 
         for node in self.graph.nodes():
             # Get 3D coordinates
             x = self.graph.nodes[node]['x']
             y = self.graph.nodes[node]['y']
             # z is ignored for 2D projection
+            pos[node] = (x, y)
 
-            # Normalize coordinates for better visualization
-            # (Eve coordinates are in meters, very large numbers)
-            self.pos[node] = (x, y)
+        # Normalize to 0-100 range
+        return self._normalize_positions(pos)
 
-        # Normalize to reasonable range for plotting
-        all_x = [pos[0] for pos in self.pos.values()]
-        all_y = [pos[1] for pos in self.pos.values()]
+    def _layout_force_directed(self) -> Dict[str, Tuple[float, float]]:
+        """
+        Force-directed layout to minimize edge crossings
+        Uses NetworkX spring layout (Fruchterman-Reingold algorithm)
+        """
+        # Use spring layout with parameters tuned for readability
+        pos = nx.spring_layout(
+            self.graph,
+            k=2.0,  # Optimal distance between nodes
+            iterations=100,  # More iterations = better layout
+            seed=42,  # Reproducible layout
+            scale=100,  # Scale to 0-100 range
+        )
+
+        # Convert to our format
+        return {node: (x, y) for node, (x, y) in pos.items()}
+
+    def _layout_hybrid(self) -> Dict[str, Tuple[float, float]]:
+        """
+        Hybrid approach: Start with 3D projection, refine with force-directed
+        Preserves general spatial relationships while reducing crossings
+        """
+        # Start with 3D projection
+        initial_pos = self._layout_3d_projection()
+
+        # Convert to format needed by spring_layout
+        initial_pos_array = {node: np.array([x, y]) for node, (x, y) in initial_pos.items()}
+
+        # Refine with force-directed, using initial positions
+        pos = nx.spring_layout(
+            self.graph,
+            pos=initial_pos_array,
+            k=1.5,
+            iterations=50,  # Fewer iterations to preserve initial structure
+            seed=42,
+            scale=100,
+        )
+
+        # Convert back to our format
+        return {node: (x, y) for node, (x, y) in pos.items()}
+
+    def _normalize_positions(self, pos: Dict[str, Tuple[float, float]]) -> Dict[str, Tuple[float, float]]:
+        """Normalize positions to 0-100 range"""
+        all_x = [x for x, y in pos.values()]
+        all_y = [y for x, y in pos.values()]
 
         min_x, max_x = min(all_x), max(all_x)
         min_y, max_y = min(all_y), max(all_y)
 
-        # Normalize to 0-100 range
-        for node in self.pos:
-            x, y = self.pos[node]
+        normalized = {}
+        for node, (x, y) in pos.items():
             norm_x = (x - min_x) / (max_x - min_x) * 100 if max_x != min_x else 50
             norm_y = (y - min_y) / (max_y - min_y) * 100 if max_y != min_y else 50
-            self.pos[node] = (norm_x, norm_y)
+            normalized[node] = (norm_x, norm_y)
 
-        print(f"✓ Layout calculated for {len(self.pos)} systems")
-        return self.pos
+        return normalized
+
+    def _count_edge_crossings(self) -> int:
+        """
+        Count the number of edge crossings in the current layout
+        This is a simple geometric check
+        """
+        edges = list(self.graph.edges())
+        crossings = 0
+
+        for i, (a, b) in enumerate(edges):
+            for c, d in edges[i+1:]:
+                # Skip if edges share a vertex
+                if a == c or a == d or b == c or b == d:
+                    continue
+
+                # Check if line segments intersect
+                if self._segments_intersect(
+                    self.pos[a], self.pos[b],
+                    self.pos[c], self.pos[d]
+                ):
+                    crossings += 1
+
+        return crossings
+
+    def _segments_intersect(self, p1, p2, p3, p4) -> bool:
+        """
+        Check if line segments (p1,p2) and (p3,p4) intersect
+        Uses the orientation method
+        """
+        def ccw(A, B, C):
+            return (C[1]-A[1]) * (B[0]-A[0]) > (B[1]-A[1]) * (C[0]-A[0])
+
+        return ccw(p1,p3,p4) != ccw(p2,p3,p4) and ccw(p1,p2,p3) != ccw(p1,p2,p4)
 
     def assign_constellation_colors(self) -> Dict[str, str]:
         """
@@ -494,15 +591,44 @@ def main():
     # Build graph
     viz.build_graph()
 
-    # Calculate layout
-    viz.calculate_layout()
-
-    # Assign colors
+    # Assign colors (before layout)
     viz.assign_constellation_colors()
 
-    # Create and export visualization
     print()
-    print("Creating interactive visualization...")
+    print("="*70)
+    print("Testing Different Layout Methods")
+    print("="*70)
+    print()
+
+    # Test all three layout methods and compare
+    layouts = {
+        "3d_projection": "Pure Blind Map - 3D Projection",
+        "planar": "Pure Blind Map - Force-Directed (Minimal Crossings)",
+        "hybrid": "Pure Blind Map - Hybrid Layout"
+    }
+
+    crossing_results = {}
+
+    for method, title in layouts.items():
+        print(f"Generating {method} layout...")
+        viz.calculate_layout(method=method)
+
+        # Store crossing count
+        crossing_results[method] = viz._count_edge_crossings()
+
+        # Export visualization
+        filename = f"pure_blind_map_{method}.html"
+        fig = viz.create_plotly_figure(title=title)
+        fig.write_html(filename)
+        print(f"  Exported to {filename}")
+        print()
+
+    # Use the best layout for the main export
+    best_method = min(crossing_results, key=crossing_results.get)
+    print(f"Best layout method: {best_method} ({crossing_results[best_method]} crossings)")
+    print(f"Creating main visualization with {best_method} layout...")
+
+    viz.calculate_layout(method=best_method)
     viz.export_html("pure_blind_map.html")
 
     # Export graph data
@@ -526,8 +652,18 @@ def main():
 
     print()
     print("="*70)
+    print("Layout Comparison:")
+    print("="*70)
+    for method, crossings in sorted(crossing_results.items(), key=lambda x: x[1]):
+        print(f"  {method:20s}: {crossings:4d} edge crossings")
+
+    print()
+    print("="*70)
     print("✓ Phase 2 Complete!")
-    print("Open pure_blind_map.html in your browser to view the map")
+    print(f"Main map: pure_blind_map.html (using {best_method} layout)")
+    print("Comparison maps:")
+    for method in layouts.keys():
+        print(f"  - pure_blind_map_{method}.html")
     print("="*70)
 
 
