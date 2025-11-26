@@ -1,0 +1,26 @@
+# Pure Blind Region Planner - Python Dependencies
+# ================================================
+#
+# Install all dependencies with:
+#   pip install -r requirements.txt
+#
+# Or install specific groups:
+#   pip install pandas networkx plotly  # Core visualization
+#   pip install dash                     # Web dashboard (Phase 3+)
+
+# Core data processing
+pandas>=2.3.0
+numpy>=2.3.0
+
+# Graph analysis
+networkx>=3.6
+
+# Visualization
+plotly>=6.5.0
+
+# Web dashboard (for Dash app)
+# dash>=2.14.0  # Uncomment when ready for Phase 3
+
+# Optional: Performance and utilities
+# scipy>=1.11.0  # For advanced graph algorithms
+# python-dateutil>=2.8.2  # Date handling
