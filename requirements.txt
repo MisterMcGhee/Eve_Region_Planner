@@ -15,6 +15,9 @@ numpy>=2.3.0
 # Graph analysis
 networkx>=3.6
 
+# Graph layout algorithms (for Kamada-Kawai and other advanced layouts)
+scipy>=1.16.0
+
 # Visualization
 plotly>=6.5.0
 
@@ -22,5 +25,4 @@ plotly>=6.5.0
 # dash>=2.14.0  # Uncomment when ready for Phase 3
 
 # Optional: Performance and utilities
-# scipy>=1.11.0  # For advanced graph algorithms
 # python-dateutil>=2.8.2  # Date handling

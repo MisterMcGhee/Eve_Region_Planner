@@ -125,9 +125,15 @@ class GraphVisualizer:
 
         Args:
             method: Layout method to use
+                Coordinate-based:
                 - "3d_projection": Direct x,y projection from 3D coordinates
-                - "planar": Force-directed layout minimizing edge crossings (default)
                 - "hybrid": Start with 3D projection, refine with force-directed
+
+                Topological (ignore coordinates, focus on connections):
+                - "planar": Pure planar layout if graph is planar (default)
+                - "kamada_kawai": Spring-based layout optimized for path length
+                - "spectral": Fast layout using graph eigenvalues
+                - "spring": Standard Fruchterman-Reingold force-directed
 
         Returns:
             Dictionary mapping system names to (x, y) positions
@@ -136,10 +142,16 @@ class GraphVisualizer:
 
         if method == "3d_projection":
             self.pos = self._layout_3d_projection()
-        elif method == "planar":
-            self.pos = self._layout_force_directed()
         elif method == "hybrid":
             self.pos = self._layout_hybrid()
+        elif method == "planar":
+            self.pos = self._layout_planar()
+        elif method == "kamada_kawai":
+            self.pos = self._layout_kamada_kawai()
+        elif method == "spectral":
+            self.pos = self._layout_spectral()
+        elif method == "spring":
+            self.pos = self._layout_force_directed()
         else:
             raise ValueError(f"Unknown layout method: {method}")
 
@@ -204,6 +216,40 @@ class GraphVisualizer:
         )
 
         # Convert back to our format
+        return {node: (x, y) for node, (x, y) in pos.items()}
+
+    def _layout_planar(self) -> Dict[str, Tuple[float, float]]:
+        """
+        Pure topological planar layout - ignores coordinates completely
+        Uses planar layout if graph is planar, otherwise best alternative
+        """
+        # Check if graph is actually planar
+        is_planar, embedding = nx.check_planarity(self.graph)
+
+        if is_planar:
+            print("  Graph IS planar! Using planar_layout for zero crossings")
+            # Use the planar layout algorithm
+            pos = nx.planar_layout(self.graph, scale=100)
+            return {node: (x, y) for node, (x, y) in pos.items()}
+        else:
+            print("  Graph is NOT planar - using Kamada-Kawai for minimal crossings")
+            # Fall back to Kamada-Kawai which generally works well for non-planar graphs
+            return self._layout_kamada_kawai()
+
+    def _layout_kamada_kawai(self) -> Dict[str, Tuple[float, float]]:
+        """
+        Kamada-Kawai layout - optimizes for graph-theoretic distances
+        Often produces better results than spring layout for path clarity
+        """
+        pos = nx.kamada_kawai_layout(self.graph, scale=100)
+        return {node: (x, y) for node, (x, y) in pos.items()}
+
+    def _layout_spectral(self) -> Dict[str, Tuple[float, float]]:
+        """
+        Spectral layout - uses eigenvectors of graph Laplacian
+        Very fast and often produces good results for visualization
+        """
+        pos = nx.spectral_layout(self.graph, scale=100)
         return {node: (x, y) for node, (x, y) in pos.items()}
 
     def _normalize_positions(self, pos: Dict[str, Tuple[float, float]]) -> Dict[str, Tuple[float, float]]:
@@ -596,15 +642,21 @@ def main():
 
     print()
     print("="*70)
-    print("Testing Different Layout Methods")
+    print("Testing Layout Methods")
     print("="*70)
     print()
 
-    # Test all three layout methods and compare
+    # Test both coordinate-based and topological layout methods
     layouts = {
-        "3d_projection": "Pure Blind Map - 3D Projection",
-        "planar": "Pure Blind Map - Force-Directed (Minimal Crossings)",
-        "hybrid": "Pure Blind Map - Hybrid Layout"
+        # Coordinate-based (use Eve Online positions)
+        "3d_projection": "Pure Blind - 3D Projection (Coordinate-based)",
+        "hybrid": "Pure Blind - Hybrid (Coord + Force-directed)",
+
+        # Topological (ignore coordinates, optimize for path clarity)
+        "planar": "Pure Blind - Planar/Kamada-Kawai (Topological)",
+        "kamada_kawai": "Pure Blind - Kamada-Kawai (Topological)",
+        "spectral": "Pure Blind - Spectral (Topological)",
+        "spring": "Pure Blind - Spring/Fruchterman-Reingold (Topological)",
     }
 
     crossing_results = {}
@@ -654,16 +706,36 @@ def main():
     print("="*70)
     print("Layout Comparison:")
     print("="*70)
-    for method, crossings in sorted(crossing_results.items(), key=lambda x: x[1]):
-        print(f"  {method:20s}: {crossings:4d} edge crossings")
+
+    # Separate coordinate-based and topological
+    coord_based = ["3d_projection", "hybrid"]
+    topological = ["planar", "kamada_kawai", "spectral", "spring"]
+
+    print("\nCoordinate-based layouts (use Eve spatial data):")
+    for method in coord_based:
+        if method in crossing_results:
+            print(f"  {method:20s}: {crossing_results[method]:4d} edge crossings")
+
+    print("\nTopological layouts (ignore coordinates, optimize for clarity):")
+    for method in topological:
+        if method in crossing_results:
+            print(f"  {method:20s}: {crossing_results[method]:4d} edge crossings")
+
+    print(f"\nBest overall: {best_method} ({crossing_results[best_method]} crossings)")
 
     print()
     print("="*70)
     print("✓ Phase 2 Complete!")
     print(f"Main map: pure_blind_map.html (using {best_method} layout)")
-    print("Comparison maps:")
-    for method in layouts.keys():
-        print(f"  - pure_blind_map_{method}.html")
+    print("\nComparison maps:")
+    print("  Coordinate-based:")
+    for method in coord_based:
+        if method in layouts:
+            print(f"    - pure_blind_map_{method}.html")
+    print("  Topological:")
+    for method in topological:
+        if method in layouts:
+            print(f"    - pure_blind_map_{method}.html")
     print("="*70)
 
 
