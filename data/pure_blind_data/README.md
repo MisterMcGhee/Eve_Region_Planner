@@ -18,7 +18,7 @@
 
 ### Merged Data
 - **systems_full.csv** - Complete dataset (static + capacity)
-  - This is regenerated when you run phase1_enhanced.py
+  - This is regenerated when you run region_data_extractor.py
   - Use this file for the planning tool
 
 ## Data Sources
@@ -52,9 +52,11 @@
 # Download latest SDE
 wget https://www.fuzzwork.co.uk/dump/sqlite-latest.sqlite.bz2
 bunzip2 sqlite-latest.sqlite.bz2
+mv sqlite-latest.sqlite ../
 
-# Regenerate
-python phase1_enhanced.py
+# Regenerate (from Planning_docs directory)
+cd ../../Planning_docs
+python region_data_extractor.py
 ```
 
 ### Update Capacity Data
@@ -62,8 +64,9 @@ python phase1_enhanced.py
 # Edit systems_capacity.csv manually
 # Or import from your alliance's data
 
-# Regenerate full dataset
-python phase1_enhanced.py
+# Regenerate full dataset (from Planning_docs directory)
+cd ../../Planning_docs
+python region_data_extractor.py
 ```
 
 ## Statistics
