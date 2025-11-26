@@ -136,6 +136,7 @@ class GraphVisualizer:
                 - "spring": Standard Fruchterman-Reingold force-directed
                 - "constellation_clustered": Kamada-Kawai with constellation clustering
                 - "grid": Kamada-Kawai snapped to grid
+                - "dotlan": Dotlan-style layout (planar + strong constellation clustering)
 
         Returns:
             Dictionary mapping system names to (x, y) positions
@@ -158,6 +159,8 @@ class GraphVisualizer:
             self.pos = self._layout_constellation_clustered()
         elif method == "grid":
             self.pos = self._layout_grid()
+        elif method == "dotlan":
+            self.pos = self._layout_dotlan()
         else:
             raise ValueError(f"Unknown layout method: {method}")
 
@@ -331,6 +334,102 @@ class GraphVisualizer:
                 # Offset by meta position
                 final_pos[system] = (meta_x + sub_x, meta_y + sub_y)
 
+        return final_pos
+
+    def _layout_dotlan(self) -> Dict[str, Tuple[float, float]]:
+        """
+        Dotlan-style layout - matches Dotlan EVE map appearance
+
+        Strategy:
+        1. Layout each constellation individually (planar if possible, else kamada-kawai)
+        2. Create meta-graph of constellation connections
+        3. Position constellations with generous spacing for visual clarity
+        4. Ensure 0 or minimal crossings
+
+        This mimics Dotlan's hand-tuned appearance with strong constellation clustering.
+        """
+        print("  Creating Dotlan-style layout with constellation clustering...")
+
+        # Get all constellations and their systems
+        constellations = {}
+        for node in self.graph.nodes():
+            const = self.graph.nodes[node]['constellation']
+            if const not in constellations:
+                constellations[const] = []
+            constellations[const].append(node)
+
+        print(f"  Laying out {len(constellations)} constellations...")
+
+        # Layout each constellation separately
+        constellation_layouts = {}
+        constellation_sizes = {}
+
+        for const, systems in constellations.items():
+            # Create subgraph for this constellation
+            subgraph = self.graph.subgraph(systems)
+
+            if len(systems) == 1:
+                # Single node - place at origin
+                constellation_layouts[const] = {systems[0]: (0, 0)}
+                constellation_sizes[const] = (0, 0, 0, 0)  # min_x, max_x, min_y, max_y
+            else:
+                # Try planar layout first for this constellation
+                is_planar, _ = nx.check_planarity(subgraph)
+
+                if is_planar and len(systems) > 2:
+                    # Use planar layout for 0 crossings within constellation
+                    sub_pos = nx.planar_layout(subgraph, scale=20)
+                else:
+                    # Use kamada-kawai for small or non-planar constellations
+                    sub_pos = nx.kamada_kawai_layout(subgraph, scale=20)
+
+                constellation_layouts[const] = {node: (x, y) for node, (x, y) in sub_pos.items()}
+
+                # Calculate bounding box
+                xs = [x for x, y in sub_pos.values()]
+                ys = [y for x, y in sub_pos.values()]
+                constellation_sizes[const] = (min(xs), max(xs), min(ys), max(ys))
+
+        # Create meta-graph of constellations (similar to earlier method)
+        meta_graph = nx.Graph()
+        meta_graph.add_nodes_from(constellations.keys())
+
+        # Add edges between constellations that have inter-constellation connections
+        for const_a in constellations:
+            for const_b in constellations:
+                if const_a >= const_b:
+                    continue
+
+                # Check if there's an edge between these constellations
+                for sys_a in constellations[const_a]:
+                    for sys_b in constellations[const_b]:
+                        if self.graph.has_edge(sys_a, sys_b):
+                            meta_graph.add_edge(const_a, const_b)
+                            break
+                    if meta_graph.has_edge(const_a, const_b):
+                        break
+
+        # Layout the meta-graph with generous spacing
+        if len(meta_graph.nodes()) > 1:
+            # Use kamada-kawai for meta-graph for good separation
+            meta_pos = nx.kamada_kawai_layout(meta_graph, scale=150)  # Larger scale for spacing
+        else:
+            meta_pos = {list(meta_graph.nodes())[0]: (50, 50)}
+
+        # Combine: place each constellation's layout at its meta-position
+        # Add padding between constellations for Dotlan-style visual separation
+        final_pos = {}
+        padding = 30  # Extra space between constellations
+
+        for const, systems in constellations.items():
+            meta_x, meta_y = meta_pos[const]
+
+            for system in systems:
+                sub_x, sub_y = constellation_layouts[const][system]
+                # Offset by meta position
+                final_pos[system] = (meta_x + sub_x, meta_y + sub_y)
+
+        print(f"  Dotlan-style layout complete with visual constellation separation")
         return final_pos
 
     def _layout_grid(self) -> Dict[str, Tuple[float, float]]:
@@ -866,14 +965,17 @@ def main():
 
     # Test layout methods
     layouts = {
-        # Topological (ignore coordinates, optimize for path clarity)
-        "kamada_kawai": "Pure Blind - Kamada-Kawai (Default)",
-        "constellation_clustered": "Pure Blind - Constellation Clustered",
-        "grid": "Pure Blind - Grid Layout",
-        "planar": "Pure Blind - Planar (0 crossings if planar)",
-        "spectral": "Pure Blind - Spectral",
+        # Dotlan-style (primary focus)
+        "dotlan": "Pure Blind - Dotlan Style (Constellation Clustered)",
 
-        # Coordinate-based (use Eve Online positions)
+        # Topological (ignore coordinates, optimize for path clarity)
+        "kamada_kawai": "Pure Blind - Kamada-Kawai",
+        "planar": "Pure Blind - Planar (0 crossings if planar)",
+
+        # For comparison
+        "constellation_clustered": "Pure Blind - Constellation Clustered (old)",
+        "grid": "Pure Blind - Grid Layout",
+        "spectral": "Pure Blind - Spectral",
         "3d_projection": "Pure Blind - 3D Projection (Coordinate-based)",
         "hybrid": "Pure Blind - Hybrid (Coord + Force-directed)",
     }
@@ -933,15 +1035,39 @@ def main():
     print("Layout Comparison Summary:")
     print("="*70)
 
-    # Separate coordinate-based and topological
+    # Separate layout types
+    dotlan_style = ["dotlan"]
+    topological = ["kamada_kawai", "planar", "spectral"]
+    clustered = ["constellation_clustered", "grid"]
     coord_based = ["3d_projection", "hybrid"]
-    topological = ["kamada_kawai", "constellation_clustered", "grid", "planar", "spectral"]
+
+    print("\nDOTLAN-STYLE LAYOUT (matches Dotlan EVE maps):")
+    print("-" * 70)
+    print(f"{'Method':<25} {'Crossings':>10} {'Dist.Corr':>12} {'Const.Cohesion':>15}")
+    print("-" * 70)
+    for method in dotlan_style:
+        if method in crossing_results:
+            analysis = analysis_results[method]
+            print(f"{method:<25} {crossing_results[method]:>10} "
+                  f"{analysis['graph_distance_correlation']:>12.3f} "
+                  f"{analysis['constellation_cohesion']:>15.2f}")
 
     print("\nTOPOLOGICAL LAYOUTS (ignore coordinates, optimize for clarity):")
     print("-" * 70)
     print(f"{'Method':<25} {'Crossings':>10} {'Dist.Corr':>12} {'Const.Cohesion':>15}")
     print("-" * 70)
     for method in topological:
+        if method in crossing_results:
+            analysis = analysis_results[method]
+            print(f"{method:<25} {crossing_results[method]:>10} "
+                  f"{analysis['graph_distance_correlation']:>12.3f} "
+                  f"{analysis['constellation_cohesion']:>15.2f}")
+
+    print("\nCLUSTERED LAYOUTS (experimental constellation grouping):")
+    print("-" * 70)
+    print(f"{'Method':<25} {'Crossings':>10} {'Dist.Corr':>12} {'Const.Cohesion':>15}")
+    print("-" * 70)
+    for method in clustered:
         if method in crossing_results:
             analysis = analysis_results[method]
             print(f"{method:<25} {crossing_results[method]:>10} "
