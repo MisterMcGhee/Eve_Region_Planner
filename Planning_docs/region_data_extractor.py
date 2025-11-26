@@ -54,6 +54,9 @@ def sanitize_folder_name(region_name):
 def extract_region_data(region_id, region_name, conn, base_output_dir):
     """Extract all data for a single region."""
 
+    # Convert region_id to native Python int (fixes numpy.int64 parameter binding issue)
+    region_id = int(region_id)
+
     # Create output directory
     folder_name = sanitize_folder_name(region_name)
     OUTPUT_DIR = Path(base_output_dir) / folder_name
@@ -83,7 +86,7 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
         ms.z
     FROM mapSolarSystems ms
     JOIN mapConstellations mc ON ms.constellationID = mc.constellationID
-    WHERE mc.regionID = ?
+    WHERE ms.regionID = ?
     ORDER BY ms.solarSystemName
     """
 
@@ -158,11 +161,9 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
         ms2.solarSystemName as to_system
     FROM mapSolarSystemJumps msj
     JOIN mapSolarSystems ms1 ON msj.fromSolarSystemID = ms1.solarSystemID
-    JOIN mapConstellations mc1 ON ms1.constellationID = mc1.constellationID
     JOIN mapSolarSystems ms2 ON msj.toSolarSystemID = ms2.solarSystemID
-    JOIN mapConstellations mc2 ON ms2.constellationID = mc2.constellationID
-    WHERE mc1.regionID = ?
-      AND mc2.regionID = ?
+    WHERE ms1.regionID = ?
+      AND ms2.regionID = ?
     ORDER BY ms1.solarSystemName, ms2.solarSystemName
     """
 
@@ -183,12 +184,10 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
         mr.regionName as to_region
     FROM mapSolarSystemJumps msj
     JOIN mapSolarSystems ms1 ON msj.fromSolarSystemID = ms1.solarSystemID
-    JOIN mapConstellations mc1 ON ms1.constellationID = mc1.constellationID
     JOIN mapSolarSystems ms2 ON msj.toSolarSystemID = ms2.solarSystemID
-    JOIN mapConstellations mc2 ON ms2.constellationID = mc2.constellationID
-    JOIN mapRegions mr ON mc2.regionID = mr.regionID
-    WHERE mc1.regionID = ?
-      AND mc2.regionID != ?
+    JOIN mapRegions mr ON ms2.regionID = mr.regionID
+    WHERE ms1.regionID = ?
+      AND ms2.regionID != ?
     ORDER BY ms1.solarSystemName
     """
 
