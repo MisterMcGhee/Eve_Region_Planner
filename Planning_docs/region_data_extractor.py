@@ -83,7 +83,7 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
         ms.z
     FROM mapSolarSystems ms
     JOIN mapConstellations mc ON ms.constellationID = mc.constellationID
-    WHERE ms.regionID = ?
+    WHERE mc.regionID = ?
     ORDER BY ms.solarSystemName
     """
 
@@ -95,50 +95,53 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
 
     print(f"✓ Found {len(systems_df)} systems in {region_name}")
 
+    # Get system IDs for filtering celestial queries
+    system_ids = tuple(systems_df['system_id'].tolist())
+
     # Query 2: Count moons per system
-    query_moons = """
+    query_moons = f"""
     SELECT
         solarSystemID as system_id,
         COUNT(*) as moons
     FROM mapDenormalize
-    WHERE regionID = ?
+    WHERE solarSystemID IN ({','.join('?' * len(system_ids))})
       AND groupID = 8  -- Moons are groupID 8
     GROUP BY solarSystemID
     """
 
-    moons_df = pd.read_sql_query(query_moons, conn, params=(region_id,))
+    moons_df = pd.read_sql_query(query_moons, conn, params=system_ids)
     systems_df = systems_df.merge(moons_df, on='system_id', how='left')
     systems_df['moons'] = systems_df['moons'].fillna(0).astype(int)
     print(f"✓ Counted moons for all systems")
 
     # Query 3: Count planets per system
-    query_planets = """
+    query_planets = f"""
     SELECT
         solarSystemID as system_id,
         COUNT(*) as planets
     FROM mapDenormalize
-    WHERE regionID = ?
+    WHERE solarSystemID IN ({','.join('?' * len(system_ids))})
       AND groupID = 7  -- Planets are groupID 7
     GROUP BY solarSystemID
     """
 
-    planets_df = pd.read_sql_query(query_planets, conn, params=(region_id,))
+    planets_df = pd.read_sql_query(query_planets, conn, params=system_ids)
     systems_df = systems_df.merge(planets_df, on='system_id', how='left')
     systems_df['planets'] = systems_df['planets'].fillna(0).astype(int)
     print(f"✓ Counted planets for all systems")
 
     # Query 4: Count asteroid belts per system
-    query_belts = """
+    query_belts = f"""
     SELECT
         solarSystemID as system_id,
         COUNT(*) as belts
     FROM mapDenormalize
-    WHERE regionID = ?
+    WHERE solarSystemID IN ({','.join('?' * len(system_ids))})
       AND groupID = 9  -- Asteroid belts are groupID 9
     GROUP BY solarSystemID
     """
 
-    belts_df = pd.read_sql_query(query_belts, conn, params=(region_id,))
+    belts_df = pd.read_sql_query(query_belts, conn, params=system_ids)
     systems_df = systems_df.merge(belts_df, on='system_id', how='left')
     systems_df['belts'] = systems_df['belts'].fillna(0).astype(int)
     print(f"✓ Counted asteroid belts for all systems")
@@ -155,9 +158,11 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
         ms2.solarSystemName as to_system
     FROM mapSolarSystemJumps msj
     JOIN mapSolarSystems ms1 ON msj.fromSolarSystemID = ms1.solarSystemID
+    JOIN mapConstellations mc1 ON ms1.constellationID = mc1.constellationID
     JOIN mapSolarSystems ms2 ON msj.toSolarSystemID = ms2.solarSystemID
-    WHERE ms1.regionID = ?
-      AND ms2.regionID = ?
+    JOIN mapConstellations mc2 ON ms2.constellationID = mc2.constellationID
+    WHERE mc1.regionID = ?
+      AND mc2.regionID = ?
     ORDER BY ms1.solarSystemName, ms2.solarSystemName
     """
 
@@ -178,10 +183,12 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
         mr.regionName as to_region
     FROM mapSolarSystemJumps msj
     JOIN mapSolarSystems ms1 ON msj.fromSolarSystemID = ms1.solarSystemID
+    JOIN mapConstellations mc1 ON ms1.constellationID = mc1.constellationID
     JOIN mapSolarSystems ms2 ON msj.toSolarSystemID = ms2.solarSystemID
-    JOIN mapRegions mr ON ms2.regionID = mr.regionID
-    WHERE ms1.regionID = ?
-      AND ms2.regionID != ?
+    JOIN mapConstellations mc2 ON ms2.constellationID = mc2.constellationID
+    JOIN mapRegions mr ON mc2.regionID = mr.regionID
+    WHERE mc1.regionID = ?
+      AND mc2.regionID != ?
     ORDER BY ms1.solarSystemName
     """
 
