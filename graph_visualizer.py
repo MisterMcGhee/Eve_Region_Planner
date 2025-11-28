@@ -451,16 +451,24 @@ def main():
     viz.assign_constellation_colors()
 
     # Calculate layout (compact view with scale=60)
+    # If positions file exists, it will be loaded; otherwise Kamada-Kawai generates new positions
     print()
-    print("Generating Kamada-Kawai layout...")
-    viz.calculate_layout(scale=60)
+    positions_file = "positions_kamada_kawai.json"
+    positions_existed = Path(positions_file).exists()
+
+    if positions_existed:
+        print(f"Loading existing positions from {positions_file}...")
+    else:
+        print("Generating Kamada-Kawai layout...")
+    viz.calculate_layout(scale=60, positions_file=positions_file)
 
     # Export main visualization
     print()
     viz.export_html("pure_blind_map.html", editable=True)
 
-    # Save positions for manual editing
-    viz.save_positions("positions_kamada_kawai.json")
+    # Save positions only if they were newly generated (not loaded from file)
+    if not positions_existed:
+        viz.save_positions(positions_file)
 
     # Print statistics
     print()
