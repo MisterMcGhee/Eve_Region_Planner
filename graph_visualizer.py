@@ -119,50 +119,29 @@ class GraphVisualizer:
 
         return self.graph
 
-    def calculate_layout(self, method: str = "kamada_kawai") -> Dict[str, Tuple[float, float]]:
+    def calculate_layout(self, method: str = "kamada_kawai", scale: float = 80) -> Dict[str, Tuple[float, float]]:
         """
-        Calculate 2D layout from 3D coordinates
+        Calculate 2D layout using Kamada-Kawai algorithm
+
+        Kamada-Kawai optimizes for graph-theoretic distances, meaning systems
+        that are N jumps apart will appear approximately N visual units apart.
 
         Args:
-            method: Layout method to use
-                Coordinate-based:
-                - "3d_projection": Direct x,y projection from 3D coordinates
-                - "hybrid": Start with 3D projection, refine with force-directed
-
-                Topological (ignore coordinates, focus on connections):
-                - "kamada_kawai": Spring-based layout optimized for path length (default)
-                - "planar": Pure planar layout if graph is planar
-                - "spectral": Fast layout using graph eigenvalues
-                - "spring": Standard Fruchterman-Reingold force-directed
-                - "constellation_clustered": Kamada-Kawai with constellation clustering
-                - "grid": Kamada-Kawai snapped to grid
-                - "dotlan": Dotlan-style layout (planar + strong constellation clustering)
+            method: Layout method (currently only "kamada_kawai" supported)
+            scale: Scale factor for layout (default 80, range 50-100)
+                   Lower values = more compact, higher = more spread out
 
         Returns:
             Dictionary mapping system names to (x, y) positions
         """
-        print(f"Calculating 2D layout using '{method}' method...")
+        print(f"Calculating layout using Kamada-Kawai (scale={scale})...")
 
-        if method == "3d_projection":
-            self.pos = self._layout_3d_projection()
-        elif method == "hybrid":
-            self.pos = self._layout_hybrid()
-        elif method == "planar":
-            self.pos = self._layout_planar()
-        elif method == "kamada_kawai":
-            self.pos = self._layout_kamada_kawai()
-        elif method == "spectral":
-            self.pos = self._layout_spectral()
-        elif method == "spring":
-            self.pos = self._layout_force_directed()
-        elif method == "constellation_clustered":
-            self.pos = self._layout_constellation_clustered()
-        elif method == "grid":
-            self.pos = self._layout_grid()
-        elif method == "dotlan":
-            self.pos = self._layout_dotlan()
-        else:
-            raise ValueError(f"Unknown layout method: {method}")
+        if method != "kamada_kawai":
+            print(f"Warning: Only 'kamada_kawai' method supported. Using Kamada-Kawai.")
+
+        # Use Kamada-Kawai layout - optimizes for graph-theoretic distances
+        pos = nx.kamada_kawai_layout(self.graph, scale=scale)
+        self.pos = {node: (x, y) for node, (x, y) in pos.items()}
 
         print(f"✓ Layout calculated for {len(self.pos)} systems")
 
