@@ -149,12 +149,18 @@ class GraphVisualizer:
         """
         Save current node positions to JSON file for manual editing/reloading
 
+        Positions are rounded to nearest integers for easier manual editing.
+
         Args:
             filename: Output filename
         """
+        # Round positions to integers for easier editing
+        rounded_positions = {node: [round(x), round(y)] for node, (x, y) in self.pos.items()}
+
         with open(filename, 'w') as f:
-            json.dump(self.pos, f, indent=2)
+            json.dump(rounded_positions, f, indent=2)
         print(f"✓ Saved positions to {filename}")
+        print(f"  Positions rounded to integers for easier editing")
         print(f"  You can manually edit this file and reload with calculate_layout(positions_file='{filename}')")
 
     def _count_edge_crossings(self) -> int:
@@ -248,15 +254,27 @@ class GraphVisualizer:
             hovermode='closest',
             margin=dict(b=20, l=20, r=20, t=60),
             xaxis=dict(
-                showgrid=False,
-                zeroline=False,
-                showticklabels=False,
+                showgrid=True,
+                gridwidth=1,
+                gridcolor='rgba(100, 100, 100, 0.3)',
+                dtick=10,  # Grid line every 10 units
+                zeroline=True,
+                zerolinewidth=2,
+                zerolinecolor='rgba(150, 150, 150, 0.5)',
+                showticklabels=True,
+                tickfont=dict(size=10, color='rgba(200, 200, 200, 0.7)'),
                 range=[-10, 110]
             ),
             yaxis=dict(
-                showgrid=False,
-                zeroline=False,
-                showticklabels=False,
+                showgrid=True,
+                gridwidth=1,
+                gridcolor='rgba(100, 100, 100, 0.3)',
+                dtick=10,  # Grid line every 10 units
+                zeroline=True,
+                zerolinewidth=2,
+                zerolinecolor='rgba(150, 150, 150, 0.5)',
+                showticklabels=True,
+                tickfont=dict(size=10, color='rgba(200, 200, 200, 0.7)'),
                 range=[-10, 110],
                 scaleanchor="x",
                 scaleratio=1,
@@ -378,15 +396,106 @@ class GraphVisualizer:
 
     def export_html(self, filename: str = "pure_blind_map.html", editable: bool = True) -> None:
         """
-        Export visualization to standalone HTML file
+        Export visualization to standalone HTML file with grid toggle
 
         Args:
             filename: Output filename
             editable: Enable node dragging for manual positioning
         """
         fig = self.create_plotly_figure(editable=editable)
-        fig.write_html(filename)
+
+        # Custom HTML with grid toggle button
+        html_template = """
+        <html>
+        <head>
+            <meta charset="utf-8" />
+            <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+            <style>
+                body {{
+                    margin: 0;
+                    padding: 0;
+                    background-color: #1a1a1a;
+                    font-family: Arial, sans-serif;
+                }}
+                #controls {{
+                    position: fixed;
+                    top: 10px;
+                    right: 10px;
+                    z-index: 1000;
+                    background-color: rgba(42, 42, 42, 0.9);
+                    padding: 10px 15px;
+                    border-radius: 5px;
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                }}
+                #gridToggle {{
+                    background-color: #4CAF50;
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    font-weight: bold;
+                }}
+                #gridToggle:hover {{
+                    background-color: #45a049;
+                }}
+                #gridToggle.off {{
+                    background-color: #f44336;
+                }}
+                #gridToggle.off:hover {{
+                    background-color: #da190b;
+                }}
+            </style>
+        </head>
+        <body>
+            <div id="controls">
+                <button id="gridToggle" class="on">Grid: ON</button>
+            </div>
+            <div id="plotDiv"></div>
+            <script>
+                var plotDiv = document.getElementById('plotDiv');
+                var gridOn = true;
+
+                // Plot the figure
+                {plot_json}
+
+                // Grid toggle functionality
+                document.getElementById('gridToggle').addEventListener('click', function() {{
+                    gridOn = !gridOn;
+                    var button = this;
+
+                    var update = {{
+                        'xaxis.showgrid': gridOn,
+                        'xaxis.showticklabels': gridOn,
+                        'yaxis.showgrid': gridOn,
+                        'yaxis.showticklabels': gridOn
+                    }};
+
+                    Plotly.relayout(plotDiv, update);
+
+                    if (gridOn) {{
+                        button.textContent = 'Grid: ON';
+                        button.className = 'on';
+                    }} else {{
+                        button.textContent = 'Grid: OFF';
+                        button.className = 'off';
+                    }}
+                }});
+            </script>
+        </body>
+        </html>
+        """
+
+        # Generate Plotly JSON
+        plot_json = fig.to_html(include_plotlyjs=False, div_id='plotDiv')
+
+        # Write custom HTML
+        with open(filename, 'w') as f:
+            f.write(html_template.format(plot_json=plot_json))
+
         print(f"✓ Exported to {filename}")
+        print(f"  Grid toggle button added (top-right corner)")
 
         if editable:
             print(f"  NOTE: Plotly drag-and-drop in HTML is limited.")
