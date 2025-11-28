@@ -404,95 +404,103 @@ class GraphVisualizer:
         """
         fig = self.create_plotly_figure(editable=editable)
 
+        # Get the figure as JSON
+        import json as json_module
+        fig_json = fig.to_json()
+
         # Custom HTML with grid toggle button
-        html_template = """
-        <html>
-        <head>
-            <meta charset="utf-8" />
-            <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-            <style>
-                body {{
-                    margin: 0;
-                    padding: 0;
-                    background-color: #1a1a1a;
-                    font-family: Arial, sans-serif;
-                }}
-                #controls {{
-                    position: fixed;
-                    top: 10px;
-                    right: 10px;
-                    z-index: 1000;
-                    background-color: rgba(42, 42, 42, 0.9);
-                    padding: 10px 15px;
-                    border-radius: 5px;
-                    border: 1px solid rgba(255, 255, 255, 0.3);
-                }}
-                #gridToggle {{
-                    background-color: #4CAF50;
-                    color: white;
-                    border: none;
-                    padding: 8px 16px;
-                    cursor: pointer;
-                    border-radius: 4px;
-                    font-size: 14px;
-                    font-weight: bold;
-                }}
-                #gridToggle:hover {{
-                    background-color: #45a049;
-                }}
-                #gridToggle.off {{
-                    background-color: #f44336;
-                }}
-                #gridToggle.off:hover {{
-                    background-color: #da190b;
-                }}
-            </style>
-        </head>
-        <body>
-            <div id="controls">
-                <button id="gridToggle" class="on">Grid: ON</button>
-            </div>
-            <div id="plotDiv"></div>
-            <script>
-                var plotDiv = document.getElementById('plotDiv');
-                var gridOn = true;
+        html_template = """<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        body {{
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+        }}
+        #controls {{
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background-color: rgba(42, 42, 42, 0.9);
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }}
+        #gridToggle {{
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }}
+        #gridToggle:hover {{
+            background-color: #45a049;
+        }}
+        #gridToggle.off {{
+            background-color: #f44336;
+        }}
+        #gridToggle.off:hover {{
+            background-color: #da190b;
+        }}
+        #plotDiv {{
+            width: 100%;
+            height: 100vh;
+        }}
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <button id="gridToggle" class="on">Grid: ON</button>
+    </div>
+    <div id="plotDiv"></div>
+    <script>
+        var plotDiv = document.getElementById('plotDiv');
+        var gridOn = true;
 
-                // Plot the figure
-                {plot_json}
+        // Parse the figure JSON
+        var figureData = {fig_json};
 
-                // Grid toggle functionality
-                document.getElementById('gridToggle').addEventListener('click', function() {{
-                    gridOn = !gridOn;
-                    var button = this;
+        // Plot the figure
+        Plotly.newPlot(plotDiv, figureData.data, figureData.layout, {{responsive: true}});
 
-                    var update = {{
-                        'xaxis.showgrid': gridOn,
-                        'xaxis.showticklabels': gridOn,
-                        'yaxis.showgrid': gridOn,
-                        'yaxis.showticklabels': gridOn
-                    }};
+        // Grid toggle functionality
+        document.getElementById('gridToggle').addEventListener('click', function() {{
+            gridOn = !gridOn;
+            var button = this;
 
-                    Plotly.relayout(plotDiv, update);
+            var update = {{
+                'xaxis.showgrid': gridOn,
+                'xaxis.showticklabels': gridOn,
+                'yaxis.showgrid': gridOn,
+                'yaxis.showticklabels': gridOn
+            }};
 
-                    if (gridOn) {{
-                        button.textContent = 'Grid: ON';
-                        button.className = 'on';
-                    }} else {{
-                        button.textContent = 'Grid: OFF';
-                        button.className = 'off';
-                    }}
-                }});
-            </script>
-        </body>
-        </html>
-        """
+            Plotly.relayout(plotDiv, update);
 
-        # Generate Plotly JSON
-        plot_json = fig.to_html(include_plotlyjs=False, div_id='plotDiv')
+            if (gridOn) {{
+                button.textContent = 'Grid: ON';
+                button.className = 'on';
+            }} else {{
+                button.textContent = 'Grid: OFF';
+                button.className = 'off';
+            }}
+        }});
+    </script>
+</body>
+</html>
+"""
 
         # Write custom HTML
         with open(filename, 'w') as f:
-            f.write(html_template.format(plot_json=plot_json))
+            f.write(html_template.format(fig_json=fig_json))
 
         print(f"✓ Exported to {filename}")
         print(f"  Grid toggle button added (top-right corner)")
