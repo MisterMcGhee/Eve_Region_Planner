@@ -319,8 +319,18 @@ class UpgradeCalculator:
 
         # Usage
         print(f"\nUsage:")
-        print(f"  Power:     {usage['power_used']:,} / {usage['total_power_capacity']:,} ({usage['power_used']/usage['total_power_capacity']*100:.1f}% used)")
-        print(f"  Workforce: {usage['workforce_used']:,} / {usage['total_workforce_capacity']:,} ({usage['workforce_used']/usage['total_workforce_capacity']*100:.1f}% used)")
+        # Handle division by zero for systems with 0 capacity
+        if usage['total_power_capacity'] > 0:
+            power_pct = usage['power_used']/usage['total_power_capacity']*100
+            print(f"  Power:     {usage['power_used']:,} / {usage['total_power_capacity']:,} ({power_pct:.1f}% used)")
+        else:
+            print(f"  Power:     {usage['power_used']:,} / {usage['total_power_capacity']:,} (N/A - zero capacity)")
+
+        if usage['total_workforce_capacity'] > 0:
+            workforce_pct = usage['workforce_used']/usage['total_workforce_capacity']*100
+            print(f"  Workforce: {usage['workforce_used']:,} / {usage['total_workforce_capacity']:,} ({workforce_pct:.1f}% used)")
+        else:
+            print(f"  Workforce: {usage['workforce_used']:,} / {usage['total_workforce_capacity']:,} (N/A - zero capacity)")
 
         # Available
         print(f"\nAvailable:")
