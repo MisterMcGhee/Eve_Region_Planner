@@ -199,19 +199,49 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
     print(f"✓ Found {len(gates_border)} border gate connections")
 
     # ========================================================================
-    # STEP 2: Create Capacity Data Template
+    # STEP 2: Load or Create Capacity Data
     # ========================================================================
 
-    print("\nStep 2: Creating capacity data template...")
+    print("\nStep 2: Loading or creating capacity data...")
     print("-"*70)
 
-    # Create template with default capacity values
-    capacity_df = systems_df[['system_name']].copy()
-    capacity_df['power_capacity'] = 0  # User needs to fill this
-    capacity_df['workforce_capacity'] = 0  # User needs to fill this
-    capacity_df['has_ice'] = False  # User needs to fill this (ice belts are dynamic)
-    print(f"✓ Created capacity template with {len(capacity_df)} systems")
-    print("  ⚠ Power, workforce, and ice status set to default - edit systems_capacity.csv")
+    capacity_path = OUTPUT_DIR / "systems_capacity.csv"
+    capacity_file_needs_save = False  # Track if we need to save the capacity file
+
+    # Check if capacity file already exists (user-maintained data)
+    if capacity_path.exists():
+        # Load existing capacity data
+        capacity_df = pd.read_csv(capacity_path)
+        print(f"✓ Loaded existing capacity data from {capacity_path}")
+        print(f"  Found {len(capacity_df)} systems with user-maintained values")
+        print(f"  ℹ User data preserved - file will NOT be overwritten")
+
+        # Ensure all current systems are in the capacity file
+        # (in case new systems were added to the region)
+        existing_systems = set(capacity_df['system_name'])
+        current_systems = set(systems_df['system_name'])
+        new_systems = current_systems - existing_systems
+
+        if new_systems:
+            print(f"  ⚠ Found {len(new_systems)} new systems not in capacity file")
+            new_rows = pd.DataFrame({
+                'system_name': list(new_systems),
+                'power_capacity': 0,
+                'workforce_capacity': 0,
+                'has_ice': False
+            })
+            capacity_df = pd.concat([capacity_df, new_rows], ignore_index=True)
+            capacity_file_needs_save = True  # Save because we added new systems
+            print(f"  ✓ Added new systems with default values (file will be updated)")
+    else:
+        # Create new template with default capacity values
+        capacity_df = systems_df[['system_name']].copy()
+        capacity_df['power_capacity'] = 0  # User needs to fill this
+        capacity_df['workforce_capacity'] = 0  # User needs to fill this
+        capacity_df['has_ice'] = False  # User needs to fill this (ice belts are dynamic)
+        capacity_file_needs_save = True  # Save because this is a new file
+        print(f"✓ Created new capacity template with {len(capacity_df)} systems")
+        print("  ⚠ Power, workforce, and ice status set to default - edit systems_capacity.csv")
 
     # ========================================================================
     # STEP 3: Merge and Create Full Dataset
@@ -335,10 +365,13 @@ def extract_region_data(region_id, region_name, conn, base_output_dir):
     systems_df.to_csv(systems_static_path, index=False)
     print(f"✓ Saved: {systems_static_path}")
 
-    # Save capacity data (user-maintained)
-    capacity_path = OUTPUT_DIR / "systems_capacity.csv"
-    capacity_df.to_csv(capacity_path, index=False)
-    print(f"✓ Saved: {capacity_path}")
+    # Save capacity data (user-maintained) - only if new or updated
+    if capacity_file_needs_save:
+        capacity_path = OUTPUT_DIR / "systems_capacity.csv"
+        capacity_df.to_csv(capacity_path, index=False)
+        print(f"✓ Saved: {capacity_path}")
+    else:
+        print(f"✓ Preserved existing: {capacity_path} (user data not modified)")
 
     # Save full merged data
     systems_full_path = OUTPUT_DIR / "systems_full.csv"
