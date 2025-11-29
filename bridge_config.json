@@ -1,0 +1,19 @@
+{
+  "staging_system": "X47L-Q",
+  "region": "Pure Blind",
+  "regional_gates": [
+    "7D-0SQ",
+    "93PI-4",
+    "E-Z2ZX",
+    "EC-P8R",
+    "KQK1-2",
+    "ROIR-Y",
+    "RQH-MY",
+    "U-INPD"
+  ],
+  "optimization_defaults": {
+    "max_bridges": 10,
+    "algorithm": "farthest_systems",
+    "target_percentile": 0.8
+  }
+}

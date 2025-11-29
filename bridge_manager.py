@@ -33,6 +33,62 @@ class BridgeManager:
         self.graph = graph
         self.bridges: List[Dict] = []
         self._valid_connections_cache: Dict[str, List[Tuple[str, float]]] = {}
+        self.config = self.load_config()
+
+    def load_config(self, config_file: str = "bridge_config.json") -> Dict:
+        """
+        Load bridge configuration from JSON file.
+
+        Args:
+            config_file: Path to configuration file
+
+        Returns:
+            Configuration dictionary
+        """
+        filepath = Path(config_file)
+
+        if not filepath.exists():
+            # Return default configuration
+            return {
+                'staging_system': None,
+                'region': 'Unknown',
+                'regional_gates': [],
+                'optimization_defaults': {
+                    'max_bridges': 10,
+                    'algorithm': 'farthest_systems',
+                    'target_percentile': 0.80
+                }
+            }
+
+        with open(filepath, 'r') as f:
+            return json.load(f)
+
+    def save_config(self, config_file: str = "bridge_config.json"):
+        """
+        Save current configuration to JSON file.
+
+        Args:
+            config_file: Path to configuration file
+        """
+        with open(config_file, 'w') as f:
+            json.dump(self.config, f, indent=2)
+
+    def set_staging_system(self, system_name: str):
+        """
+        Set the staging system for optimization.
+
+        Args:
+            system_name: Name of the staging system
+        """
+        if self.graph and system_name not in self.graph.nodes():
+            raise ValueError(f"System {system_name} not found in graph")
+
+        self.config['staging_system'] = system_name
+        self.save_config()
+
+    def get_staging_system(self) -> Optional[str]:
+        """Get the currently configured staging system."""
+        return self.config.get('staging_system')
 
     def set_graph(self, graph: nx.Graph):
         """Set the graph after initialization."""
@@ -974,6 +1030,46 @@ class BridgeManager:
 
         return placed_bridges
 
+    def optimize_with_defaults(self) -> List[Dict]:
+        """
+        Run optimization using configured defaults.
+
+        Returns:
+            List of bridge dictionaries from optimization
+
+        Raises:
+            ValueError: If no staging system is configured
+        """
+        staging_system = self.get_staging_system()
+        if not staging_system:
+            raise ValueError("No staging system configured. Use set_staging_system() first.")
+
+        defaults = self.config.get('optimization_defaults', {})
+        algorithm = defaults.get('algorithm', 'farthest_systems')
+        max_bridges = defaults.get('max_bridges', 10)
+
+        if algorithm == 'farthest_systems':
+            target_percentile = defaults.get('target_percentile', 0.80)
+            return self.optimize_for_farthest_systems(
+                staging_system=staging_system,
+                max_bridges=max_bridges,
+                target_percentile=target_percentile
+            )
+        elif algorithm == 'staging_system':
+            regional_gates = self.config.get('regional_gates', [])
+            return self.optimize_for_staging_system(
+                staging_system=staging_system,
+                max_bridges=max_bridges,
+                regional_gates=regional_gates
+            )
+        elif algorithm == 'max_distance':
+            return self.optimize_for_max_distance_reduction(
+                staging_system=staging_system,
+                max_bridges=max_bridges
+            )
+        else:
+            raise ValueError(f"Unknown algorithm: {algorithm}")
+
     def optimize_bridge_placement_greedy(self, max_bridges: int = 10,
                                         prioritize: str = 'jump_savings') -> List[Dict]:
         """
@@ -1124,9 +1220,19 @@ def main():
         print(f"Cross-constellation: {value['cross_constellation']}")
         print(f"Improved paths (sample): {value['improved_paths']}")
 
-    # Define staging system and regional gates
-    staging_system = "X47L-Q"
-    regional_gates = ["7D-0SQ", "93PI-4", "E-Z2ZX", "EC-P8R", "KQK1-2", "ROIR-Y", "RQH-MY", "U-INPD"]
+    # Load staging system and regional gates from configuration
+    staging_system = manager.get_staging_system()
+    regional_gates = manager.config.get('regional_gates', [])
+
+    if not staging_system:
+        print("\n⚠ No staging system configured. Using X47L-Q as default.")
+        staging_system = "X47L-Q"
+        manager.set_staging_system(staging_system)
+
+    print(f"\n=== Configuration ===")
+    print(f"Region: {manager.config.get('region', 'Unknown')}")
+    print(f"Staging system: {staging_system}")
+    print(f"Regional gates: {len(regional_gates)} configured")
 
     # Calculate baseline metrics
     print(f"\n=== Baseline Metrics (No Bridges) ===")
