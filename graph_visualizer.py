@@ -84,6 +84,9 @@ class GraphVisualizer:
                 has_ice=bool(system['has_ice']),
                 power_capacity=int(system['power_capacity']),
                 workforce_capacity=int(system['workforce_capacity']),
+                x=float(system['x']),
+                y=float(system['y']),
+                z=float(system['z']),
             )
 
         # Add edges from gate connections (only internal Pure Blind connections)

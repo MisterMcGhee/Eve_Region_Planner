@@ -1,0 +1,38 @@
+{
+  "bridges": [
+    {
+      "from": "8S-0E1",
+      "to": "X-7OMU",
+      "distance_ly": 3.51,
+      "active": true
+    },
+    {
+      "from": "BDV3-T",
+      "to": "L-TS8S",
+      "distance_ly": 3.05,
+      "active": true
+    },
+    {
+      "from": "5ZXX-K",
+      "to": "WW-KGD",
+      "distance_ly": 3.19,
+      "active": true
+    },
+    {
+      "from": "JE-D5U",
+      "to": "XQ-PXU",
+      "distance_ly": 4.18,
+      "active": true
+    },
+    {
+      "from": "DP-1YE",
+      "to": "ION-FG",
+      "distance_ly": 2.46,
+      "active": true
+    }
+  ],
+  "metadata": {
+    "total_bridges": 5,
+    "active_bridges": 5
+  }
+}
