@@ -391,6 +391,14 @@ def remove_upgrade(n_clicks_list, system_name):
 
     # Get which button was clicked
     button_id = ctx.triggered[0]['prop_id']
+    triggered_value = ctx.triggered[0]['value']
+
+    # Only process if button was actually clicked (not None, not 0)
+    # When buttons are first added to DOM, n_clicks is None which triggers this callback
+    # We need to ignore those false triggers
+    if not triggered_value or triggered_value == 0:
+        return ""
+
     if 'remove-upgrade-btn' in button_id:
         # Extract upgrade name from button id
         import json as json_lib
