@@ -584,6 +584,396 @@ class BridgeManager:
             'to_constellation': const2
         }
 
+    def optimize_for_staging_system(self, staging_system: str,
+                                   max_bridges: int = 10,
+                                   regional_gates: List[str] = None) -> List[Dict]:
+        """
+        Optimize bridge placement to minimize jumps to a staging system.
+
+        This is a hub-based optimization that prioritizes reducing travel time
+        to a central staging system (e.g., X47L-Q for alliance operations).
+
+        Args:
+            staging_system: The hub system to optimize access to
+            max_bridges: Maximum number of bridges to place
+            regional_gates: List of border gate systems (optional, for secondary optimization)
+
+        Returns:
+            List of bridge dictionaries with placement information
+        """
+        if self.graph is None:
+            raise ValueError("Graph not set")
+
+        if staging_system not in self.graph.nodes():
+            raise ValueError(f"Staging system {staging_system} not found in graph")
+
+        # Calculate current distances to staging from all systems
+        original_distances = nx.single_source_shortest_path_length(self.graph, staging_system)
+
+        placed_bridges = []
+        used_systems = set()
+
+        # Create a working graph to track cumulative improvements
+        working_graph = self.graph.copy()
+
+        for iteration in range(max_bridges):
+            best_bridge = None
+            best_improvement = -1
+            best_details = None
+
+            systems = list(self.graph.nodes())
+
+            for sys1 in systems:
+                if sys1 in used_systems:
+                    continue
+
+                # Get valid connections
+                connections = self.get_valid_connections(sys1, exclude_systems=used_systems)
+
+                for sys2, distance in connections:
+                    if sys2 in used_systems:
+                        continue
+
+                    # Skip if already connected by stargate (bridge provides no benefit)
+                    if self.graph.has_edge(sys1, sys2):
+                        continue
+
+                    # Add temporary bridge to working graph
+                    working_graph.add_edge(sys1, sys2, bridge=True)
+
+                    # Calculate new distances with this bridge
+                    new_distances = nx.single_source_shortest_path_length(working_graph, staging_system)
+
+                    # Calculate improvement
+                    total_reduction = 0
+                    systems_improved = 0
+                    max_reduction = 0
+
+                    for system in self.graph.nodes():
+                        old_dist = original_distances.get(system, float('inf'))
+                        new_dist = new_distances.get(system, float('inf'))
+
+                        if new_dist < old_dist:
+                            reduction = old_dist - new_dist
+                            total_reduction += reduction
+                            systems_improved += 1
+                            max_reduction = max(max_reduction, reduction)
+
+                    # Calculate average distance to staging
+                    avg_new_distance = sum(new_distances.values()) / len(new_distances)
+                    avg_original_distance = sum(original_distances.values()) / len(original_distances)
+
+                    # Calculate improvement for regional gates if provided
+                    gate_improvement = 0
+                    if regional_gates:
+                        for gate in regional_gates:
+                            if gate in self.graph.nodes():
+                                old_gate_dist = original_distances.get(gate, float('inf'))
+                                new_gate_dist = new_distances.get(gate, float('inf'))
+                                gate_improvement += max(0, old_gate_dist - new_gate_dist)
+
+                    # Composite score: prioritize total jump reduction
+                    # Weight: 70% total reduction, 20% systems improved, 10% gate improvement
+                    score = (
+                        total_reduction * 0.7 +
+                        systems_improved * 0.2 +
+                        gate_improvement * 0.1
+                    )
+
+                    if score > best_improvement:
+                        best_improvement = score
+                        best_bridge = (sys1, sys2, distance)
+                        best_details = {
+                            'total_reduction': total_reduction,
+                            'systems_improved': systems_improved,
+                            'max_reduction': max_reduction,
+                            'avg_distance_before': avg_original_distance,
+                            'avg_distance_after': avg_new_distance,
+                            'gate_improvement': gate_improvement
+                        }
+
+                    # Remove temporary bridge
+                    working_graph.remove_edge(sys1, sys2)
+
+            # Add best bridge if found
+            if best_bridge:
+                sys1, sys2, distance = best_bridge
+
+                # Add to working graph permanently
+                working_graph.add_edge(sys1, sys2, bridge=True)
+
+                # Update original distances for next iteration
+                original_distances = nx.single_source_shortest_path_length(working_graph, staging_system)
+
+                # Calculate bridge value metrics
+                value = self.calculate_bridge_value(sys1, sys2)
+
+                placed_bridges.append({
+                    'from': sys1,
+                    'to': sys2,
+                    'distance_ly': distance,
+                    'score': best_improvement,
+                    'value': value,
+                    'staging_metrics': best_details
+                })
+
+                used_systems.add(sys1)
+                used_systems.add(sys2)
+            else:
+                # No more beneficial bridges
+                break
+
+        return placed_bridges
+
+    def optimize_for_max_distance_reduction(self, staging_system: str,
+                                           max_bridges: int = 10) -> List[Dict]:
+        """
+        Optimize bridges to minimize the MAXIMUM distance to staging.
+
+        This strategy prioritizes reducing response time to the farthest systems
+        by creating "express lanes" to distant corners of the region.
+
+        Args:
+            staging_system: The hub system to optimize access to
+            max_bridges: Maximum number of bridges to place
+
+        Returns:
+            List of bridge dictionaries with placement information
+        """
+        if self.graph is None:
+            raise ValueError("Graph not set")
+
+        if staging_system not in self.graph.nodes():
+            raise ValueError(f"Staging system {staging_system} not found in graph")
+
+        placed_bridges = []
+        used_systems = set()
+        working_graph = self.graph.copy()
+
+        for iteration in range(max_bridges):
+            # Calculate current distances
+            current_distances = nx.single_source_shortest_path_length(working_graph, staging_system)
+            current_max = max(current_distances.values())
+
+            # Find the farthest systems
+            farthest_systems = [sys for sys, dist in current_distances.items()
+                              if dist == current_max]
+
+            best_bridge = None
+            best_new_max = current_max
+            best_details = None
+
+            systems = list(self.graph.nodes())
+
+            for sys1 in systems:
+                if sys1 in used_systems:
+                    continue
+
+                connections = self.get_valid_connections(sys1, exclude_systems=used_systems)
+
+                for sys2, distance in connections:
+                    if sys2 in used_systems:
+                        continue
+
+                    # Skip if already connected by stargate (bridge provides no benefit)
+                    if self.graph.has_edge(sys1, sys2):
+                        continue
+
+                    # Add temporary bridge
+                    working_graph.add_edge(sys1, sys2, bridge=True)
+                    new_distances = nx.single_source_shortest_path_length(working_graph, staging_system)
+                    new_max = max(new_distances.values())
+                    new_avg = sum(new_distances.values()) / len(new_distances)
+
+                    # How many of the farthest systems improved?
+                    farthest_improved = sum(1 for sys in farthest_systems
+                                          if new_distances.get(sys, float('inf')) < current_distances.get(sys, float('inf')))
+
+                    # Score: Prioritize reducing max, then helping farthest systems, then avg
+                    max_reduction = current_max - new_max
+                    score = (
+                        max_reduction * 1000 +           # Highest priority: reduce max
+                        farthest_improved * 100 +        # Help the farthest systems
+                        (current_max - new_avg) * 10     # Improve average for far systems
+                    )
+
+                    if new_max < best_new_max or (new_max == best_new_max and score > (best_details['score'] if best_details else 0)):
+                        best_new_max = new_max
+                        best_bridge = (sys1, sys2, distance)
+                        best_details = {
+                            'max_before': current_max,
+                            'max_after': new_max,
+                            'max_reduction': max_reduction,
+                            'avg_before': sum(current_distances.values()) / len(current_distances),
+                            'avg_after': new_avg,
+                            'farthest_improved': farthest_improved,
+                            'score': score
+                        }
+
+                    # Remove temporary bridge
+                    working_graph.remove_edge(sys1, sys2)
+
+            # Add best bridge if it actually improves the max distance
+            if best_bridge and best_new_max < current_max:
+                sys1, sys2, distance = best_bridge
+
+                working_graph.add_edge(sys1, sys2, bridge=True)
+                value = self.calculate_bridge_value(sys1, sys2)
+
+                placed_bridges.append({
+                    'from': sys1,
+                    'to': sys2,
+                    'distance_ly': distance,
+                    'score': best_details['score'],
+                    'value': value,
+                    'max_distance_metrics': best_details
+                })
+
+                used_systems.add(sys1)
+                used_systems.add(sys2)
+            else:
+                # Can't improve max distance further
+                if iteration == 0:
+                    print(f"  No bridges found that reduce maximum distance")
+                else:
+                    print(f"  Stopped after {iteration} bridges - max distance cannot be reduced further")
+                break
+
+        return placed_bridges
+
+    def optimize_for_farthest_systems(self, staging_system: str,
+                                      max_bridges: int = 10,
+                                      target_percentile: float = 0.80) -> List[Dict]:
+        """
+        Optimize bridges to help the farthest systems reach staging faster.
+
+        Instead of only reducing MAX, this targets systems in the top percentile
+        of distance, creating shortcuts for the most distant systems.
+
+        Args:
+            staging_system: The hub system to optimize access to
+            max_bridges: Maximum number of bridges to place
+            target_percentile: Focus on systems in this distance percentile (default 0.80 = top 20%)
+
+        Returns:
+            List of bridge dictionaries with placement information
+        """
+        if self.graph is None:
+            raise ValueError("Graph not set")
+
+        if staging_system not in self.graph.nodes():
+            raise ValueError(f"Staging system {staging_system} not found in graph")
+
+        placed_bridges = []
+        used_systems = set()
+        working_graph = self.graph.copy()
+
+        for iteration in range(max_bridges):
+            # Calculate current distances
+            current_distances = nx.single_source_shortest_path_length(working_graph, staging_system)
+
+            # Find the distance threshold for far systems
+            sorted_distances = sorted(current_distances.values(), reverse=True)
+            threshold_idx = int(len(sorted_distances) * (1 - target_percentile))
+            distance_threshold = sorted_distances[threshold_idx]
+
+            # Identify far systems (in top percentile)
+            far_systems = {sys: dist for sys, dist in current_distances.items()
+                          if dist >= distance_threshold}
+
+            best_bridge = None
+            best_score = -1
+            best_details = None
+
+            systems = list(self.graph.nodes())
+
+            for sys1 in systems:
+                if sys1 in used_systems:
+                    continue
+
+                connections = self.get_valid_connections(sys1, exclude_systems=used_systems)
+
+                for sys2, distance in connections:
+                    if sys2 in used_systems:
+                        continue
+
+                    # Skip if already connected
+                    if self.graph.has_edge(sys1, sys2):
+                        continue
+
+                    # Add temporary bridge
+                    working_graph.add_edge(sys1, sys2, bridge=True)
+                    new_distances = nx.single_source_shortest_path_length(working_graph, staging_system)
+
+                    # Calculate improvement for far systems
+                    far_system_reduction = 0
+                    far_systems_helped = 0
+                    max_single_reduction = 0
+
+                    for sys, old_dist in far_systems.items():
+                        new_dist = new_distances.get(sys, float('inf'))
+                        if new_dist < old_dist:
+                            reduction = old_dist - new_dist
+                            far_system_reduction += reduction
+                            far_systems_helped += 1
+                            max_single_reduction = max(max_single_reduction, reduction)
+
+                    # Also calculate overall metrics
+                    total_reduction = sum(current_distances.values()) - sum(new_distances.values())
+                    new_max = max(new_distances.values())
+                    current_max = max(current_distances.values())
+
+                    # Score: Prioritize helping far systems
+                    score = (
+                        far_system_reduction * 100 +      # Total jump savings for far systems
+                        far_systems_helped * 50 +         # Number of far systems helped
+                        max_single_reduction * 25 +       # Biggest individual improvement
+                        total_reduction * 1                # Overall improvement (minor weight)
+                    )
+
+                    if score > best_score:
+                        best_score = score
+                        best_bridge = (sys1, sys2, distance)
+                        best_details = {
+                            'far_system_reduction': far_system_reduction,
+                            'far_systems_helped': far_systems_helped,
+                            'max_single_reduction': max_single_reduction,
+                            'total_reduction': total_reduction,
+                            'max_before': current_max,
+                            'max_after': new_max,
+                            'avg_before': sum(current_distances.values()) / len(current_distances),
+                            'avg_after': sum(new_distances.values()) / len(new_distances),
+                            'score': score
+                        }
+
+                    # Remove temporary bridge
+                    working_graph.remove_edge(sys1, sys2)
+
+            # Add best bridge if it helps far systems
+            if best_bridge and best_details['far_system_reduction'] > 0:
+                sys1, sys2, distance = best_bridge
+
+                working_graph.add_edge(sys1, sys2, bridge=True)
+                value = self.calculate_bridge_value(sys1, sys2)
+
+                placed_bridges.append({
+                    'from': sys1,
+                    'to': sys2,
+                    'distance_ly': distance,
+                    'score': best_score,
+                    'value': value,
+                    'farthest_metrics': best_details
+                })
+
+                used_systems.add(sys1)
+                used_systems.add(sys2)
+            else:
+                # No more bridges that help far systems
+                print(f"  Stopped after {iteration} bridges - no more improvements for distant systems")
+                break
+
+        return placed_bridges
+
     def optimize_bridge_placement_greedy(self, max_bridges: int = 10,
                                         prioritize: str = 'jump_savings') -> List[Dict]:
         """
@@ -734,24 +1124,196 @@ def main():
         print(f"Cross-constellation: {value['cross_constellation']}")
         print(f"Improved paths (sample): {value['improved_paths']}")
 
-    # Test optimization algorithms
-    print("\n=== Optimized Bridge Placement (5 bridges, balanced strategy) ===")
-    manager.clear_bridges()  # Start fresh
-    optimal_bridges = manager.optimize_bridge_placement_greedy(
-        max_bridges=5,
-        prioritize='balanced'
+    # Define staging system and regional gates
+    staging_system = "X47L-Q"
+    regional_gates = ["7D-0SQ", "93PI-4", "E-Z2ZX", "EC-P8R", "KQK1-2", "ROIR-Y", "RQH-MY", "U-INPD"]
+
+    # Calculate baseline metrics
+    print(f"\n=== Baseline Metrics (No Bridges) ===")
+    baseline_distances = nx.single_source_shortest_path_length(viz.graph, staging_system)
+    avg_distance = sum(baseline_distances.values()) / len(baseline_distances)
+    max_distance = max(baseline_distances.values())
+
+    gate_distances = {gate: baseline_distances.get(gate, float('inf'))
+                     for gate in regional_gates if gate in viz.graph.nodes()}
+    avg_gate_distance = sum(gate_distances.values()) / len(gate_distances) if gate_distances else 0
+
+    print(f"Staging system: {staging_system}")
+    print(f"Average jumps to staging: {avg_distance:.2f}")
+    print(f"Maximum jumps to staging: {max_distance}")
+    print(f"Average jumps from gates to staging: {avg_gate_distance:.2f}")
+    print(f"\nGate distances:")
+    for gate, dist in sorted(gate_distances.items(), key=lambda x: x[1]):
+        print(f"  {gate}: {dist} jumps")
+
+    # Test staging-focused optimization
+    print(f"\n=== STAGING-FOCUSED Optimization (10 bridges for {staging_system}) ===")
+    manager.clear_bridges()
+    staging_bridges = manager.optimize_for_staging_system(
+        staging_system=staging_system,
+        max_bridges=10,
+        regional_gates=regional_gates
     )
 
-    for i, bridge in enumerate(optimal_bridges, 1):
+    for i, bridge in enumerate(staging_bridges, 1):
+        metrics = bridge['staging_metrics']
         print(f"\n{i}. {bridge['from']} <-> {bridge['to']}")
         print(f"   Distance: {bridge['distance_ly']:.2f} LY")
-        print(f"   Score: {bridge['score']:.2f}")
-        print(f"   Jump savings: {bridge['value']['jump_savings']}")
-        print(f"   Cross-constellation: {bridge['value']['cross_constellation']}")
-        print(f"   Improved paths: {bridge['value']['improved_paths']}")
+        print(f"   Total jump reduction: {metrics['total_reduction']}")
+        print(f"   Systems improved: {metrics['systems_improved']}")
+        print(f"   Max jump reduction: {metrics['max_reduction']}")
+        print(f"   Avg distance to staging: {metrics['avg_distance_after']:.2f} (was {metrics['avg_distance_before']:.2f})")
+        if metrics['gate_improvement'] > 0:
+            print(f"   Gate improvement: {metrics['gate_improvement']} jumps")
 
-    # Save optimal bridges
-    for bridge in optimal_bridges:
+    # Calculate final metrics with bridges
+    print(f"\n=== Final Metrics with Staging-Optimized Bridges ===")
+    test_graph = viz.graph.copy()
+    for bridge in staging_bridges:
+        test_graph.add_edge(bridge['from'], bridge['to'], bridge=True)
+
+    final_distances = nx.single_source_shortest_path_length(test_graph, staging_system)
+    final_avg = sum(final_distances.values()) / len(final_distances)
+    final_max = max(final_distances.values())
+
+    final_gate_distances = {gate: final_distances.get(gate, float('inf'))
+                           for gate in regional_gates if gate in test_graph.nodes()}
+    final_avg_gate = sum(final_gate_distances.values()) / len(final_gate_distances) if final_gate_distances else 0
+
+    total_jump_reduction = sum(baseline_distances.values()) - sum(final_distances.values())
+
+    print(f"Average jumps to staging: {final_avg:.2f} (was {avg_distance:.2f}) - SAVED {avg_distance - final_avg:.2f}")
+    print(f"Maximum jumps to staging: {final_max} (was {max_distance}) - SAVED {max_distance - final_max}")
+    print(f"Average jumps from gates: {final_avg_gate:.2f} (was {avg_gate_distance:.2f}) - SAVED {avg_gate_distance - final_avg_gate:.2f}")
+    print(f"Total jump reduction across all systems: {total_jump_reduction}")
+
+    print(f"\nFinal gate distances:")
+    for gate in regional_gates:
+        if gate in test_graph.nodes():
+            old_dist = baseline_distances.get(gate, float('inf'))
+            new_dist = final_distances.get(gate, float('inf'))
+            saved = old_dist - new_dist
+            print(f"  {gate}: {new_dist} jumps (was {old_dist}, saved {saved})")
+
+    # Test MAX-DISTANCE optimization (better for response times)
+    print(f"\n{'='*70}")
+    print(f"=== MAX-DISTANCE Optimization (10 bridges for {staging_system}) ===")
+    print(f"{'='*70}")
+    manager.clear_bridges()
+    max_dist_bridges = manager.optimize_for_max_distance_reduction(
+        staging_system=staging_system,
+        max_bridges=10
+    )
+
+    for i, bridge in enumerate(max_dist_bridges, 1):
+        metrics = bridge['max_distance_metrics']
+        print(f"\n{i}. {bridge['from']} <-> {bridge['to']}")
+        print(f"   Distance: {bridge['distance_ly']:.2f} LY")
+        print(f"   Max jumps: {metrics['max_after']} (was {metrics['max_before']}, saved {metrics['max_reduction']})")
+        print(f"   Avg jumps: {metrics['avg_after']:.2f} (was {metrics['avg_before']:.2f})")
+        print(f"   Farthest systems helped: {metrics['farthest_improved']}")
+
+    # Calculate final metrics with max-distance optimized bridges
+    print(f"\n=== Final Metrics with Max-Distance Optimized Bridges ===")
+    test_graph2 = viz.graph.copy()
+    for bridge in max_dist_bridges:
+        test_graph2.add_edge(bridge['from'], bridge['to'], bridge=True)
+
+    final_distances2 = nx.single_source_shortest_path_length(test_graph2, staging_system)
+    final_avg2 = sum(final_distances2.values()) / len(final_distances2)
+    final_max2 = max(final_distances2.values())
+
+    final_gate_distances2 = {gate: final_distances2.get(gate, float('inf'))
+                            for gate in regional_gates if gate in test_graph2.nodes()}
+    final_avg_gate2 = sum(final_gate_distances2.values()) / len(final_gate_distances2) if final_gate_distances2 else 0
+
+    total_jump_reduction2 = sum(baseline_distances.values()) - sum(final_distances2.values())
+
+    print(f"Average jumps to staging: {final_avg2:.2f} (was {avg_distance:.2f}) - SAVED {avg_distance - final_avg2:.2f}")
+    print(f"Maximum jumps to staging: {final_max2} (was {max_distance}) - SAVED {max_distance - final_max2}")
+    print(f"Average jumps from gates: {final_avg_gate2:.2f} (was {avg_gate_distance:.2f}) - SAVED {avg_gate_distance - final_avg_gate2:.2f}")
+    print(f"Total jump reduction: {total_jump_reduction2}")
+
+    print(f"\nFinal gate distances:")
+    for gate in regional_gates:
+        if gate in test_graph2.nodes():
+            old_dist = baseline_distances.get(gate, float('inf'))
+            new_dist = final_distances2.get(gate, float('inf'))
+            saved = old_dist - new_dist
+            print(f"  {gate}: {new_dist} jumps (was {old_dist}, saved {saved})")
+
+    # Show which systems are still farthest
+    far_systems = [(sys, dist) for sys, dist in final_distances2.items() if dist >= final_max2 - 1]
+    far_systems.sort(key=lambda x: x[1], reverse=True)
+    print(f"\nFarthest systems after optimization ({len(far_systems)} at {final_max2}-{final_max2-1} jumps):")
+    for sys, dist in far_systems[:10]:
+        const = viz.graph.nodes[sys]['constellation']
+        print(f"  {sys:10s} {dist} jumps  ({const})")
+
+    # Test FARTHEST SYSTEMS optimization (best for your use case!)
+    print(f"\n{'='*70}")
+    print(f"=== FARTHEST SYSTEMS Optimization (10 bridges for {staging_system}) ===")
+    print(f"{'='*70}")
+    manager.clear_bridges()
+    farthest_bridges = manager.optimize_for_farthest_systems(
+        staging_system=staging_system,
+        max_bridges=10,
+        target_percentile=0.80  # Top 20% farthest systems
+    )
+
+    for i, bridge in enumerate(farthest_bridges, 1):
+        metrics = bridge['farthest_metrics']
+        print(f"\n{i}. {bridge['from']} <-> {bridge['to']}")
+        print(f"   Distance: {bridge['distance_ly']:.2f} LY")
+        print(f"   Far systems helped: {metrics['far_systems_helped']}")
+        print(f"   Total jump reduction for far systems: {metrics['far_system_reduction']}")
+        print(f"   Best single reduction: {metrics['max_single_reduction']} jumps")
+        print(f"   Overall max: {metrics['max_after']} (was {metrics['max_before']})")
+        print(f"   Overall avg: {metrics['avg_after']:.2f} (was {metrics['avg_before']:.2f})")
+
+    # Calculate final metrics
+    print(f"\n=== Final Metrics with Farthest-Systems Optimized Bridges ===")
+    test_graph3 = viz.graph.copy()
+    for bridge in farthest_bridges:
+        test_graph3.add_edge(bridge['from'], bridge['to'], bridge=True)
+
+    final_distances3 = nx.single_source_shortest_path_length(test_graph3, staging_system)
+    final_avg3 = sum(final_distances3.values()) / len(final_distances3)
+    final_max3 = max(final_distances3.values())
+
+    final_gate_distances3 = {gate: final_distances3.get(gate, float('inf'))
+                            for gate in regional_gates if gate in test_graph3.nodes()}
+    final_avg_gate3 = sum(final_gate_distances3.values()) / len(final_gate_distances3) if final_gate_distances3 else 0
+
+    total_jump_reduction3 = sum(baseline_distances.values()) - sum(final_distances3.values())
+
+    print(f"Average jumps to staging: {final_avg3:.2f} (was {avg_distance:.2f}) - SAVED {avg_distance - final_avg3:.2f}")
+    print(f"Maximum jumps to staging: {final_max3} (was {max_distance}) - SAVED {max_distance - final_max3}")
+    print(f"Average jumps from gates: {final_avg_gate3:.2f} (was {avg_gate_distance:.2f}) - SAVED {avg_gate_distance - final_avg_gate3:.2f}")
+    print(f"Total jump reduction: {total_jump_reduction3}")
+
+    print(f"\nFinal gate distances:")
+    for gate in regional_gates:
+        if gate in test_graph3.nodes():
+            old_dist = baseline_distances.get(gate, float('inf'))
+            new_dist = final_distances3.get(gate, float('inf'))
+            saved = old_dist - new_dist
+            marker = " ✓" if saved > 0 else ""
+            print(f"  {gate}: {new_dist} jumps (was {old_dist}, saved {saved}){marker}")
+
+    # Show which systems are still farthest
+    far_systems3 = [(sys, dist) for sys, dist in final_distances3.items() if dist >= final_max3 - 1]
+    far_systems3.sort(key=lambda x: x[1], reverse=True)
+    print(f"\nFarthest systems after optimization ({len(far_systems3)} at {final_max3}-{final_max3-1} jumps):")
+    for sys, dist in far_systems3[:10]:
+        const = viz.graph.nodes[sys]['constellation']
+        old_dist = baseline_distances.get(sys, float('inf'))
+        saved = old_dist - dist
+        marker = " ✓" if saved > 0 else ""
+        print(f"  {sys:10s} {dist} jumps (was {old_dist}, saved {saved})  ({const}){marker}")
+
+    # Save farthest-systems optimized bridges
+    for bridge in farthest_bridges:
         manager.add_bridge(
             bridge['from'],
             bridge['to'],
@@ -759,7 +1321,8 @@ def main():
         )
 
     manager.save_bridges()
-    print("\n✓ Optimal bridge configuration saved to ansiblex_bridges.json")
+    print("\n✓ Farthest-systems optimized bridge configuration saved to ansiblex_bridges.json")
+    print(f"\nRECOMMENDED: Use the 'Farthest Systems' optimization for your X47L-Q staging hub!")
 
 
 if __name__ == "__main__":

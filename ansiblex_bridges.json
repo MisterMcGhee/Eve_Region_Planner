@@ -1,38 +1,68 @@
 {
   "bridges": [
     {
-      "from": "8S-0E1",
-      "to": "X-7OMU",
-      "distance_ly": 3.51,
+      "from": "C-H9X7",
+      "to": "X47L-Q",
+      "distance_ly": 4.62,
       "active": true
     },
     {
-      "from": "BDV3-T",
-      "to": "L-TS8S",
-      "distance_ly": 3.05,
+      "from": "D2-HOS",
+      "to": "KLY-C0",
+      "distance_ly": 4.76,
       "active": true
     },
     {
-      "from": "5ZXX-K",
-      "to": "WW-KGD",
-      "distance_ly": 3.19,
+      "from": "A8I-C5",
+      "to": "B-9C24",
+      "distance_ly": 4.57,
+      "active": true
+    },
+    {
+      "from": "J-CIJV",
+      "to": "R-2R0G",
+      "distance_ly": 4.42,
+      "active": true
+    },
+    {
+      "from": "6GWE-A",
+      "to": "ION-FG",
+      "distance_ly": 4.05,
+      "active": true
+    },
+    {
+      "from": "7X-VKB",
+      "to": "Y-C3EQ",
+      "distance_ly": 4.56,
+      "active": true
+    },
+    {
+      "from": "EL8-4Q",
+      "to": "UR-E6D",
+      "distance_ly": 3.03,
+      "active": true
+    },
+    {
+      "from": "X-7OMU",
+      "to": "ZKYV-W",
+      "distance_ly": 3.98,
       "active": true
     },
     {
       "from": "JE-D5U",
-      "to": "XQ-PXU",
-      "distance_ly": 4.18,
+      "to": "KQK1-2",
+      "distance_ly": 4.31,
       "active": true
     },
     {
-      "from": "DP-1YE",
-      "to": "ION-FG",
-      "distance_ly": 2.46,
+      "from": "4-ABS8",
+      "to": "RD-G2R",
+      "distance_ly": 3.86,
       "active": true
     }
   ],
   "metadata": {
-    "total_bridges": 5,
-    "active_bridges": 5
+    "total_bridges": 10,
+    "active_bridges": 10
   }
 }
