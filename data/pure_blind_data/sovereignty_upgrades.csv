@@ -1,0 +1,26 @@
+upgrade_name,power,workforce,category,description
+Prospecting Array 1,450,6400,Mining,Ore mining bonus level 1
+Prospecting Array 2,1220,12700,Mining,Ore mining bonus level 2
+Prospecting Array 3,1800,18100,Mining,Ore mining bonus level 3
+Major Threat 1,400,2700,Ratting,Major NPC spawn rate level 1
+Major Threat 2,900,5400,Ratting,Major NPC spawn rate level 2
+Major Threat 3,1300,7300,Ratting,Major NPC spawn rate level 3
+Minor Threat 1,200,1800,Ratting,Minor NPC spawn rate level 1
+Minor Threat 2,500,3800,Ratting,Minor NPC spawn rate level 2
+Minor Threat 3,700,5400,Ratting,Minor NPC spawn rate level 3
+Cynosural Navigation,250,1500,Strategic,Cyno beacon access
+Advanced Logistics (Ansi),500,18100,Strategic,Ansiblex jump bridge support
+Empty,0,0,None,No upgrade installed
+Exploration Detector 1,400,4000,Exploration,Signature strength level 1
+Exploration Detector 2,850,8000,Exploration,Signature strength level 2
+Exploration Detector 3,1300,12000,Exploration,Signature strength level 3
+Power Monitoring Division 1,-200,2500,Capacity,Adds 200 power capacity
+Power Monitoring Division 2,-500,10000,Capacity,Adds 500 power capacity
+Power Monitoring Division 3,-1000,25000,Capacity,Adds 1000 power capacity
+Workforce Mecha-tooling 1,200,-5000,Capacity,Adds 5000 workforce capacity
+Workforce Mecha-tooling 2,500,10000,Capacity,Complex workforce upgrade
+Workforce Mecha-tooling 3,800,15000,Capacity,Advanced workforce upgrade
+Electric Stability Generator,200,2700,Stability,Electric resistance bonus
+Exotic Stability Generator,200,2700,Stability,Exotic resistance bonus
+Gamma Stability Generator,200,2700,Stability,Gamma resistance bonus
+Plasma Stability Generator,200,2700,Stability,Plasma resistance bonus

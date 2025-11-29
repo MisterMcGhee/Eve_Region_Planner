@@ -22,7 +22,7 @@ scipy>=1.16.0
 plotly>=6.5.0
 
 # Web dashboard (for Dash app)
-# dash>=2.14.0  # Uncomment when ready for Phase 3
+dash>=2.14.0
 
 # Optional: Performance and utilities
 # python-dateutil>=2.8.2  # Date handling
