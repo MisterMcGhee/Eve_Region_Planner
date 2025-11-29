@@ -138,9 +138,9 @@ app.layout = html.Div([
             html.Div([
                 html.H4("Capacity Usage", style={'color': '#00D9FF'}),
                 dcc.Graph(id='power-gauge', config={'displayModeBar': False},
-                         style={'height': '200px'}),
+                         style={'height': '150px'}),
                 dcc.Graph(id='workforce-gauge', config={'displayModeBar': False},
-                         style={'height': '200px'}),
+                         style={'height': '150px'}),
             ], style={'marginBottom': '20px'}),
 
             # Preset Buttons
@@ -267,70 +267,106 @@ def update_capacity_gauges(system_name):
     # Calculate usage
     usage = calc.calculate_capacity_usage(system_name)
 
-    # Power gauge
-    power_fig = go.Figure(go.Indicator(
-        mode="gauge+number+delta",
-        value=usage['power_used'],
-        domain={'x': [0, 1], 'y': [0, 1]},
-        title={'text': "Power", 'font': {'color': '#ffffff'}},
-        delta={'reference': usage['total_power_capacity'], 'decreasing': {'color': '#4CAF50'}},
-        gauge={
-            'axis': {'range': [None, usage['total_power_capacity']], 'tickcolor': '#ffffff'},
-            'bar': {'color': "#00D9FF"},
-            'bgcolor': "#2a2a2a",
-            'borderwidth': 2,
-            'bordercolor': "#ffffff",
-            'steps': [
-                {'range': [0, usage['total_power_capacity'] * 0.7], 'color': '#1a4d1a'},
-                {'range': [usage['total_power_capacity'] * 0.7, usage['total_power_capacity'] * 0.9], 'color': '#4d4d1a'},
-                {'range': [usage['total_power_capacity'] * 0.9, usage['total_power_capacity']], 'color': '#4d1a1a'}
-            ],
-            'threshold': {
-                'line': {'color': "red", 'width': 4},
-                'thickness': 0.75,
-                'value': usage['total_power_capacity']
-            }
-        }
+    # Calculate remaining capacities
+    power_remaining = usage['total_power_capacity'] - usage['power_used']
+    workforce_remaining = usage['total_workforce_capacity'] - usage['workforce_used']
+
+    # Power horizontal bar
+    power_fig = go.Figure()
+
+    # Add used capacity bar
+    power_fig.add_trace(go.Bar(
+        y=['Power'],
+        x=[usage['power_used']],
+        orientation='h',
+        name='Used',
+        marker=dict(color='#00D9FF'),
+        hovertemplate='Used: %{x:,}<extra></extra>'
     ))
+
+    # Add remaining capacity bar
+    power_fig.add_trace(go.Bar(
+        y=['Power'],
+        x=[power_remaining],
+        orientation='h',
+        name='Remaining',
+        marker=dict(color='#2a2a2a'),
+        hovertemplate='Remaining: %{x:,}<extra></extra>'
+    ))
+
     power_fig.update_layout(
+        barmode='stack',
+        title=dict(
+            text=f"Power: {power_remaining:,} / {usage['total_power_capacity']:,}",
+            font=dict(color='#ffffff', size=16),
+            x=0.5,
+            xanchor='center'
+        ),
         paper_bgcolor='#1a1a1a',
         plot_bgcolor='#1a1a1a',
-        font={'color': '#ffffff'},
-        margin=dict(l=20, r=20, t=40, b=20),
-        height=200
+        font=dict(color='#ffffff'),
+        margin=dict(l=20, r=20, t=60, b=20),
+        height=150,
+        showlegend=False,
+        xaxis=dict(
+            showgrid=False,
+            showticklabels=False,
+            zeroline=False
+        ),
+        yaxis=dict(
+            showgrid=False,
+            showticklabels=False,
+            zeroline=False
+        )
     )
 
-    # Workforce gauge
-    workforce_fig = go.Figure(go.Indicator(
-        mode="gauge+number+delta",
-        value=usage['workforce_used'],
-        domain={'x': [0, 1], 'y': [0, 1]},
-        title={'text': "Workforce", 'font': {'color': '#ffffff'}},
-        delta={'reference': usage['total_workforce_capacity'], 'decreasing': {'color': '#4CAF50'}},
-        gauge={
-            'axis': {'range': [None, usage['total_workforce_capacity']], 'tickcolor': '#ffffff'},
-            'bar': {'color': "#00D9FF"},
-            'bgcolor': "#2a2a2a",
-            'borderwidth': 2,
-            'bordercolor': "#ffffff",
-            'steps': [
-                {'range': [0, usage['total_workforce_capacity'] * 0.7], 'color': '#1a4d1a'},
-                {'range': [usage['total_workforce_capacity'] * 0.7, usage['total_workforce_capacity'] * 0.9], 'color': '#4d4d1a'},
-                {'range': [usage['total_workforce_capacity'] * 0.9, usage['total_workforce_capacity']], 'color': '#4d1a1a'}
-            ],
-            'threshold': {
-                'line': {'color': "red", 'width': 4},
-                'thickness': 0.75,
-                'value': usage['total_workforce_capacity']
-            }
-        }
+    # Workforce horizontal bar
+    workforce_fig = go.Figure()
+
+    # Add used capacity bar
+    workforce_fig.add_trace(go.Bar(
+        y=['Workforce'],
+        x=[usage['workforce_used']],
+        orientation='h',
+        name='Used',
+        marker=dict(color='#00D9FF'),
+        hovertemplate='Used: %{x:,}<extra></extra>'
     ))
+
+    # Add remaining capacity bar
+    workforce_fig.add_trace(go.Bar(
+        y=['Workforce'],
+        x=[workforce_remaining],
+        orientation='h',
+        name='Remaining',
+        marker=dict(color='#2a2a2a'),
+        hovertemplate='Remaining: %{x:,}<extra></extra>'
+    ))
+
     workforce_fig.update_layout(
+        barmode='stack',
+        title=dict(
+            text=f"Workforce: {workforce_remaining:,} / {usage['total_workforce_capacity']:,}",
+            font=dict(color='#ffffff', size=16),
+            x=0.5,
+            xanchor='center'
+        ),
         paper_bgcolor='#1a1a1a',
         plot_bgcolor='#1a1a1a',
-        font={'color': '#ffffff'},
-        margin=dict(l=20, r=20, t=40, b=20),
-        height=200
+        font=dict(color='#ffffff'),
+        margin=dict(l=20, r=20, t=60, b=20),
+        height=150,
+        showlegend=False,
+        xaxis=dict(
+            showgrid=False,
+            showticklabels=False,
+            zeroline=False
+        ),
+        yaxis=dict(
+            showgrid=False,
+            showticklabels=False,
+            zeroline=False
+        )
     )
 
     return power_fig, workforce_fig
