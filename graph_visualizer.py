@@ -213,7 +213,8 @@ class GraphVisualizer:
         highlight_systems: Optional[List[str]] = None,
         show_labels: bool = True,
         title: str = "Pure Blind Region - Kamada-Kawai Layout",
-        editable: bool = True
+        editable: bool = True,
+        bridges: Optional[List[Dict]] = None
     ) -> go.Figure:
         """
         Create interactive Plotly visualization
@@ -223,6 +224,7 @@ class GraphVisualizer:
             show_labels: Whether to show system labels
             title: Title for the graph
             editable: Enable draggable nodes for manual positioning
+            bridges: Optional list of bridge dictionaries with 'from', 'to', 'distance_ly', 'active'
 
         Returns:
             Plotly Figure object
@@ -236,14 +238,19 @@ class GraphVisualizer:
 
         print("Creating interactive Plotly visualization...")
 
-        # Create edge traces
+        # Create edge traces (stargates)
         edge_traces = self._create_edge_traces()
+
+        # Create bridge traces (if bridges provided)
+        bridge_traces = []
+        if bridges:
+            bridge_traces = self._create_bridge_traces(bridges)
 
         # Create node traces
         node_traces = self._create_node_traces(highlight_systems, show_labels)
 
-        # Combine all traces
-        data = edge_traces + node_traces
+        # Combine all traces (edges first, then bridges on top, then nodes on top)
+        data = edge_traces + bridge_traces + node_traces
 
         # Create layout
         layout = go.Layout(
@@ -330,6 +337,59 @@ class GraphVisualizer:
         )
 
         return [edge_trace]
+
+    def _create_bridge_traces(self, bridges: List[Dict]) -> List[go.Scatter]:
+        """
+        Create traces for Ansiblex jump bridges.
+
+        Args:
+            bridges: List of bridge dicts with 'from', 'to', 'distance_ly', 'active'
+
+        Returns:
+            List of Plotly Scatter traces for bridges
+        """
+        if not bridges:
+            return []
+
+        bridge_x = []
+        bridge_y = []
+        bridge_hover = []
+
+        for bridge in bridges:
+            if not bridge.get('active', True):
+                continue
+
+            sys_from = bridge['from']
+            sys_to = bridge['to']
+
+            # Check if both systems exist in pos
+            if sys_from not in self.pos or sys_to not in self.pos:
+                continue
+
+            x0, y0 = self.pos[sys_from]
+            x1, y1 = self.pos[sys_to]
+
+            bridge_x.extend([x0, x1, None])
+            bridge_y.extend([y0, y1, None])
+
+            # Create hover text for the bridge midpoint
+            distance = bridge.get('distance_ly', 0)
+            hover_text = f"<b>Ansiblex Bridge</b><br>{sys_from} ↔ {sys_to}<br>Distance: {distance:.2f} LY"
+            bridge_hover.append(hover_text)
+
+        bridge_trace = go.Scatter(
+            x=bridge_x,
+            y=bridge_y,
+            line=dict(width=3, color='#00D9FF', dash='solid'),  # Cyan color, thicker line
+            hoverinfo='text',
+            hovertext=bridge_hover,
+            mode='lines',
+            name=f'Ansiblex Bridges ({len([b for b in bridges if b.get("active", True)])})',
+            showlegend=True,
+            legendgroup='bridges',
+        )
+
+        return [bridge_trace]
 
     def _create_node_traces(
         self,

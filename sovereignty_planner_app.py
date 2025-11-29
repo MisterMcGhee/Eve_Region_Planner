@@ -16,6 +16,8 @@ from dash import dcc, html, Input, Output, State, callback_context
 import plotly.graph_objects as go
 from upgrade_calculator import UpgradeCalculator
 from graph_visualizer import GraphVisualizer
+from bridge_manager import BridgeManager
+import networkx as nx
 import json
 
 # Initialize the Dash app
@@ -96,6 +98,10 @@ viz.load_data()
 viz.build_graph()
 viz.assign_constellation_colors()
 viz.calculate_layout(scale=60, positions_file="positions_kamada_kawai.json")
+
+# Initialize bridge manager
+bridge_mgr = BridgeManager(viz.graph)
+bridge_mgr.load_bridges("ansiblex_bridges.json")
 
 # Get list of systems for dropdown
 all_systems = sorted(viz.systems_df['system_name'].tolist())
@@ -194,6 +200,62 @@ app.layout = html.Div([
                            style={'width': '100%', 'padding': '10px', 'backgroundColor': '#00D9FF',
                                   'color': 'black', 'border': 'none', 'cursor': 'pointer', 'fontWeight': 'bold'}),
                 html.Div(id='save-message', style={'marginTop': '10px'}),
+            ], style={'marginBottom': '20px'}),
+
+            # Ansiblex Bridges Section
+            html.Hr(style={'borderColor': '#00D9FF', 'margin': '20px 0'}),
+            html.Div([
+                html.H3("Ansiblex Jump Bridges", style={'color': '#00D9FF'}),
+
+                # Staging System Configuration
+                html.Div([
+                    html.H4("Staging System", style={'color': '#00D9FF', 'fontSize': '18px'}),
+                    dcc.Dropdown(
+                        id='staging-selector',
+                        options=[{'label': sys, 'value': sys} for sys in all_systems],
+                        value=bridge_mgr.get_staging_system(),
+                        placeholder="Select staging system...",
+                        style={'backgroundColor': '#2a2a2a', 'color': '#ffffff'},
+                        className='custom-dropdown'
+                    ),
+                ], style={'marginBottom': '15px'}),
+
+                # Bridge Statistics
+                html.Div(id='bridge-stats', style={'marginBottom': '15px'}),
+
+                # Optimization Controls
+                html.Div([
+                    html.H4("Optimize Bridges", style={'color': '#00D9FF', 'fontSize': '18px'}),
+                    html.Label("Algorithm:", style={'color': '#ffffff'}),
+                    dcc.Dropdown(
+                        id='bridge-algorithm',
+                        options=[
+                            {'label': 'Farthest Systems (Recommended)', 'value': 'farthest_systems'},
+                            {'label': 'Total Jump Reduction', 'value': 'staging_system'},
+                            {'label': 'Max Distance Reduction', 'value': 'max_distance'}
+                        ],
+                        value='farthest_systems',
+                        style={'backgroundColor': '#2a2a2a', 'color': '#ffffff', 'marginBottom': '10px'},
+                        className='custom-dropdown'
+                    ),
+                    html.Label("Number of Bridges:", style={'color': '#ffffff'}),
+                    dcc.Slider(
+                        id='bridge-count-slider',
+                        min=1,
+                        max=20,
+                        step=1,
+                        value=10,
+                        marks={i: str(i) for i in range(0, 21, 5)},
+                        tooltip={"placement": "bottom", "always_visible": True}
+                    ),
+                    html.Button('Optimize Bridges', id='optimize-bridges-btn', n_clicks=0,
+                               style={'width': '100%', 'padding': '10px', 'backgroundColor': '#4CAF50',
+                                      'color': 'white', 'border': 'none', 'cursor': 'pointer', 'marginTop': '10px'}),
+                    html.Button('Clear All Bridges', id='clear-bridges-btn', n_clicks=0,
+                               style={'width': '100%', 'padding': '10px', 'backgroundColor': '#f44336',
+                                      'color': 'white', 'border': 'none', 'cursor': 'pointer', 'marginTop': '10px'}),
+                    html.Div(id='bridge-message', style={'marginTop': '10px'}),
+                ]),
             ]),
 
         ], style={
@@ -550,12 +612,13 @@ def update_map(selected_system):
     # Highlight both selected system and systems with upgrades
     highlight_systems = list(set([selected_system] + systems_with_upgrades)) if selected_system else systems_with_upgrades
 
-    # Create the figure
+    # Create the figure with bridges
     fig = viz.create_plotly_figure(
         highlight_systems=highlight_systems,
         show_labels=True,
         title=f"Pure Blind Region - Selected: {selected_system}" if selected_system else "Pure Blind Region",
-        editable=False
+        editable=False,
+        bridges=bridge_mgr.bridges
     )
 
     return fig
@@ -597,6 +660,136 @@ def select_system_from_map(clickData):
     except (KeyError, IndexError, AttributeError):
         # If there's any error extracting the system name, don't update
         return dash.no_update
+
+
+# Bridge Management Callbacks
+
+@app.callback(
+    Output('bridge-stats', 'children'),
+    Input('staging-selector', 'value')
+)
+def update_bridge_stats(staging_system):
+    """Update bridge statistics display"""
+    if not staging_system:
+        return html.Div("No staging system selected", style={'color': '#ff6b6b'})
+
+    bridge_mgr.set_staging_system(staging_system)
+
+    # Calculate statistics
+    total_bridges = len(bridge_mgr.bridges)
+    active_bridges = sum(1 for b in bridge_mgr.bridges if b.get('active', True))
+
+    if total_bridges == 0:
+        return html.Div([
+            html.P([html.Strong("No bridges configured")], style={'color': '#ffd93d'}),
+            html.P(f"Staging: {staging_system}", style={'fontSize': '14px'}),
+        ])
+
+    # Calculate metrics
+    distances = nx.single_source_shortest_path_length(viz.graph, staging_system)
+    avg_distance = sum(distances.values()) / len(distances)
+    max_distance = max(distances.values())
+
+    return html.Div([
+        html.P([html.Strong("Bridges: "), f"{active_bridges} active / {total_bridges} total"]),
+        html.P([html.Strong("Staging: "), staging_system], style={'fontSize': '14px'}),
+        html.P([html.Strong("Avg Jumps: "), f"{avg_distance:.2f}"]),
+        html.P([html.Strong("Max Jumps: "), f"{max_distance}"]),
+    ])
+
+
+@app.callback(
+    [Output('bridge-message', 'children'),
+     Output('region-map', 'figure', allow_duplicate=True)],
+    [Input('optimize-bridges-btn', 'n_clicks'),
+     Input('clear-bridges-btn', 'n_clicks')],
+    [State('staging-selector', 'value'),
+     State('bridge-algorithm', 'value'),
+     State('bridge-count-slider', 'value'),
+     State('system-selector', 'value')],
+    prevent_initial_call=True
+)
+def handle_bridge_operations(optimize_clicks, clear_clicks, staging_system, algorithm, max_bridges, selected_system):
+    """Handle bridge optimization and clearing"""
+    ctx = callback_context
+
+    if not ctx.triggered:
+        return dash.no_update, dash.no_update
+
+    button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    if button_id == 'clear-bridges-btn':
+        bridge_mgr.clear_bridges()
+        bridge_mgr.save_bridges()
+
+        # Update map
+        fig = viz.create_plotly_figure(
+            highlight_systems=[selected_system] if selected_system else [],
+            show_labels=True,
+            title=f"Pure Blind Region - Selected: {selected_system}" if selected_system else "Pure Blind Region",
+            editable=False,
+            bridges=bridge_mgr.bridges
+        )
+
+        return html.Div("✓ All bridges cleared", style={'color': '#4CAF50'}), fig
+
+    elif button_id == 'optimize-bridges-btn':
+        if not staging_system:
+            return html.Div("⚠ Please select a staging system", style={'color': '#ff6b6b'}), dash.no_update
+
+        try:
+            # Run optimization
+            if algorithm == 'farthest_systems':
+                bridges = bridge_mgr.optimize_for_farthest_systems(
+                    staging_system=staging_system,
+                    max_bridges=max_bridges,
+                    target_percentile=0.80
+                )
+            elif algorithm == 'staging_system':
+                regional_gates = bridge_mgr.config.get('regional_gates', [])
+                bridges = bridge_mgr.optimize_for_staging_system(
+                    staging_system=staging_system,
+                    max_bridges=max_bridges,
+                    regional_gates=regional_gates
+                )
+            else:  # max_distance
+                bridges = bridge_mgr.optimize_for_max_distance_reduction(
+                    staging_system=staging_system,
+                    max_bridges=max_bridges
+                )
+
+            # Apply bridges
+            bridge_mgr.clear_bridges()
+            for bridge in bridges:
+                bridge_mgr.add_bridge(bridge['from'], bridge['to'], validate=False)
+
+            bridge_mgr.save_bridges()
+
+            # Calculate improvement
+            distances = nx.single_source_shortest_path_length(viz.graph, staging_system)
+            avg_dist = sum(distances.values()) / len(distances)
+            max_dist = max(distances.values())
+
+            # Update map
+            fig = viz.create_plotly_figure(
+                highlight_systems=[selected_system] if selected_system else [],
+                show_labels=True,
+                title=f"Pure Blind Region - Selected: {selected_system}" if selected_system else "Pure Blind Region",
+                editable=False,
+                bridges=bridge_mgr.bridges
+            )
+
+            message = html.Div([
+                html.P(f"✓ Optimized {len(bridges)} bridges", style={'color': '#4CAF50'}),
+                html.P(f"Avg: {avg_dist:.2f} jumps | Max: {max_dist} jumps", style={'fontSize': '12px'})
+            ])
+
+            return message, fig
+
+        except Exception as e:
+            return html.Div(f"Error: {str(e)}", style={'color': '#ff6b6b'}), dash.no_update
+
+    return dash.no_update, dash.no_update
 
 
 if __name__ == '__main__':
