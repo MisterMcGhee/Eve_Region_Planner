@@ -21,6 +21,71 @@ import json
 # Initialize the Dash app
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 
+# Add custom CSS for dropdown styling
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>{%title%}</title>
+        {%favicon%}
+        {%css%}
+        <style>
+            /* Custom dropdown styling for better contrast */
+            .custom-dropdown .Select-control {
+                background-color: #2a2a2a !important;
+            }
+            .custom-dropdown .Select-menu-outer {
+                background-color: #2a2a2a !important;
+            }
+            .custom-dropdown .Select-option {
+                background-color: #2a2a2a !important;
+                color: #ffffff !important;
+            }
+            .custom-dropdown .Select-option:hover {
+                background-color: #00D9FF !important;
+                color: #000000 !important;
+            }
+            .custom-dropdown .Select-value-label {
+                color: #ffffff !important;
+            }
+            .custom-dropdown .Select-placeholder {
+                color: #aaaaaa !important;
+            }
+            .custom-dropdown .Select-input > input {
+                color: #ffffff !important;
+            }
+            /* For newer Dash versions using different dropdown classes */
+            .custom-dropdown div[class*="singleValue"] {
+                color: #ffffff !important;
+            }
+            .custom-dropdown div[class*="placeholder"] {
+                color: #aaaaaa !important;
+            }
+            .custom-dropdown div[class*="menu"] {
+                background-color: #2a2a2a !important;
+            }
+            .custom-dropdown div[class*="option"] {
+                background-color: #2a2a2a !important;
+                color: #ffffff !important;
+            }
+            .custom-dropdown div[class*="option"]:hover {
+                background-color: #00D9FF !important;
+                color: #000000 !important;
+            }
+        </style>
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
+
 # Initialize our calculators
 calc = UpgradeCalculator()
 calc.load_data()
@@ -58,7 +123,11 @@ app.layout = html.Div([
                     id='system-selector',
                     options=[{'label': sys, 'value': sys} for sys in all_systems],
                     value=all_systems[0],
-                    style={'backgroundColor': '#2a2a2a', 'color': '#000'}
+                    style={
+                        'backgroundColor': '#2a2a2a',
+                        'color': '#ffffff'
+                    },
+                    className='custom-dropdown'
                 ),
             ], style={'marginBottom': '20px'}),
 
@@ -106,7 +175,12 @@ app.layout = html.Div([
                     id='upgrade-selector',
                     options=[{'label': upg, 'value': upg} for upg in all_upgrades if upg != 'Empty'],
                     placeholder="Select upgrade to add...",
-                    style={'backgroundColor': '#2a2a2a', 'color': '#000', 'marginBottom': '10px'}
+                    style={
+                        'backgroundColor': '#2a2a2a',
+                        'color': '#ffffff',
+                        'marginBottom': '10px'
+                    },
+                    className='custom-dropdown'
                 ),
                 html.Button('Add Upgrade', id='add-upgrade-btn', n_clicks=0,
                            style={'width': '100%', 'padding': '10px', 'backgroundColor': '#4CAF50',
@@ -449,6 +523,44 @@ def update_map(selected_system):
     )
 
     return fig
+
+
+# Callback for click-to-select system on the map
+@app.callback(
+    Output('system-selector', 'value', allow_duplicate=True),
+    Input('region-map', 'clickData'),
+    prevent_initial_call=True
+)
+def select_system_from_map(clickData):
+    """
+    Update the system selector when a system is clicked on the map
+    """
+    if clickData is None:
+        return dash.no_update
+
+    # Extract the clicked point data
+    try:
+        # The clicked point will have the system name in the 'text' field or 'hovertext'
+        point = clickData['points'][0]
+
+        # Try to extract system name from hovertext (formatted as HTML)
+        if 'hovertext' in point:
+            hovertext = point['hovertext']
+            # Extract system name from the first line of hover text
+            # Format is: "<b>SystemName</b><br>..."
+            system_name = hovertext.split('<br>')[0].replace('<b>', '').replace('</b>', '')
+            return system_name
+
+        # Fallback: try to get from 'text' field
+        if 'text' in point and point['text']:
+            return point['text']
+
+        # If we can't determine the system name, don't update
+        return dash.no_update
+
+    except (KeyError, IndexError, AttributeError):
+        # If there's any error extracting the system name, don't update
+        return dash.no_update
 
 
 if __name__ == '__main__':
